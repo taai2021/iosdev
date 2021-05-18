@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="zh-tw">
+
+<head>
+
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="">
+    <meta name="author" content="">
+    <title>行動商務與系統開發</title>
+    <link href="css/bootstrap.min.css" rel="stylesheet">
+    <link href="css/simple-sidebar.css" rel="stylesheet">
+    <script src="js/jquery.js"></script>
+    <script src="js/bootstrap.min.js"></script>
+    <script>
+    $("#menu-toggle").click(function(e) {
+        e.preventDefault();
+        $("#wrapper").toggleClass("toggled");
+    });
+    </script>
+
+    <style>
+        body{
+            text-shadow: 1px 1px 3px black;
+            background-color:rgb(37, 27, 2);}
+        hr{
+            border-width:5px;
+            border-color:rgb(253, 236, 2);}
+        figure{
+            border: 3px solid white;
+            background-color: chocolate;
+            margin-bottom: 100px;
+            border-radius: 10px; }
+        figcaption{
+            margin-top: 10px;
+            font-size: 0.8em;
+            text-align: center;
+            font-weight: normal; 
+            line-height: normal; }
+        figure > img{
+            position: relative;
+            z-index: 1;
+            top:10px;
+            width:100%;
+            box-shadow: 1px 1px 1px black;}
+        figure > img:hover{
+            position: fixed;
+            top:0px;
+            left:0px;
+            z-index: 10;
+            transform: scale( 0.9);
+            transition: 1s;
+            cursor: url(right.png),auto; }    
+        #sidebar-wrapper{
+            position: fixed;
+            bottom: 0px;
+
+            overflow: hidden;
+            font-size: 0.6em;
+        
+           
+            line-height: 1.5em;
+            font-size: 1.3em;
+            height: 100%;
+            width: 100%;
+            border-radius: 30px;
+            background-color: chocolate;
+            border: 2px solid rgb(99, 90, 13);        }
+    
+        .sidebar-nav li a{
+            font-size: 1em;
+            font-weight: bold;
+            color: white;}
+        .sidebar-nav li{
+            width: 100px;
+            height: 100px;
+            border: 2px solid wheat; }
+        .sidebar-nav{
+            padding: 10px;
+            line-height: 1.5em;
+           
+            font-size: 1.3em;
+            height: 100%;
+            width: 100%;
+            border-radius: 30px;
+            border: 2px solid rgb(197, 194, 171);}
+        #page-content-wrapper1 a{
+            color: aliceblue;
+            text-decoration: none;
+            background-color:rgb(37, 27, 2); }
+        #page-content-wrapper1 a:hover{            
+            color: rgb(238, 217, 27);
+            text-decoration: none;
+            font-size: 1.3em;}
+        #page-content-wrapper1{            
+            position: absolute;
+            line-height: 2em;
+            left: 0px;
+            width: 100%;
+            background-color:rgb(37, 27, 2);
+            color: aliceblue;
+            font-size: 1.5em;
+            font-weight: bold;
+            padding: 10px 10px 30px 10px;}
+        details::before{
+            content: "";
+            display: block;      
+            clear: both;}
+        details{
+            margin-top: 5px;}
+        summary{
+            border: 3px solid chocolate;
+            padding-left: 30px;
+            background-color:chocolate;
+            border-radius: 30px;
+            text-shadow: 1px 1px 3px black; }
+        #chtitle{
+            text-shadow: 1px 1px 3px black;
+            font-size: 2em;
+            margin-top: 5px;
+            padding:30px;
+            background-color:chocolate;
+            border-radius: 30px;
+            border: 3px solid white;}
+        .ch{       
+            text-shadow: 1px 1px 3px black;
+            padding: 10px;
+            color: antiquewhite;}
+        .me{
+            position:relative;
+            background-color: darkorange ;
+            border-radius: 30px; 
+            width: 200px;
+            height: 100px;
+            margin: 8px;
+            color: aliceblue;        
+            line-height: normal;
+            text-align: center;
+            box-shadow: 5px 10px 2px rgb(63, 36, 3);}
+        .me:hover{            
+            top:9px;
+            box-shadow: 5px 1px 2px rgb(63, 36, 3);}        
+        .med{
+            position:relative;
+            background-color: rgb(224, 219, 213) ;
+            border-radius: 30px; 
+            width: 200px;
+            height: 100px;
+            margin: 8px;
+            color: rgb(1, 8, 14);        
+            line-height: normal;
+            text-align: center;
+            text-shadow:none;
+            box-shadow: 5px 10px 2px rgb(63, 36, 3);}
+        .med:hover{            
+            top:9px;
+            box-shadow: 5px 1px 2px rgb(63, 36, 3);}        
+        .chbd{
+            position: absolute;
+            left: 0px;
+            border-radius: 30px 30px 0px 0px;
+            background-color:rgb(250, 167, 90) ;
+            color: #000;
+            width: 200px;
+            margin: 0px;
+            text-shadow: 1px 1px 3px whitesmoke;
+            border: 2px solid rgb(128, 115, 5) ;}
+        .chb{
+            position: absolute;
+            left: 0px;
+            border-radius: 30px 30px 0px 0px;
+            background-color:rgb(102, 2, 2) ;
+            width: 200px;
+            margin: 0px;}        
+        .chc{
+            z-index: 2;
+            font: normal normal 20px/24px "微軟正黑體"  ;
+            position: absolute;
+            top: 37px;
+            height: 65px;
+            width: 200px;
+            left: 0px;
+            text-align: center;
+            margin: 0px;
+            text-shadow: 1px 1px 3px black; }       
+        .chcd{
+            z-index: 2;
+            font: normal normal 20px/24px "微軟正黑體"  ;
+            position: absolute;
+            top: 37px;
+            height: 65px;
+            width: 200px;
+            left: 0px;
+            text-align: center;
+            margin: 0px;
+            color: black;
+            font-weight: bold;
+            text-shadow: none;}
+        .sumy:hover{
+            border:3px solid  rgb(214, 214, 214) ;}
+        .ctext{
+            border-radius: 20px;
+            background-color: rgb(104, 62, 10);
+            margin-top: 10px;
+            margin-bottom: 10px;
+            border: 2px solid darkorange;
+            padding: 5px;}
+        details details summary{
+            border: 3px solid chocolate;
+            padding-left: 30px;
+            background-color:rgb(17, 117, 4);
+            border-radius: 30px;
+            text-shadow: 1px 1px 3px black; }
+           
+    </style>
+</head>
+<body>
+    
+    <div id="wrapper">
+        <div id="sidebar-wrapper" >
+            <div class="sidebar-nav">
+                <div class="ch">行動商務與系統開發 </div>
+           
+                <div class="container-fluid" >
+                    <div class="row" >
+                        <a href="Lt1/ch1.html"><div class="col-sm-1 me"><div class="chb">第1章</div><div class="chc">簡介</div></div></a>
+                        <a href="Lt2/ch2.html"><div class="col-sm-1 me"><div class="chb">第2章</div><div class="chc">Swift<br>快跑</div></div> </a>
+                        <a href="Lt3/ch3.html"><div class="col-sm-1 me"><div class="chb">第3章</div><div class="chc">app基礎練習</div></div></a>
+                        <a href="Lt4/ch4.html"><div class="col-sm-1 me"><div class="chb">第4章</div><div class="chc">Tableview元件的使用</div></div></a>
+                        <a href="Lt5/ch5.html"><div class="col-sm-1 me"><div class="chb">第5章</div><div class="chc">UITableview Controller的使用</div></div></a>
+                        <a href="Lt6/ch6.html"><div class="col-sm-1 me"><div class="chb">第6章</div><div class="chc">UITableview的事件處理</div></div></a>
+                        <a href="Lt7/ch7.html"><div class="col-sm-1 me"><div class="chb">第7章</div><div class="chc">頁面轉移(segue)與Apple Map</div></div></a>
+                        <a href="Lt8/ch8.html"><div class="col-sm-1 me"><div class="chb">第8章</div><div class="chc">會員認證機制與Gesture</div></div></a>
+                        <a href="Lt9/ch9.html"><div class="col-sm-1 me"><div class="chb">第9章</div><div class="chc">使用JSON格式讀取伺服器資料</div></div></a>             
+                        <a href="Lt10/ch10.html"><div class="col-sm-1 me"><div class="chb">第10章</div><div class="chc">CocoaPods & Firebase的使用</div></div></a>
+                        <a href="Lt11/ch11.html"><div class="col-sm-1 me"><div class="chb">第11章</div><div class="chc">使用UIImagePickerController拍照和相簿存取</div></div></a>            
+                        <a href="Lt12/ch12.html"><div class="col-sm-1 me"><div class="chb">第12章</div><div class="chc">擴增專案功能，讓會員可以拍照上傳以及評論</div> </div></a>
+                        <a href="Lt13/ch13.html"><div class="col-sm-1 me"><div class="chb">第12章</div><div class="chc">第13章 統整專案，進行優化，開放會員新增餐廳</div> </div></a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
