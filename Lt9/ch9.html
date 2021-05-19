@@ -161,12 +161,10 @@
             <a class="dropdown-item" href="../Lt9/ch9.html#no2">2. 練習一和二的說明</a>
             <a class="dropdown-item" href="../Lt9/ch9.html#no3">3. 練習的環境準備</a>
             <a class="dropdown-item" href="../Lt9/ch9.html#no4">4. 練習一、從一個本地端的JSON file讀取資料放到那三個Label中</a>
-            <a class="dropdown-item" href="../Lt9/ch9.html#no5">5. 練習一之1、JSON格式是一個物件{ }</a>
-            <a class="dropdown-item" href="../Lt9/ch9.html#no6">6. 練習一之2、JSON格式是一個陣列[ ]</a>
-            <a class="dropdown-item" href="../Lt9/ch9.html#no7">7. 如何使用PHP語言寫伺服器程式，當客戶端呼叫這個程式就會傳回JSON格式資料</a>
-            <a class="dropdown-item" href="../Lt9/ch9.html#no8">8. 練習二、從遠端透過HTPP協定讀取JSON資料放到那三個Label中</a>
-            <a class="dropdown-item" href="../Lt9/ch9.html#no9">9. 多執行緒的概念，以及有些動作只能在main執行緒做，應該怎麼解決?</a>
-            <a class="dropdown-item" href="../Lt9/ch9.html#no10">10. 作業</a>
+            <a class="dropdown-item" href="../Lt9/ch9.html#no5">5. 如何使用PHP語言寫伺服器程式，當客戶端呼叫這個程式就會傳回JSON格式資料</a>
+            <a class="dropdown-item" href="../Lt9/ch9.html#no6">6. 練習二、從遠端透過HTPP協定讀取JSON資料放到那三個Label中</a>
+            <a class="dropdown-item" href="../Lt9/ch9.html#no7">7. 多執行緒的概念，以及有些動作只能在main執行緒做，應該怎麼解決?</a>
+            <a class="dropdown-item" href="../Lt9/ch9.html#no8">8. 作業</a>
           </div>
         </li>
         <li class="nav-item dropdown"><!-- Registration-->
@@ -296,38 +294,42 @@
         <p>接下來 做兩個練習</p>
         <p>1 打開一個jSON file檔案 解析後 放到tableview顯示</p>
         <p>2 去遠端伺服器呼叫web service 將傳回來的json資料解析顯示在tableview</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-        <p>第一個練習 會寫兩個程式 自本地端讀JSON檔 解析JSON格式 顯示到頁面</p>
+        <img src="images/no1.png" alt="">
+        <p style="background-color: rgb(210, 230, 97);">第一個練習 會寫兩個程式 自本地端讀JSON檔 解析JSON格式 顯示到頁面</p>
         <p> <font color="#FF0004">jsonParsingFromFile()</font> 和  <font color="#FF0004">startParsing(data :NSData)</font></p>
-        <p><font color="#FF0004">jsonParsingFromFile()</font>讀取本地端的JSON檔，然後放到NSDATA裡面去，NSDATA式無格式的一堆資料</p>
+        <p><font color="#FF0004">jsonParsingFromFile()</font>讀取本地端的JSON檔，然後放到NSDATA裡面去，NSDATA(無格式的一團資料)</p>
         <p>然後再把NSDATA放到  <font color="#FF0004">startParsing(data :NSData)</font>去解析出JSON格式 取出資料顯示到那三個標籤</p>
-        <p>第二個練習 會寫兩個程式 自遠端讀JSON資料 解析JSON格式 顯示到頁面</p>
+        <p style="background-color: rgb(210, 230, 97);">第二個練習 會寫兩個程式 自遠端讀JSON資料 解析JSON格式 顯示到頁面</p>
+        <p>在遠端讀取的JSON資料並不是以檔案方式被傳送，而是像網頁一樣，用HTTP 協定傳送</p>
         <p> <font color="#FF0004">jsonParsingFromURL ()</font> 和 <font color="#FF0004">startParsing(data :NSData)</font></p>
         <p><font color="#FF0004">jsonParsingFromURL ()</font>讀取遠端的JSON資料，然後放到NSDATA裡面去，NSDATA式無格式的一堆資料</p>
         <p>然後再把NSDATA放到 <font color="#FF0004">startParsing(data :NSData)</font>去解析出JSON格式 取出資料顯示到那三個標籤</p>
         <p>&nbsp;</p>
-        <p>兩個練習只是來源不同，當得到資料都是放成NSDATA，丟到<font color="#FF0004">startParsing(data :NSData)</font>去處理</p>
+        <p>兩個練習只是來源不同，當得到資料都是放成NSDATA(無格式的一團資料)，丟到<font color="#FF0004">startParsing(data :NSData)</font>去處理</p>
         <p>所以兩個練習只差前面讀資料程式</p>
-        <p>&nbsp;</p>
-        <p>在遠端讀取的JSON資料並不是以當案方式被傳送，而是像網頁一樣，用HTTP 協定傳送</p>
-        <hr>
+    
       </section>
       <section  id="no3"><h2 >練習的環境準備</h2> 
+        <p>一 建立一個tableview</p>
+        <p>建立一個TableView如下</p>
+        <p><img src="images/ch71.png" alt="" width="424" height="560"></p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>執行應該出現，只要三筆資料即可</p>
+        <p><img src="images/ch705.png" alt="" width="294" height="486"></p>
+
       </section>
       <section  id="no4"><h2 >練習一、從一個本地端的JSON file讀取資料放到那三個Label中</h2>
+      <h3>練習一之1、JSON格式是一個物件{ }</h3>
+      <h3>練習一之2、JSON格式是一個陣列[ ]</h3>
       </section>
-      <section  id="no5"><h2 >練習一之1、JSON格式是一個物件{ }</h2>
+      <section  id="no5"><h2 >如何使用PHP語言寫伺服器程式，當客戶端呼叫這個程式就會傳回JSON格式資料</h2>
       </section>
-      <section  id="no6"><h2 >練習一之2、JSON格式是一個陣列[ ]</h2>
+      <section  id="no6"><h2 >練習二、從遠端透過HTPP協定讀取JSON資料放到那三個Label中</h2>
       </section>
-      <section  id="no7"><h2 >如何使用PHP語言寫伺服器程式，當客戶端呼叫這個程式就會傳回JSON格式資料</h2>
+      <section  id="no7"><h2 >多執行緒的概念，以及有些動作只能在main執行緒做，應該怎麼解決?</h2>
       </section>
-      <section  id="no8"><h2 >練習二、從遠端透過HTPP協定讀取JSON資料放到那三個Label中</h2>
-      </section>
-      <section  id="no9"><h2 >多執行緒的概念，以及有些動作只能在main執行緒做，應該怎麼解決?</h2>
-      </section>
-      <section  id="no10"><h2 >作業</h2>
+      <section  id="no8"><h2 >作業</h2>
       </section>
 
 
