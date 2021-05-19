@@ -218,15 +218,102 @@
      
     <div style="margin: auto; width: 96%; text-align: left; border-bottom: 1px solid darkgrey; "> 
       <section  id="no1"><h2 >甚麼是json</h2>
+        <h3>資料交換格式</h3>
+        <p>在日常生活中，人與人之間的交流需要彼此都聽得懂得語言。<br>
+          語言有其規則名詞接著動詞是一種意思，反過來又是一種意思，<br>
+          例如 我打 VS 打我 意義就不一樣，所以兩個人溝通必須要有相同的規則，才能搞對意思<br>
+          同樣的，在計算機的不同程式之間，或者不同的程式語言之間進行交換資料，<br>
+          也需要一種大家都能聽得懂得‘語言’，例如前面10個字是名字，然後是性別，生日等等<br>
+          兩隻程式都都知道規則就能正確交換資料，而這個規則就是資料交換格式，以特定的形式來進行描述資料。</p>
+          我們常用的兩種格式是
+          <ul>
+            <li>XML（eXtensible Markup Language）</li>
+            <p>
+              可擴充套件標記語言，標準通用標記語言的子集，是一種用於標記電子檔案使其具有結構性的標記語言。<br>
+              例如使用name標籤來定義名字 →<span style="color: red;">〈name〉</span>JSON<span style="color: red;">〈／name〉</span>
+            </p>
+            <XMP style="background-color: black;color: white;">
+              <?xml version="1.0" encoding="UTF-8" ?>
+              <dates>
+                  <date>
+                      <id>1</id>
+                      <name>John</name>
+                      <abb>JavaScript Object Notation</abb>
+                  </date>
+                  <date>
+                      <id>2</id>
+                      <name>Mary</name>
+                      <abb>eXtensible Markup Language</abb>
+                  </date>
+                  <date>
+                      <id>3</id>
+                      <name>Yang</name>
+                      <abb>Yet Another Markup Language</abb>
+                  </date>
+              </dates>
+            </XMP>
+            <li>JSON（JavaScript Object Notation）</li>
+            使用key:value → ＂name":"John" 方式來描述資料 
+            <XMP style="background-color: black;color: white;">
+            [ {"name":"John"} , {"name":"Mary"} , {"name":"Yang"} ]
+            </XMP>
+          </ul>
+        <h3>JSON格式解說</h3>
 
-
+        <p>JSON（JavaScript Object Notation）是一種常用的資料交換格式 。</p>
+        <p>另一種常見的資料交換格式式XML，XML很像HTML 以各種不同的標籤標示資料，只是XML標籤是自定義的，例如&lt;STUDENT&gt;<font color="#FF0004">&lt;NAME&gt;川普&lt;/NAME&gt;</font><font color="#2200FF"> &lt;ID&gt;10414001&lt;/ID&gt;</font>&lt;/STUDENT&gt;</p>
+        <p>做為資料交換的發送端把每一筆資料按照協商好的標籤 標註起來，<br>
+          然後把資料送到接收端，接收端也看得懂標籤的意義，所以利用標簽正確取出資料。 <br>
+          所以這是一種資料交換格式。</p>
+        <p>而JSON也是一樣，也是一種資料交換格式。</p>
+        <p>JSON全名叫做JavaScript Object Notation</p>
+        <p>JSON格式他和XML不一樣，不是使用標籤，而是使用兩種符號 {}和[]來表示兩種電腦科學常用的資料格式物件和陣列</p>
+        <p>物件(object)用大括號 { }</p>
+        <p>陣列(array)用中括號 [ ]</p>
+        <p>這樣的好處是可以接收到可以直接吻合程式中的資料結構，不用相XML都是一個一個的無組織資料必須自己在整理一次，而在發送端也式可以使用程式中的陣列 變成JSON格式發送</p>
+        <p>所以最近JSON被當作資料交換格式來傳輸的比率越來越高</p>
+        <p>物件(object) {&quot;subject&quot;:&quot;Math&quot;,&quot;score&quot;:80}</p>
+        <p>這就是json裡的object</p>
+        <p>key-value就是指一個鍵值(key)對應一個值(value)，</p>
+        <p>&nbsp;</p>
+        <p>像是subject這個key有值叫Math</p>
+        <p>score它的值為80</p>
+        <p>這裡注意一點</p>
+        <p>json object的鍵值(key)，一定要用文字做鍵值</p>
+        <p>以下是錯誤的</p>
+        <p>{0:&quot;Tom&quot;, 1:&quot;John&quot;,  2:&quot;Amy&quot;, 3:&quot;Ivy&quot;} // error syntax</p>
+        <p>正確應改為</p>
+        <p>{&quot;0&quot;:&quot;Tom&quot;,  &quot;1&quot;:&quot;John&quot;, &quot;2&quot;:&quot;Amy&quot;,  &quot;3&quot;:&quot;Ivy&quot;}</p>
+        <p>&nbsp;</p>
+        <div>如果你看不懂JSON，可以用類似這種線上JSON格式化的網站</div>
+        <div></div>
+        <div><a href="http://www.jsoneditoronline.org">http://www.jsoneditoronline.org</a></div>
+        <div></div>
+        <div>幫助你瞭解</div>
       </section>
       <section  id="no2"><h2 >練習一和二的說明</h2>
-      <h3>資料交換格式</h3>
       
-      <h3>JSON格式解說</h3>
+        <p>接下來 做兩個練習</p>
+        <p>1 打開一個jSON file檔案 解析後 放到tableview顯示</p>
+        <p>2 去遠端伺服器呼叫web service 將傳回來的json資料解析顯示在tableview</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p>第一個練習 會寫兩個程式 自本地端讀JSON檔 解析JSON格式 顯示到頁面</p>
+        <p> <font color="#FF0004">jsonParsingFromFile()</font> 和  <font color="#FF0004">startParsing(data :NSData)</font></p>
+        <p><font color="#FF0004">jsonParsingFromFile()</font>讀取本地端的JSON檔，然後放到NSDATA裡面去，NSDATA式無格式的一堆資料</p>
+        <p>然後再把NSDATA放到  <font color="#FF0004">startParsing(data :NSData)</font>去解析出JSON格式 取出資料顯示到那三個標籤</p>
+        <p>第二個練習 會寫兩個程式 自遠端讀JSON資料 解析JSON格式 顯示到頁面</p>
+        <p> <font color="#FF0004">jsonParsingFromURL ()</font> 和 <font color="#FF0004">startParsing(data :NSData)</font></p>
+        <p><font color="#FF0004">jsonParsingFromURL ()</font>讀取遠端的JSON資料，然後放到NSDATA裡面去，NSDATA式無格式的一堆資料</p>
+        <p>然後再把NSDATA放到 <font color="#FF0004">startParsing(data :NSData)</font>去解析出JSON格式 取出資料顯示到那三個標籤</p>
+        <p>&nbsp;</p>
+        <p>兩個練習只是來源不同，當得到資料都是放成NSDATA，丟到<font color="#FF0004">startParsing(data :NSData)</font>去處理</p>
+        <p>所以兩個練習只差前面讀資料程式</p>
+        <p>&nbsp;</p>
+        <p>在遠端讀取的JSON資料並不是以當案方式被傳送，而是像網頁一樣，用HTTP 協定傳送</p>
+        <hr>
       </section>
-      <section  id="no3"><h2 >練習的環境準備</h2>
+      <section  id="no3"><h2 >練習的環境準備</h2> 
       </section>
       <section  id="no4"><h2 >練習一、從一個本地端的JSON file讀取資料放到那三個Label中</h2>
       </section>
