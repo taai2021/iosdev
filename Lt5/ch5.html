@@ -289,7 +289,7 @@
       <section id="no6"><h2>6. 手機自雲端下載資料顯示的開發方式</h2>
         <div> <h3>每一家餐廳當作一個物件包含，餐廳名稱、餐廳影像檔名、餐廳地點、餐廳形態</h3>
             <P>把餐廳當作類別</P>
-            <XMP>
+            <XMP style="background-color: black;color: white;">
               class restaurant{
                 name:String
                 image:String
@@ -308,7 +308,7 @@
          <div> <h3>以4個字串陣列 來裝載 餐廳名稱、餐廳影像檔名、餐廳地點、餐廳形態</h3>
             <p>上一個使用物件是比較妥善的做法，這樣你增加餐廳屬性等等的修該之後，你的程式不用改太多，因為你就是在傳送和接收一個餐廳的物件陣列，<br>
               但是因為要讓大家學習方便所以我們拆成4個字串陣列</p>
-          <XMP>
+          <XMP style="background-color: black;color: white;">
             var restaurantNames :[String]     //餐廳名稱
             var restaurantImages :[String]    //餐廳影像檔名
             var restaurantLocations :[String] //餐廳地點
@@ -341,7 +341,7 @@
                   <li>CustomTableViewCell.swift</li>
                 </ol>
               
-        <XMP>
+        <XMP style="background-color: black;color: white;">
 餐廳名稱 
 var restaurantNames = ["スシロー壽司郎 ", " Elephant Restaurant", "燒肉風間 Kazama", "高沐手作料理餐廳", "鐵克諾餐酒館", "元 YUAN", "RÊVE 黑浮咖啡", 
 "八豆食府壽喜燒專門店", "瓦庫燒肉 WOW COOL", "信川屋博多豚骨拉麵店", "麵廊Meelang", "本壽司",  "Nikuya 燒肉", "龍之軒",
@@ -381,7 +381,7 @@ var restaurantTypes = ["Japanese", "Cafe", "Tea House", "Austrian / Causual Drin
             <li><span style="color: red;">《cell for row》</span>放進去每個cell的資料</li>
           </ol>
           因為我們只用一個section，所以《number of section》中固定return 1
-          <XMP>
+          <XMP style="background-color: black;color: white;">
             override func numberOfSections(in tableView: UITableView) -> Int {
                 // #warning Incomplete implementation, return the number of sections
                 return 1
@@ -392,7 +392,7 @@ var restaurantTypes = ["Japanese", "Cafe", "Tea House", "Austrian / Causual Drin
             <h3 >number of row方法</h3>
             <p>要return 表格長度，這邊應該是遠端下載資料的長度，當遠端下載資料後就是把資料放在上面的陣列，
               所以我們傳回陣列長度就可以了，swift的陣列長度不是length而是count</p>
-          <XMP>
+          <XMP style="background-color: black;color: white;">
             override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
                 // #warning Incomplete implementation, return the number of rows
                 return restaurantNames.count
@@ -405,7 +405,7 @@ var restaurantTypes = ["Japanese", "Cafe", "Tea House", "Austrian / Causual Drin
         <p>整個流程一樣，使用indexPath.Row取得該編號的cell
           <ol>
             <li>使用indexPath.Row取得該編號的cell</li>
-            <XMP>
+            <XMP style="background-color: black;color: white;">
 let cellIdentifier = "ccell"  
 //特別挑出來怕你忘記填cell的identifier
 let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CustomTableViewCell 
@@ -414,7 +414,7 @@ let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: in
             </XMP>
             <li>根據indexPath.row指定cell內元件的資料</li>
             使用indexPath.row當作剛剛四個陣列的索引值依序填入餐廳資料
-            <XMP>
+            <XMP style="background-color: black;color: white;">
           
 cell.nameLabel.text = restaurantNames[indexPath.row]
 cell.thumbnailImageView.image = UIImage(named: restaurantImages[indexPath.row])
@@ -432,13 +432,13 @@ cell.typeLabel.text = restaurantTypes[indexPath.row]
        </p> 
 
 
-<XMP>
+<XMP style="background-color: black;color: white;">
   cell.thumbnailImageView.layer.cornerRadius = cell.thumbnailImageView.frame.size.width / 2
   cell.thumbnailImageView.clipsToBounds = true
 </XMP>
 <p>原本影像框的是方形，cornerRadius是正方形四個角的弧的半徑，設為方形邊長的一半就是圓形</p>
 <p>clips To Bounds → 影像切到邊界，如果你做出來的imageView不是圓形，是因為你的imageView不是正方形，去調整一下寬和高。</p>
-<XMP>
+<XMP style="background-color: black;color: white;">
 
   override func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
 
@@ -471,7 +471,7 @@ cell.typeLabel.text = restaurantTypes[indexPath.row]
           類似前一章的題目，但是資料加多，影像就用前一章的，但是要用UITableViewController來做，<br>
           1 不要厭煩從空專案開始做，要能夠完全不看講義做完<br>
           2 在做的時候，不要只是背步驟，整個過程都是有一個邏輯在，要一面做一面和同一組的同學解釋。
-          <XMP>
+          <XMP style="background-color: black;color: white;">
           星座	屬性	形態	守護行星	關鍵字眼	       太陽星座周期
           白羊座	陽性	火象	火星	  獨斷獨行性急	   03.21～04.20
           金牛座	陰性	地象	金星	  占有欲持久永恒	 04.21～05.21

@@ -241,7 +241,7 @@ and it became a major focus for the Apple Developer Tools group in July 2013.
       </section>
       <section  id="no1"><h2 >1. 基本語法</h2>
         <div style="font-size: 1.5em;"><h3 class="h3">常數(let)和變數(var)宣告</h3>
-<XMP>
+<XMP style="background-color: black;color: white;">
 let constant = 1 // 使用let 宣告是唯讀 也就是常數
 constant = 2 // 修改會產生錯誤!!! 
  
@@ -251,7 +251,7 @@ variable = 2 // 正確
 <div class="pratb">
   <h3 class="prat" >練習</h3> 自己試一下使用let宣告變數，然後再另外指定值給這個變數，看一下錯誤。
 </div>
-<XMP>
+<XMP style="background-color: black;color: white;">
 可以一次宣告多個變數，如下var variable1 = 1, variable2 = 2, variable3 = 3 
 
 let constant : Int = 1 //宣告為整數 和java習慣不同( int constant=1; ) 形態在後面  
@@ -269,7 +269,7 @@ var double1, double2, double3: Double 一次宣告多個變數先不給值
             
         </div>
         <div style="font-size: 1.5em;"><h3>數字-布林 </h3>   
-<XMP>
+<XMP style="background-color: black;color: white;">
 Int, UINT, Float & Double  
 var magic: Int = 42 // decimal  十進制
 0b101010 // binary 二進制
@@ -283,7 +283,7 @@ let hidden = false
 </XMP>
 </div>
 <div style="font-size: 1.5em;"><h3>Operator 運算子 </h3>   
-<XMP>
+<XMP style="background-color: black;color: white;">
 3 % 2     // 1  
 i++; ++i; i--; --i 
  i += 1   // i = i + 1 
@@ -303,7 +303,7 @@ print( a == b ? 1 : 0)
       </section>
       <section id="no2"><h2>2. tuples 元組</h2>
         <div style="font-size: 1.5em;">
-<XMP>
+<XMP style="background-color: black;color: white;">
 元組（tuples）把多個值組合成一個複合值。元組內的值可以是任意類型，並不要求是相同類型。
 
 下面這個例子中，(404, "Not Found")是一個描述HTTP狀態碼（HTTP status code）的元組。
@@ -335,7 +335,7 @@ let real = complex.real
       </section>
       <section id="no3"><h2>3. optionals</h2>
         <div style="font-size: 1.5em;">
-<XMP>
+<XMP style="background-color: black;color: white;">
 nil是指空值，對應到java是null，
 在swift，
 var a:int=1 
@@ -358,7 +358,7 @@ optional就是在原來的資料形態後面加一個？
 </XMP>
 var b:Int<span style="color: red;" >?</span> = 1 <br>
 b = nil // 成功
-<XMP>
+<XMP style="background-color: black;color: white;">
 Int？  就是Int的optional變數 
 所以
 b = nil // 成功
@@ -373,7 +373,7 @@ Int? 的變數加了一個框，把裡面東西拿走，就變成空的狀態
           a就無法表示nil （Int 無法表示 空）
 <div class="pratb">
   <h3 class="prat" >練習</h3> 
-  <XMP>
+  <XMP style="background-color: black;color: white;">
 試一下，下面程式會發生甚麼事？
 
 var a:Int = 1
@@ -395,7 +395,7 @@ a = b
 <br>
 <div class="pratb">
   <h3 class="prat" >練習</h3> 
-  <XMP>
+  <XMP style="background-color: black;color: white;">
 再試看看
 
 接下來再試這一個
@@ -407,7 +407,7 @@ a = b！
   </XMP>
 <img width="50%" src="images/n02.png" alt="">
 </div>
-<XMP>
+<XMP style="background-color: black;color: white;">
 
 總之
 宣告變數用了 ? 該變數加了框，所以以後可以表示成nil
@@ -415,7 +415,7 @@ a = b！
 所以a = b！ 就是把</XMP>
 <span style="border: 1px solid red;">6</span>變成6，再指定給a，a就變成6
 <hr>
-<XMP>
+<XMP style="background-color: black;color: white;">
 再學一下 ??
 先解釋 ??用法
 a ?? b  
@@ -446,7 +446,7 @@ print(a*2)
 </XMP>
 <div class="pratb">
   <h3 class="prat" >練習</h3> 
-<XMP>
+<XMP style="background-color: black;color: white;">
 用眼睛看出下面會印出什麼，然後寫出每一行的執行結果
   var x:Int=10
   var y="d"
@@ -463,7 +463,7 @@ print(a*2)
       <section id="no4"><h2>4. 條件式和迴圈</h2>
         <div style="font-size: 1.5em;">
         <div><h3>for </h3>
-<XMP>
+<XMP style="background-color: black;color: white;">
   for index in 1...5 {
     print("\(index) times 5 is \(index * 5)")
 }
@@ -484,7 +484,7 @@ for (animalName, legCount) in numberOfLegs {
 </XMP>
 </div>
 <div><h3>if 和 = 的糾葛</h3>
-<XMP>
+<XMP style="background-color: black;color: white;">
   == 是比較
   if a==b{
     print("yes")
@@ -501,7 +501,7 @@ if let a=b {
 
 <div class="pratb">
   <h3 class="prat" >練習</h3> 
-  <XMP>
+  <XMP style="background-color: black;color: white;">
 試看看
 
 var x:Int?=10
@@ -523,20 +523,20 @@ if let y=x{
       <section id="no5"><h2>5. Function</h2>
         <div style="font-size: 1.5em;">
         <div><h3>有傳入參數 和傳回值 </h3>
-          <XMP>
+          <XMP style="background-color: black;color: white;">
 func foo(parameter1: Type1, parameter1: Type2) -> ReturnType { /* function body */ } 
           </XMP>
         </div>
 
         <div><h3>無傳入參數 無傳回值</h3>
-          <XMP> 
+          <XMP style="background-color: black;color: white;"> 
 func bar() -> Void { /* function body */ } 
 func baz() -> () { /* function body */ } 
 func quz() { /* function body */ } 
           </XMP>
         </div>
         <div><h3>guard  </h3>
-          <XMP>
+          <XMP style="background-color: black;color: white;">
 guard 判斷式 else { return  }
 guard 常用來檢查 輸入參數是否有問題
 有問題就執行else 通常是return 
@@ -558,7 +558,7 @@ func greet(person: [String: String]) {
  
 <div class="pratb">
   <h3 class="prat" >練習</h3> 
-  <XMP>
+  <XMP style="background-color: black;color: white;">
 試看看
        
 class A{
@@ -605,7 +605,7 @@ print(p.sss(x:12))
       <section id="no6"><h2>6. 類別</h2>
         <div style="font-size: 1.5em;">
           <div><h3>class </h3>
-  <XMP>
+  <XMP style="background-color: black;color: white;">
     class Person {
       var name: String?
       var age: Int = 0
@@ -617,7 +617,7 @@ print(p.sss(x:12))
   </XMP>
           </div>
           <div><h3>繼承</h3>
-  <XMP>
+  <XMP style="background-color: black;color: white;">
     class Car: Vehicle {
       override var formattedName: String {
       return "[car] " + name
@@ -630,7 +630,7 @@ print(p.sss(x:12))
   </XMP>
           </div>
           <div><h3>建構子 </h3>
-  <XMP>
+  <XMP style="background-color: black;color: white;">
     class Car {
       init() {
       model = "Supercar"
@@ -648,7 +648,7 @@ print(p.sss(x:12))
           
           
           <div><h3>無名稱的程式碼 </h3>
-  <XMP>
+  <XMP style="background-color: black;color: white;">
 在物件導向語言中，方法method或者function函式都會是某個類別的成員
 而且有方法名稱
 而閉包 其實是方法只是

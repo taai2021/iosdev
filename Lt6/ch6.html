@@ -326,7 +326,7 @@
                 三顆按鈕就是 1 <button> 2 3 </button>  <button> 2 3 </button>  <button> 2 3 </button> 4 ，以此類推。
                 
                 <h4> 下面是完整程式碼(不要複製貼上，不然就白上課了。)</h4>
-<XMP>
+<XMP style="background-color: black;color: white;">
   override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
     let optionMenu=UIAlertController(title: nil, message: "你要執行什麼功能？", preferredStyle:.actionSheet )
     let alertAction=UIAlertAction(title: "取消", style: .cancel, handler: nil)
@@ -411,7 +411,7 @@
           </p>
           <p>
             這邊先使用第一種閉包的寫法，整個寫法如下<br>
-            <XMP>
+            <XMP style="background-color: black;color: white;">
 let callActionHandler = {
                           (輸入的參數) -> 輸出的參數 in
                           所有的程式碼都在這邊
@@ -425,7 +425,7 @@ let callActionHandler = {
             這個alert會顯示《這個設備無法打電話，請稍後再試》<br>            
           </p>
           <h4> 下面是alert的完整程式碼(不要複製貼上，不然就白上課了。)</h4>
-          <XMP>
+          <XMP style="background-color: black;color: white;">
 (action:UIAlertAction!) -> Void in
 let alertMessage = UIAlertController(title: "Service Unavailable", message: "Sorry, the call feature is not available yet. Please retry later.", preferredStyle: .alert)
 alertMessage.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
@@ -484,7 +484,7 @@ self.present(alertMessage, animated: true, completion: nil)
                 <h4> self.present(alertMessage, animated: true, completion: nil)</h4>
             </div>
             <h4>最後把閉包指定給一個變數callActionHandler</h4>
-            <XMP>                
+            <XMP style="background-color: black;color: white;">                
 let callActionHandler = {
 (action:UIAlertAction!) -> Void in
   let alertMessage = UIAlertController(title: "設備無法使用", message: "這個設備無法打電話，請稍後再試", preferredStyle: .alert)
@@ -530,7 +530,7 @@ let callActionHandler = {
           <p>在《cell for row》方法中就是會根據索引值來設定cell內容<br>
             ，所以在裡面就根據索引值取得restaurantIsVisited，<br>
           再根據true或false來設定《cell.accessoryType= <span style="color: red;">.Checkmark</span>》或《cell.accessoryType= .none》</p>
-          <XMP>
+          <XMP style="background-color: black;color: white;">
 cell.accessoryType = self.restaurantIsVisited[indexPath.row] ? .checkmark : .none
           </XMP>
         </div>
@@ -538,7 +538,7 @@ cell.accessoryType = self.restaurantIsVisited[indexPath.row] ? .checkmark : .non
           <p>這邊使用第二種閉包寫法，直接放進去<br>
             let visitedAction = UIAlertAction(title: "標註去過這家餐廳", style: .default, handler:<span style="color: red;">{閉包} </span>)
           </p>
-          <XMP>
+          <XMP style="background-color: black;color: white;">
 {
   (action:UIAlertAction!) -> Void in
   self.restaurantIsVisited[indexPath.row] = !self.restaurantIsVisited[indexPath.row]
@@ -581,7 +581,7 @@ cell.accessoryType = self.restaurantIsVisited[indexPath.row] ? .checkmark : .non
             利用removeAtIndex方法來刪除陣列的那一筆資料<br>
             當然要同時刪除所有陣列的資料包括 restaurantNames, restaurantImages, restaurantLocations, restaurantTypes, restaurantIsVisited<br>
             完整程式碼如下
-            <XMP>      
+            <XMP style="background-color: black;color: white;">      
 override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
     self.restaurantNames.remove(at: indexPath.row)
     self.restaurantLocations.remove(at:indexPath.row)
@@ -609,7 +609,7 @@ override func tableView(_ tableView: UITableView, commit editingStyle: UITableVi
           這個動作會蓋掉剛剛的commit editingStyle(只能刪除或者修改)<br>
           editActionsForRowAt可以自己定義要做的動作 
          </p> 
-<XMP>
+<XMP style="background-color: black;color: white;">
 override func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
 
     let shareAction = UITableViewRowAction(style: UITableViewRowActionStyle.default, title: "Share",

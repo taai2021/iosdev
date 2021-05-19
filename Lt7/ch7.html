@@ -260,7 +260,7 @@
             <p>像前面的兩個view分別是兩個物件，當你要轉移到另一個view之前，都是建立一個新的view物件，<br>
               再轉移過去，因為是第一個view建立了第2個view物件，所以其實我們是知道第2個view物件的記憶體位址，<br>
               所以我們可以在第2個view宣告變數，然後把要傳過去的資料指定給這個變數</p>
-              <XMP>
+              <XMP style="background-color: black;color: white;">
                 想把View1裡面的data傳到新建的View2物件內
                 class View1{
                   var data=100
@@ -296,7 +296,7 @@
           </p>
           <ol>
             <li>1 在View2準備一個變數x，2 然後在viewDidLoad（）方法中把x指定給lab標籤  </li>
-            <XMP>
+            <XMP style="background-color: black;color: white;">
               
 class ViewController111111: UIViewController {
   var x:String=""                                  1 在View2準備一個變數x
@@ -316,7 +316,7 @@ class ViewController111111: UIViewController {
           所以View2在顯示之前會先把x放到lab標籤後再顯示 </p>
             <li>修改剛剛的專案中，在第一個view加入一個textField，並且拉IBOutlet變數，假設變數名稱是data</li>
             <li>在第一個view的類別內加入prepare方法如下</li>
-            <XMP>
+            <XMP style="background-color: black;color: white;">
               
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
       let v2=segue.destination as! ViewController111111
@@ -351,7 +351,7 @@ class ViewController111111: UIViewController {
            <img src="images/m03.png" alt="">
            <li>點選這個segue，修改其屬性identifier為《v1tov2》</li>
            <li>拉《跳到View2》按鈕的IBAction ，並且寫程式如下</li> 
-           <XMP>
+           <XMP style="background-color: black;color: white;">
              
     @IBAction func sgg(_ sender: UIButton) {
       if let f=data.text {   文字輸入格的文字如果是nil 就不執行
@@ -392,7 +392,7 @@ class ViewController111111: UIViewController {
         <li> 所以必須在info.plist加入</li>
         <p>在專案中有一個info.plist檔案，點滑鼠右鍵，open as/source code，<br>
           加入下面的隱私權設定，那麼在使用定位時，就會出現一個對話框，徵詢使用者是否允許</p>
-        <XMP>
+        <XMP style="background-color: black;color: white;">
 <key>NSLocationWhenInUseUsageDescription</key>
 <string>讓我使用GPS定位好嗎？</string>
 <key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
@@ -428,7 +428,7 @@ class ViewController111111: UIViewController {
           </p>
           
         <h4>在ViewDidLoad()方法中啟動CoreLocation manager，然後讓locationManager這個方法印出經緯度</h4> 
-          <XMP> 
+          <XMP style="background-color: black;color: white;"> 
 import CoreLocation
 
 class ViewController: UIViewController,CLLocationManagerDelegate{
@@ -489,7 +489,7 @@ class ViewController: UIViewController,CLLocationManagerDelegate{
           func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {<BR>
             就可以在locaions裡面取得經緯度<BR>
         </p>
-        <XMP>
+        <XMP style="background-color: black;color: white;">
             
             func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
                 let curLocation:CLLocation = locations[0]

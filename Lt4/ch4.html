@@ -369,7 +369,7 @@
           <li>使用number of row方法指定會顯示3個row</li>
           <li>找1張影像，拉到目錄中</li>
           <li>在cell for row 中製作cell</li>
-          <XMP>
+          <XMP style="background-color: black;color: white;">
 1 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
 2  let cell=tableView.dequeueReusableCell(withIdentifier: "ccell", for: indexPath) as! TableViewCell
 3  cell.lab1.text="qqq"
@@ -383,7 +383,7 @@
             第2行的《as! TableViewCell》，如果沒有加，那麼你拿到的會是UITableViewCell，<br>
             也就是說程式會認為你拿到的是他的父類別，不會有你剛剛加的那3個元件，<br>
             你剛剛加的3個元件是加在你剛剛新增的TableViewCell.swift中所定義的TableViewCell類別</p>
-            <XMP>
+            <XMP style="background-color: black;color: white;">
 class TableViewCell: UITableViewCell {
   @IBOutlet weak var img: UIImageView!
   @IBOutlet weak var lab1: UILabel!
