@@ -240,6 +240,7 @@
           <p><img src="images/temp2.png" width="901" height="665" alt=""/></p>
     
       <h3>替換餐廳專案的icon和文字</h3>
+      <p><a href="https://iconarchive.com/tag/food">IconArchive</a>這個網站可以找到大量的icon，每個icon都有各種尺寸可以下載，這邊我建議下載32pixel以下的比較適合。</p>
       <p><img  src="images/ch87.png" alt="" width="100%"></p>
       
     </section> 
@@ -248,76 +249,93 @@
       <h3>練習的環境準備</h3>
       <p>我們不要直接做在餐廳專案中，先用一個空白專案練習登入動作</p>
       <p>按下面說明建立練習的環境</p>
-      <p>0 開一個新專案 </p>
-      <p>1 開兩個viewcontroller 指定他為起始畫面是<font color="#FF0105">(當然他們各有一個類別和他們配對分別較login.swift和logout.swift)</font></p>
-      <p>如下</p>
-      <p>第一是<font color="#FF0105">登入畫面</font></p>
-      <p>第二是<font color="#FF0105">系統畫面</font></p>
-      <p>&nbsp;</p>
-      <p>2 設計</p>
-      <p><font color="#FF0105">登入畫面</font></p>
-      <p>的Label--&gt;紅色帳密錯誤==&gt;拉去login.swift建立IBOutlet  取名<font color="#FF0105">fail</font></p>
-      <p>帳密的輸入格==&gt;拉去login.swift建立IBOutlet  分別取名<font color="#FF0105">acc</font>和<font color="#FF0105">pwd</font></p>
-      <p>一個登入按鈕==&gt;拉去login.swift建立IBAction ，等等用來寫登入的程式</p>
-      <p>一個switchb讓使用者自己決定下次開APP要不要自動登入==&gt;加一個IBOutlet名稱是<font color="#FF0105">rem</font></p>
-      <p>&nbsp;</p>
-      <p><font color="#FF0105">系統畫面</font>view的</p>
-      <p>LABEL打系統，</p>
-      <p>加一個登出按鈕讓使用者跳回登入畫面==&gt;拉去logout.swift建立IBAction ，等等用來寫登出的程式</p>
-      <p>&nbsp;</p>
-      <p><font color="#FF0105">登入畫面</font>到<font color="#FF0105">系統畫面</font>用present Modally的segue連接 ，等等登入成功可以跳過去，取名叫做<font color="#FF0105">login</font></p>
-      <p><font color="#FF0105">系統畫面</font>到<font color="#FF0105">登入畫</font>面用present Modally的segue連接 ，等等登出可以跳回去登入畫面，取名叫做<font color="#FF0105">logout</font></p>
-      <p><img src="images/sdfgh.png" width="872" height="689" alt=""/></p>
-      <p>&nbsp;</p>
-      <p>3 先暫時弄一個預設的假帳密</p>
-      <p>&nbsp;</p>
-      <p>加上假帳密，先做假登入，好了再到遠端撈真帳密</p>
-      <p>在log.swift的類別加上兩個成員變數</p>
-      <p> var myAccount=&quot;abc&quot;</p>
-      <p>var myPassword=&quot;123&quot;</p>
-      <p>&nbsp;</p>
-      <p>做出登入動作</p>
-      <hr>
+      <ol  >
+        <li style="background-color: goldenrod;">開一個新專案</li>
+        <p></p>
+        <li style="background-color: goldenrod;">開兩個viewcontroller 指定他為起始畫面為登入畫面</li>          
+          <p>第一是<font color="#FF0105">登入畫面</font>  對應類別 login.swift</p>
+          <p>第二是<font color="#FF0105">系統畫面</font>  對應類別 logout.swift</p>
+
+        <li style="background-color: goldenrod;">元件設計</li>        
+          <ul>
+            <li>登入畫面</li>
+                Label　→　紅色帳密錯誤　→　拉去login.swift建立IBOutlet  取名<font color="#FF0105">fail</font><br>
+                帳密的輸入格　→　拉去login.swift建立IBOutlet  分別取名<font color="#FF0105">acc</font>和<font color="#FF0105">pwd</font><br>
+                一個登入按鈕　→　拉去login.swift建立IBAction ，等等用來寫登入的程式<br>
+                一個switchb讓使用者自己決定下次開APP要不要自動登入　→　加一個IBOutlet名稱是<font color="#FF0105">rem</font><br>       
+            <li>系統畫面</li>
+                LABEL的文字顯示 《系統》<br>
+                登出按鈕讓使用者跳回登入畫面　→　拉去logout.swift建立IBAction ，等等用來寫登出的程式
+            <li>segue設定</li>
+                登入畫面到系統畫面用present Modally的segue連接 ，等等登入成功可以跳過去，取名叫做login<br>
+                系統畫面到登入畫面用present Modally的segue連接 ，等等登出可以跳回去登入畫面，取名叫做logout
+          </ul>
+          <p><img src="images/sdfgh.png" width="872" height="689" alt=""/></p>
+        <li style="background-color: goldenrod;">先暫時弄一個預設的假帳密</li>        
+          <p>加上假帳密，先做假登入，好了再到遠端撈真帳密</p>
+          <p>在log.swift的類別加上兩個成員變數</p>
+          <p> var myAccount=&quot;abc&quot;</p>
+          <p>var myPassword=&quot;123&quot;</p>
+
+      </ol>
       <h3>練習-登入、登出動作的程式</h3>
-      <p>&nbsp;</p>
-      <p>在登入畫面的button的程式中驗證 帳密</p>
-      <p>如果正確就進入tab bar畫面</p>
-      <p>如果帳密錯誤 就顯示上面紅色帳密錯誤提示</p>
+          <ol>
+            <li>在登入畫面的button的程式中驗證 帳密</li>
+            <li>如果正確就進入系統畫面</li>
+            <li>如果帳密錯誤 就顯示上面紅色帳密錯誤提示</li>
+          </ol>
       <p>在登入按鈕的IBAction中</p>
-      <p>if acc.text == myAccount &amp;&amp; pwd.text == myPassword {</p>
-      <p class="r1"> self.performSegue(withIdentifier:&quot;login&quot;,sender:self)</p>
-        }else{<br>
-        <p class="r1"> fail.isHidden=false;</p>
-        }
+      <XMP style="background-color: black;color: white;">
+if acc.text == myAccount && pwd.text == myPassword {
+    self.performSegue(withIdentifier:"login",sender:self)
+}else{
+    fail.isHidden=false;
+}
+      </XMP>
       <p>在登出按鈕的IBAction中，登出就跳回登入畫面</p>
-      <p><span class="r1">self.performSegue(withIdentifier:&quot;logout&quot;,sender:self)</span></p>
-      
+      <XMP style="background-color: black;color: white;">
+self.performSegue(withIdentifier:"logout",sender:self)
+      </XMP>
       </section> 
       <section id="no3"><h2>3 練習-實現自動登入</h2>
    
       <h3>一個view的生命週期</h3>
       <p>後面會用到這個背景知識，所以先介紹一下</p>
-      <p>下圖是一個view被啟動之後到結束的一個周期徒</p>
-      <p>像ViewDidLoad()，我們就用過了，他是在view啟動然後LOAD進來之後，這時候才會有所謂的view，所以ViewDidLoad()是view的第一支執行的程式，所以我們常會把一些預設的動作放在這邊</p>
-      <p>而viewDidAppear則是當view已經顯示，並且被其他view認識了</p>
+      <p>下圖是一個view被啟動之後到結束的一個生命周期</p>
+      <img src="images/0814OT_06_02.jpg"/>
+      <p><br>
+        像<font color="#FF0105">ViewDidLoad()</font>，我們就用過了，他是在view啟動然後LOAD進來之後，<br>
+        這時候才會有所謂的view，所以ViewDidLoad()是view的第一支執行的程式，<br>
+        所以我們常會把一些預設的動作放在這邊</p>
+      <p>而<font color="#FF0105">viewDidAppear</font>則是當view已經顯示，並且<font color="#FF0105">被其他view認識了</font></p>
       <p>因此</p>
-      <p>viewDidLoad-------- 的時候有自己view的元件，所以你可以在這邊指定元件的初始值</p>
-      <p>viewDidAppear------view已經知道其他view，所以可以segue到其他view去</p>
+      <p>viewDidLoad　→　的時候有自己view的元件，所以你可以在這邊指定元件的初始值</p>
+      <p>viewDidAppear　→　view已經知道其他view，所以可以segue到其他view去</p>
       <p></p>
-      <p><img src="images/0814OT_06_02.jpg"/></p>
+      <p></p>
       <p>&nbsp;</p>
       <p>&nbsp;</p>
       <hr>
       <h3>練習-使用UserDefaults記住登入狀態</h3>
-      <p>剛才的switch要拉IBOutlet 因為你要在程式中判斷她要不要記住已登入，</p>
+      <p>剛才的switch要拉IBOutlet<br>
+        因為你要在程式中判斷她要不要記住已登入，</p>
       <p>這邊我設定的名稱是rem</p>
-      <p>rem.isOn如果是true，表示swictch已經打開為on，就是要自動登入</p>
+      <p><font color="#FF0105">rem.isOn如果是true，表示swictch已經打開為on，就是要自動登入</font></p>
       <p>另外，要記住已登入，應該記在哪邊呢?</p>
-      <p>在iOS有一個機制，可以讓每個app可以寫一些東西上去，在關閉之後，仍被保存住，下次開啟APP時仍那些資料然還在</p>
+      <p>在iOS有一個機制，可以讓每個app可以寫一些東西上去<br>
+        在關閉之後，仍被保存住，下次開啟APP時那些資料仍然還在</p>
       <p>她就是UserDefaults，下面是會用到的方法</p>
-      <p>UserDefaults.standard.set(uuid, forKey: &quot;usid&quot;)，==&gt;寫入一組資料key和value，這行程式寫入key為usid，value為uuid</p>
-      <p> x=UserDefaults.standard.string(forKey: &quot;usid&quot;)==&gt;去取回key值為usid的value，這行x應該會得到uuid，如果沒有這個key直則x=nil</p>
-      <p>UserDefaults.standard.removeObject(forKey: &quot;usid&quot;)==&gt;移除ey值為usid</p>
+        <ul>
+          <li>寫入UserDefaults</li>
+              <p>UserDefaults.standard.set(uuid, forKey: &quot;usid&quot;)<br>
+                寫入一組資料key和value，這行程式《寫入key為usid，value為uuid》</p>
+          <li>自UserDefaults讀出資料</li>
+              <p> x=UserDefaults.standard.string(forKey: &quot;usid&quot;)<br>
+                去取回key值為usid的value，這行《x應該會得到uuid，如果沒有這個key直則x=nil》</p>
+          <li>自UserDefaults移除資料</li>
+              <p>UserDefaults.standard.removeObject(forKey: &quot;usid&quot;)<br>
+                移除key值為usid</p>
+        </ul>
       <p>&nbsp;</p>
       <p>所以剛剛登入程式的邏輯必須修改一下</p>
       <p>如果帳密驗證正確，在跳到系統畫面之前，必須先檢查switch有沒有on</p>
@@ -326,16 +344,19 @@
       <p>登入畫面的按鈕</p>
       <p>寫登入驗證程式如下</p>
       <p><br>
-        if acc.text == myAccount &amp;&amp; pwd.text == myPassword {</p>
-      <p class="r1">if rem.isOn{</p>
-      <p class="r2">let uuid = &quot;apple&quot;<br>
-        UserDefaults.standard.set(uuid, forKey: &quot;usid&quot;)</p>
-      <p class="r1">}</p>
-      <p class="r1">self.performSegue(withIdentifier:&quot;login&quot;,sender:self)</p>
-        }else{<br>
-        <p class="r1">fail.isHidden=false;</p>
-        }<br>
-      
+        <XMP style="background-color: black;color: white;">
+          
+if acc.text == myAccount && pwd.text == myPassword {
+  if rem.isOn{  
+    let uuid = "apple"
+    UserDefaults.standard.set(uuid, forKey: "usid")  
+  }  
+  self.performSegue(withIdentifier:"login",sender:self)
+  
+}else{
+  fail.isHidden=false;  
+}
+  </XMP>
       <p>&nbsp;</p>
       <p>另外在登出時，要去UserDefaults把這個值刪除，下次登入就會進入登入畫面</p>
       <p>系統畫面button加action，加入下面程式，登出後跳登入畫面<br>
@@ -354,50 +375,51 @@
       <p>是移除</p>
       <p>&nbsp;</p>
       <hr>
-      <h3>練習-實現自動登入</h3>
-      <p>我們在後面章節再使用真實伺服器認證，現在仍然使用本地假認證<br>接下來要做自動登入 檢視UserDefaults是否有登入資訊，有的話直接進入系統，否則進入登入畫面</p>
-      <p>先有一個問題，在哪邊檢查是否已登入的UserDefaults資訊?</p>
-      <p>如果是在登入畫面檢查，那麼就算能自動登入，也會讓使用者先看到登入畫面，這樣不夠專業</p>
-      <p>所以我們新增一個空白的頁面當作APP的啟動頁面</p>
-      <p>，在這個view去檢查自動登入資訊來決定要進入登入畫面或者系統畫面</p>
-      <p>&nbsp;</p>
-      <p>&nbsp;</p>
-      <p>下一個問題，要在那個view的甚麼地方寫這段程式?</p>
-      <p>讓app一啟動就開這個view，這個view一開就自動去執行自東登入判斷程式?</p>
-      <p>然後要先回顧一下剛剛教過的view的生命週期</p>
-      <p>viewDidLoad-------- 的時候有自己view的元件，所以你可以在這邊指定元件的初始值</p>
-      <p>viewDidAppear------view已經知道其他view，所以可以segue到其他view去</p>
-      <p>有這兩個可能的選擇，我們想一下</p>
-      <p>不管自動登入的判斷結果如何，他終就必須要進行segue，</p>
-      <p>在viewDidLoad中，view剛啟動根本不認識其他的view，所以你要他跳到登入的那個view他就會出現錯誤，說他不認識</p>
-      <p>所以自動登入的程式必須寫在viewDidAppear-</p>
-      <p>&nbsp;</p>
-      <p>************************************************************</p>
-      <p>如果上面的說明聽懂了，接下來開始時做</p>
-      <p>先調整好畫面如下</p>
-      <p>先拉另一個viewcontroler 叫做判斷畫面，加cocoa file，設</p>
-      <p>成起始畫面，目前總共3個view，關係如下，</p>
-      <p>&nbsp;</p>
-      <p>segue按照下圖建立命名，全部都使用present Modally</p>
-      <p>&nbsp;</p>
-      <div>
+        <h3>練習-實現自動登入</h3>
+        <p>我們在後面章節再使用真實伺服器認證，現在仍然使用本地假認證<br>接下來要做自動登入 檢視UserDefaults是否有登入資訊，有的話直接進入系統，否則進入登入畫面</p>
+        <p>先有一個問題，在哪邊檢查是否已登入的UserDefaults資訊?</p>
+        <p>如果是在登入畫面檢查，那麼就算能自動登入，也會讓使用者先看到登入畫面，這樣不夠專業</p>
+        <p>所以我們新增一個空白的頁面當作APP的啟動頁面</p>
+        <p>，在這個view去檢查自動登入資訊來決定要進入登入畫面或者系統畫面，如下圖</p>
         <p><img src="images/azxc.png" width="642" height="677" alt=""/></p>
+        <p>下一個問題，要在那個view的甚麼地方寫這段程式?</p>
+        <p>讓app一啟動就開這個view，這個view一開就自動去執行自東登入判斷程式?</p>
+        <p>然後要先回顧一下剛剛教過的view的生命週期</p>
+        <p>viewDidLoad-------- 的時候有自己view的元件，所以你可以在這邊指定元件的初始值</p>
+        <p>viewDidAppear------view已經知道其他view，所以可以segue到其他view去</p>
+        <p>有這兩個可能的選擇，我們想一下</p>
+        <p>不管自動登入的判斷結果如何，他終就必須要進行segue，</p>
+        <p>在viewDidLoad中，view剛啟動根本不認識其他的view，所以你要他跳到登入的那個view他就會出現錯誤，說他不認識</p>
+        <p><font color="#FF0105">所以自動登入的程式必須寫在viewDidAppear</font>-</p>
+        <p>&nbsp;</p>
+        <p>************************************************************</p>
+        <p>如果上面的說明聽懂了，接下來開始實作</p>
+        <p>先調整好畫面如下</p>
+        <p>最後加入的viewcontroler 叫做判斷畫面<br>
+          ，加cocoa touch file，設成起始畫面，目前總共3個view，關係如下，</p>
+        
+        <p>segue按照下圖建立命名，全部都使用present Modally</p>
+        <img src="images/azxc.png" width="642" height="677" alt=""/>
+      <div>
+      
         <p>&nbsp;</p>
         <p>在判斷畫面中的<font color="#FF0004">viewDidAppear</font>加入下面程式</p>
         <p>先檢查有沒有usid的key值</p>
         <p>有 就跳系統畫面</p>
         <p>沒有就跳登入畫面</p>
       </div>
-      <p> override func viewDidAppear(_ animated : Bool) {</p>
-      <p class="r1">let userid = UserDefaults.standard.string(forKey: &quot;usid&quot;)<br>
-      //判断UserDefaults中是否已经存在<br>
-      if(userid != nil){<br>
-      <span class="r2">self.performSegue(withIdentifier: &quot;seg2&quot;, sender: self)<br></span>
-      }else{<br>
-      <span class="r2">self.performSegue(withIdentifier: &quot;seg1&quot;, sender: self)<br></span>
-      }<br>
-      </p>
-      }<br>
+      <XMP style="background-color: black;color: white;">
+override func viewDidAppear(_ animated : Bool) {
+
+  let userid = UserDefaults.standard.string(forKey: "usid")
+    //判断UserDefaults中是否已经存在
+    if(userid != nil){
+      self.performSegue(withIdentifier: "seg2", sender: self)
+    }else{
+      self.performSegue(withIdentifier: "seg1", sender: self)
+    }
+}
+      </xmp>
       </section>
       <section id="no4"><h2>4 作業</h2>
       <p>最後 請將登入功能做到餐廳專案</p>
@@ -434,7 +456,7 @@
           <p><font color="#FF0004">taps=1</font> 要敲一次</p>
           <p><img src="images/cha001.png" alt="" width="645" height="320"></p>
           <p>加入程式碼到那個IBAction當用3跟手指頭輕敲一次，會出現一個alert</p>
-          <XMP>
+          <XMP style="background-color: black;color: white;">
             // 建立警示對話方塊
             let alertController = UIAlertController(title: "確認視窗", message: "確定要結束應用程式嗎？", preferredStyle: .alert)
             // 建立按鈕
@@ -462,8 +484,8 @@
             把imageview的User interaction Enabled打開
           </p>      
             <img src="images/cha002.png" alt="" width="955" height="497">
-            <XMP>
-              import UIKit
+            <XMP style="background-color: black;color: white;">
+import UIKit
 
 class ViewController: UIViewController {
 @IBOutlet weak var img: UIImageView!
@@ -493,10 +515,10 @@ class ViewController: UIViewController {
         <div><h3 id="ko3">旋轉 rotation  </h3>   
             <p>開新專案，拖曳image view 和rotation gesture 進去 分別設定IBOutlet IBAction
 </p> 
-          <XMP>
+<XMP style="background-color: black;color: white;">
  
 
-mport UIKit
+import UIKit
 
 class ViewController: UIViewController {
 @IBOutlet weak var img: UIImageView!
@@ -525,7 +547,7 @@ class ViewController: UIViewController {
           <p>touches min 最少幾根手指拖曳</p>
           <p>touches max 最多幾根手指拖曳</p>
           <p><img src="images/cha004.png" alt="" width="842" height="493"></p>  
-          <XMP>
+          <XMP style="background-color: black;color: white;">
             import UIKit
 
             class ViewController: UIViewController {
@@ -541,7 +563,7 @@ class ViewController: UIViewController {
         </div>
         <div><h3 id="ko6">長按 long pres  </h3>    
           <img src="images/cha005.png" alt="" width="1093" height="417">      
-          <XMP>
+          <XMP style="background-color: black;color: white;">
             @IBAction func longPress(_ sender: UILongPressGestureRecognizer) {
 
                   if sender.state == UIGestureRecognizerState.began{
