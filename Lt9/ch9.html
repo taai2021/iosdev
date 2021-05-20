@@ -320,7 +320,47 @@
 
       </section>
       <section  id="no4"><h2 >練習一、從一個本地端的JSON file讀取資料放到那三個Label中</h2>
+        <ul>
+          <li>一個JSON格式包含兩種可能性 {} 和 []，端看JSON資料第一個字元是 [ 或者 { 來決定，</li>
+          <li>json不可能有其他開頭的字元例如《 空白{＂name＂,"John"} 》， 前面多一個空白就會出錯</li>
+          <li>如果第一個字元是 {，則整體是一個物件，所以你必須使用一個NS<font color="#FF0004">Dictionary</font>的變數來承接</li>
+          <li>如果第一個字元是 [，則整體是一個陣列，所以你必須使用一個NS<font color="#FF0004">Array</font>的變數來承接</li>
+        </ul>
+        <p>所以我們把《練習一》切成兩個部分</p>
+        <p>1 json是一個<font color="#FF0004">物件</font>，{＂name＂,"John" }</p>
+        <p>讀取時用要NS<font color="#FF0004">Dictionary</font>的變數來裝</p>
+        <p>2 json是一個<font color="#FF0004">陣列</font>包很多個<font color="#FF0004">物件</font>。
+          這個是<font color="#FF0004">陣列</font>裡面包<font color="#FF0004">三個物件</font> 
+          [ {＂name＂,"John"}, {＂name＂,"Mary"}, {＂name＂,"Yaml"} ]</p>
+        <p> 讀取時要用一個NS<font color="#FF0004">Array</font>來裝，再用for迴圈一個一個取出<font color="#FF0004">物件</font></p>
       <h3>練習一之1、JSON格式是一個物件{ }</h3>
+        <p>讀一個jSON檔案</p>
+        <p>1 先拉<a href="ttt1.json">ttt1.json</a>進去專案</p>
+        <p>{&quot;restaurantNames&quot;:&quot;Cafe Deadend&quot;,&quot;restaurantLocations&quot;:&quot;Hong Kong&quot;,&quot;restaurantTypes&quot;:&quot;Coffee &amp; Tea Shop&quot;}</p>
+        <p>2 改讀ttt1.json</p>
+        <p>func jsonParsingFromFile()<br>
+        {<br>
+        let path: NSString = Bundle.main.path(forResource: &quot;ttt1&quot;, ofType: &quot;json&quot;)! as NSString</p>
+        <p>&nbsp;</p>
+        <p>3 注意下面的NSDictionary</p>
+        <p>func startParsing(data :NSData)<br>
+          <br>
+        {<br>
+        let dictdata:  <font color="#FF0004">NSDictionary</font> = (try! JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as!  <font color="#FF0004">NSDictionary</font><br>
+        //因為只有單一一個物件，所以直接放進去陣列<br>
+        stname[0]=dictdata.value(forKey:&quot;restaurantNames&quot;) as! NSString<br>
+        stloc[0]=dictdata.value(forKey: &quot;restaurantLocations&quot;) as! NSString<br>
+        sttype[0]=dictdata.value(forKey: &quot;restaurantTypes&quot;) as! NSString<br>
+        <br>
+        tableView.reloadData()<br>
+        <br>
+        }</p>
+        <p>在練習一，我們可以知道讀取JSON</p>
+        <p>整個的資料可以使用<font color="#FF0004">NSDictionary</font>或者<font color="#FF0004">NSArray</font>來裝載之後，再繼續其他動作，</p>
+        <p>至於是使用<font color="#FF0004">NSDictionary</font>或者<font color="#FF0004">NSArray</font>則是看整個SON是用{}  或者 [ ]包起來
+        </p>
+        <p>&nbsp;</p>
+        <hr>
       <h3>練習一之2、JSON格式是一個陣列[ ]</h3>
       </section>
       <section  id="no5"><h2 >如何使用PHP語言寫伺服器程式，當客戶端呼叫這個程式就會傳回JSON格式資料</h2>
