@@ -355,6 +355,15 @@
         <p>
           path = Bundle.main.path可以讀取app在手機上的檔案路徑 放到path<br>           
           而try! NSData(contentsOfFile: path as String....<br>
+          填入檔案名稱
+
+let path: NSString = Bundle.main.path(forResource: "test", ofType: "json")! as NSString
+
+去讀檔到data變數中
+let data : NSData = try! NSData(contentsOfFile: path as String, options: NSData.ReadingOptions.dataReadingMapped)
+
+把data丟去一個程式去解析JSON格式
+self.startParsing(data: data)
         {<br>
         let path: NSString = Bundle.main.path(forResource: &quot;ttt1&quot;, ofType: &quot;json&quot;)! as NSString</p>
         <p>&nbsp;</p>
