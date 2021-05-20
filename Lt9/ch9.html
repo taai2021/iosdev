@@ -335,10 +335,26 @@
         <p> 讀取時要用一個NS<font color="#FF0004">Array</font>來裝，再用for迴圈一個一個取出<font color="#FF0004">物件</font></p>
       <h3>練習一之1、JSON格式是一個物件{ }</h3>
         <p>讀一個jSON檔案</p>
-        <p>1 先拉<a href="ttt1.json">ttt1.json</a>進去專案</p>
-        <p>{&quot;restaurantNames&quot;:&quot;Cafe Deadend&quot;,&quot;restaurantLocations&quot;:&quot;Hong Kong&quot;,&quot;restaurantTypes&quot;:&quot;Coffee &amp; Tea Shop&quot;}</p>
-        <p>2 改讀ttt1.json</p>
-        <p>func jsonParsingFromFile()<br>
+        <p>1 先拉<a href="ttt1.json">ttt1.json</a>進去專案，test1.json長這樣</p>
+        <XMP style="background-color: black;color: white;">
+          {"restaurantNames":"Cafe Deadend","restaurantLocations":"Hong Kong","restaurantTypes":"Coffee & Tea Shop"}
+        </XMP>
+   
+
+        <p>2 讀檔程式 從test1.json讀到data裡面 ，再把data放到startParsing去拆卸JSON格式
+        </p>
+        <XMP style="background-color: black;color: white;">
+        
+  func jsonParsingFromFile(){
+    let path: NSString = Bundle.main.path(forResource: "test1", ofType: "json")! as NSString  
+    let data : NSData = try! NSData(contentsOfFile: path as String, options: NSData.ReadingOptions.dataReadingMapped)
+    self.startParsing(data: data)
+  }  
+
+        </XMP>
+        <p>
+          path = Bundle.main.path可以讀取app在手機上的檔案路徑 放到path<br>           
+          而try! NSData(contentsOfFile: path as String....<br>
         {<br>
         let path: NSString = Bundle.main.path(forResource: &quot;ttt1&quot;, ofType: &quot;json&quot;)! as NSString</p>
         <p>&nbsp;</p>
