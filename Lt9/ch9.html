@@ -341,41 +341,113 @@
                   <XMP style="background-color: black;color: white;">
                     {"restaurantNames":"Cafe Deadend","restaurantLocations":"Hong Kong","restaurantTypes":"Coffee & Tea Shop"}
                   </XMP>
-              <li style="background-color: rgb(210, 230, 97);">讀檔程式 從test1.json讀到data裡面</li>
+              <li style="background-color: rgb(210, 230, 97);">讀檔程式 從ttt1.json讀到data裡面</li>
+                  <XMP style="background-color: black;color: white;">
+                  
+            func jsonParsingFromFile(){
+              let path: NSString = Bundle.main.path(forResource: "ttt1", ofType: "json")! as NSString  
+              let data : NSData = try! NSData(contentsOfFile: path as String, options: NSData.ReadingOptions.dataReadingMapped)
+              self.startParsing(data: data)
+            }  
+          
+                  </XMP>
+                  <p>
+                    path = Bundle.main.path可以將app在手機上的檔案路徑轉成字串放到path<br>           
+                    而let data : NSData = try! NSData(contentsOfFile: path as String....<br>
+                    則讀取檔案放到data，data是NSData格式，NSData就是一團無格式資料，<br>
+                    像讀影像讀文字檔等等都是先讀到NSData，再套用格式到這團資料上去<br>
+              <li style="background-color: rgb(210, 230, 97);">把data放到startParsing去套用JSON格式，並且把資料放到陣列，然後驅動tableview重載</li>
+                  <XMP style="background-color: black;color: white;"> 
+        先設定三個成員 陣列
+        var stloc :NSMutableArray=[]
+        var stname :NSMutableArray=[]
+        var sttype :NSMutableArray=[]     
+
+        func startParsing(data :NSData){
+            //jsonObject(with: data as Data,可以把data套用JSON格式，因為整個json是一個物件{ }，所以宣告為NSDictionary
+            let dictdata: NSDictionary = (try! JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSDictionary
+            //雖然只有一筆資料還是要放到陣列上去
+            stname[0]=dictdata.value(forKey:"restaurantNames") as! NSString  //把資料放到陣列
+            stloc[0]=dictdata.value(forKey: "restaurantLocations") as! NSString   //把資料放到陣列
+            sttype[0]=dictdata.value(forKey: "restaurantTypes") as! NSString   //把資料放到陣列
+
+            tableView.reloadData() // 驅動tableview重載
+        }
+                  </XMP>
+              <li style="background-color: rgb(210, 230, 97);">tableView重載，讀取陣列資料</li>
+                  <p>number of row 一樣是陣列長度</p> 
+                  <p>cell for row 一樣從陣列塞資料進去tableView</p> 
+            </ol>
+          </div>
+      <h3>練習一之2、JSON格式是一個陣列[ ]</h3>
+      <div>
+        <ol>
+          <li style="background-color: rgb(210, 230, 97);">先拉<a href="test.json">test.json</a>進去專案，test.json長這樣</li>
               <XMP style="background-color: black;color: white;">
-              
-        func jsonParsingFromFile(){
-          let path: NSString = Bundle.main.path(forResource: "test1", ofType: "json")! as NSString  
-          let data : NSData = try! NSData(contentsOfFile: path as String, options: NSData.ReadingOptions.dataReadingMapped)
-          self.startParsing(data: data)
-        }  
-      
+
+  [
+      {"restaurantNames":"スシロー壽司郎 ","restaurantLocations":"台中市南屯區市政南一路158號","restaurantTypes":"Japanese", "Cafe","restaurantImages":"cafedeadend.jpg"},
+      {"restaurantNames":" Elephant Restaurant", "restaurantLocations":"台中市西屯區西屯路二段267之1號","restaurantTypes":"Tea House","restaurantImages":"homei.jpg"},
+      {"restaurantNames":"燒肉風間 Kazama","restaurantLocations":"台中市南屯區公益路二段171-1號","restaurantTypes":"Tea House","restaurantImages":"teakha.jpg"},
+      {"restaurantNames": "高沐手作料理餐廳", "restaurantLocations""台中市北區太平路19巷3弄15號","restaurantTypes":"Austrian / Causual Drink","restaurantImages":"royaloak.jpg"},
+      {"restaurantNames":"鐵克諾餐酒館", "restaurantLocations":"台中市西區忠明南路329號","restaurantTypes": "French","","restaurantImages":"cafeloisl.jpg"},
+      {"restaurantNames":"元 YUAN", "restaurantLocations":"408台中市南屯區大墩十七街35號","restaurantTypes": "Bakery","restaurantImages":"petiteoyster.jpg"},
+      {"restaurantNames": "RÊVE 黑浮咖啡", "restaurantLocations":"台中市西區公益路290號","restaurantTypes":"Bakery","restaurantImages":"forkeerestaurant.jpg"},
+      {"restaurantNames":"八豆食府壽喜燒專門店", "restaurantLocations":"台中市南屯區大光街162號","restaurantTypes":"Chocolate","restaurantImages":"posatelier.jpg"},
+      {"restaurantNames":"瓦庫燒肉 WOW COOL", "restaurantLocations":"台中市中區民權路16號","restaurantTypes": "Cafe","restaurantImages":"bourkestreetbakery.jpg"},
+      {"restaurantNames":"信川屋博多豚骨拉麵店", "restaurantLocations":"台中市西區中興八巷24號","restaurantTypes":"American / Seafood","restaurantImages":"haighschocolate.jpg"},
+      {"restaurantNames":"麵廊Meelang", "restaurantLocations":"台中市南屯區公益路二段612號","restaurantTypes":"American","restaurantImages": "palominoespresso.jpg"},
+      {"restaurantNames":"本壽司", "restaurantLocations":"台中市北區太原路二段175號","restaurantTypes":"American","restaurantImages":"upstate.jpg"},
+      {"restaurantNames":"龍之軒", "restaurantLocations": "台中市北區健行路407巷1號","restaurantTypes": "Breakfast & Brunch","restaurantImages":"traif.jpg"},
+      {"restaurantNames":"興鮮幸福鍋物", "restaurantLocations":"台中市霧峰區樹仁路23號","restaurantTypes": "Coffee & Tea","restaurantImages":"grahamavenuemeats.jpg"},
+      {"restaurantNames":"小潞屋 A Dream Road", "restaurantLocations":"台中市霧峰區四德路53號","restaurantTypes": "Coffee & Tea","restaurantImages":"wafflewolf.jpg"},
+      {"restaurantNames":"聖地庭園複合廚房", "restaurantLocations":"台中市霧峰區中正路677號","restaurantTypes":"Latin American","restaurantImages":"fiveleaves.jpg"},
+      {"restaurantNames":"NU PASTA 台中霧峰店", "restaurantLocations":"台中市霧峰區中正路1224巷17弄1號","restaurantTypes":"Spanish","restaurantImages":"cafelore.jpg"},
+      {"restaurantNames":"霧峰振卿肉羹大王", "restaurantLocations":"台中市霧峰區樹仁路107號","restaurantTypes":"Spanish","restaurantImages": "confessional.jpg"},
+      {"restaurantNames": "霧峰鴉片工場", "restaurantLocations":"台中市霧峰區林森路762號","restaurantTypes":"Spanish","restaurantImages":"barrafina.jpg"},
+      {"restaurantNames":"鴻利麵店","restaurantLocations":"台中市霧峰區中正路1180號","restaurantTypes":"British","restaurantImages":"donostia.jpg"}
+  ]
               </XMP>
+          <li style="background-color: rgb(210, 230, 97);">讀檔程式 從test.json讀到data裡面</li>
+          <XMP style="background-color: black;color: white;">
+          
+    func jsonParsingFromFile(){
+      let path: NSString = Bundle.main.path(forResource: "test", ofType: "json")! as NSString  
+      let data : NSData = try! NSData(contentsOfFile: path as String, options: NSData.ReadingOptions.dataReadingMapped)
+      self.startParsing(data: data)
+    }  
+  
+          </XMP>
               <p>
                 path = Bundle.main.path可以將app在手機上的檔案路徑轉成字串放到path<br>           
                 而let data : NSData = try! NSData(contentsOfFile: path as String....<br>
                 則讀取檔案放到data，data是NSData格式，NSData就是一團無格式資料，<br>
                 像讀影像讀文字檔等等都是先讀到NSData，再套用格式到這團資料上去<br>
-              <li style="background-color: rgb(210, 230, 97);">把data放到startParsing去套用JSON格式，並且把資料放到陣列，然後驅動tableview重載</li>
-              <XMP style="background-color: black;color: white;"> 
-              
-    func startParsing(data :NSData){
-        //jsonObject(with: data as Data,可以把data套用JSON格式，因為整個json是一個物件{ }，所以宣告為NSDictionary
-        let dictdata: NSDictionary = (try! JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSDictionary
-        //雖然只有一筆資料還是要放到陣列上去
-        stname[0]=dictdata.value(forKey:"restaurantNames") as! NSString  //把資料放到陣列
-        stloc[0]=dictdata.value(forKey: "restaurantLocations") as! NSString   //把資料放到陣列
-        sttype[0]=dictdata.value(forKey: "restaurantTypes") as! NSString   //把資料放到陣列
-
-        tableView.reloadData() // 驅動tableview重載
-    }
-              </XMP>
-              <li style="background-color: rgb(210, 230, 97);">tableView重載，讀取陣列資料</li>
+          <li style="background-color: rgb(210, 230, 97);">把data放到startParsing去套用JSON格式，並且把資料放到陣列，然後驅動tableview重載</li>
+             
+          <XMP style="background-color: black;color: white;"> 
+            先設定三個成員 陣列
+            var stloc :NSMutableArray=[]
+            var stname :NSMutableArray=[]
+            var sttype :NSMutableArray=[]     
+                 
+            func startParsing(data :NSData){
+                //jsonObject(with: data as Data,可以把data套用JSON格式，因為整個json是一個陣列[]，所以宣告為NSArray
+                let dictdata:NSArray=(try! JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSArray
+                for i in 0 ..&lt; (dictdata.count)
+                {//把資料放到陣列
+                  stname[i]=(dictdata[i] as! NSDictionary).value(forKey:"restaurantNames") as! NSString
+                  stloc[i]=(dictdata[i] as! NSDictionary).value(forKey: "restaurantLocations") as! NSString
+                  sttype[i]=(dictdata[i] as! NSDictionary).value(forKey: "restaurantTypes") as! NSString
+                }
+                tableView.reloadData() // 驅動tableview重載
+            }
+          </XMP>
+          <li style="background-color: rgb(210, 230, 97);">tableView重載，讀取陣列資料</li>
               <p>number of row 一樣是陣列長度</p> 
               <p>cell for row 一樣從陣列塞資料進去tableView</p> 
-            </ol>
-            </div>
-      <h3>練習一之2、JSON格式是一個陣列[ ]</h3>
+        </ol>
+      </div>
       </section>
       <section  id="no5"><h2 >如何使用PHP語言寫伺服器程式，當客戶端呼叫這個程式就會傳回JSON格式資料</h2>
       </section>
