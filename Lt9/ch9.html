@@ -450,12 +450,171 @@
       </div>
       </section>
       <section  id="no5"><h2 >如何使用PHP語言寫伺服器程式，當客戶端呼叫這個程式就會傳回JSON格式資料</h2>
+        
+
+<p>請大家使用瀏覽器看一下呼叫結果http://support.colorlife.com.tw/log.php</p>
+<p>應該可以看到他出現一組JSON資料如下</p>
+<p>[{"restaurantNames":"Cafe Deadend","restaurantLocations":"Hong Kong","restaurantTypes":"Coffee & Tea Shop"}, 
+{"restaurantNames":"Homei", "restaurantLocations":"London","restaurantTypes":"Cafe"}, 
+{"restaurantNames":"Teakha","restaurantLocations":"London","restaurantTypes":"Tea House"}, 
+{"restaurantNames": "Cafe Loisl", "restaurantLocations":"Sydney","restaurantTypes":"Austrian / Causual Drink"},
+{"restaurantNames":"Petite Oyster", "restaurantLocations":"Hong Kong","restaurantTypes": "French"},
+{"restaurantNames":"For Kee Restaurant", "restaurantLocations":"Hong Kong","restaurantTypes": "Bakery"}, 
+{"restaurantNames":"Po's Atelier", "restaurantLocations":"Hong Kong","restaurantTypes":"Bakery"}, 
+{"restaurantNames":"Bourke Street Bakery", "restaurantLocations":"Sydney","restaurantTypes":"Chocolate"},
+{"restaurantNames":"Haigh’s Chocolate", "restaurantLocations":"Hong Kong","restaurantTypes": "Cafe"}, 
+{"restaurantNames":"Palomino Espresso", "restaurantLocations":"New York","restaurantTypes":"American / Seafood"}, 
+{"restaurantNames":"Upstate",  "restaurantLocations":"Sydney","restaurantTypes":"American"}, 
+{"restaurantNames":"Graham Avenue Meats And Deli", "restaurantLocations":"Hong Kong","restaurantTypes":"American"},
+{"restaurantNames":"Waffle & Wolf", "restaurantLocations":"Hong Kong","restaurantTypes": "Breakfast & Brunch"},
+{"restaurantNames":"Five Leaves", "restaurantLocations":"Hong Kong","restaurantTypes": "Coffee & Tea"},
+{"restaurantNames":"Cafe Lore", "restaurantLocations":"New York","restaurantTypes": "Coffee & Tea"}, 
+{"restaurantNames":"Confessional", "restaurantLocations":"Hong Kong","restaurantTypes":"Latin American"}, 
+{"restaurantNames":"Barrafina", "restaurantLocations":"New York","restaurantTypes":"Spanish"}, 
+{"restaurantNames":"Donostia", "restaurantLocations":"Hong Kong","restaurantTypes":"Spanish"}, 
+{"restaurantNames":"Royal Oak", "restaurantLocations":"New York","restaurantTypes":"Spanish"}, 
+{"restaurantNames":"CASK Pub and Kitchen","restaurantLocations":"London","restaurantTypes":"British"}
+]</p>
+<p>&nbsp;</p>
+<p>下面是log.php的內容</p>
+<p>&lt;?php<br>
+</p>
+<p><br>
+  $outp='[{&quot;restaurantNames&quot;:&quot;Cafe Deadend&quot;,&quot;restaurantLocations&quot;:&quot;Hong Kong&quot;,&quot;restaurantTypes&quot;:&quot;Coffee &amp; Tea Shop&quot;}, <br>
+  {&quot;restaurantNames&quot;:&quot;Homei&quot;, &quot;restaurantLocations&quot;:&quot;London&quot;,&quot;restaurantTypes&quot;:&quot;Cafe&quot;}, <br>
+  {&quot;restaurantNames&quot;:&quot;Teakha&quot;,&quot;restaurantLocations&quot;:&quot;London&quot;,&quot;restaurantTypes&quot;:&quot;Tea House&quot;}, <br>
+  {&quot;restaurantNames&quot;: &quot;Cafe Loisl&quot;, &quot;restaurantLocations&quot;:&quot;Sydney&quot;,&quot;restaurantTypes&quot;:&quot;Austrian / Causual Drink&quot;},<br>
+  {&quot;restaurantNames&quot;:&quot;Petite Oyster&quot;, &quot;restaurantLocations&quot;:&quot;Hong Kong&quot;,&quot;restaurantTypes&quot;: &quot;French&quot;},<br>
+  {&quot;restaurantNames&quot;:&quot;For Kee Restaurant&quot;, &quot;restaurantLocations&quot;:&quot;Hong Kong&quot;,&quot;restaurantTypes&quot;: &quot;Bakery&quot;}, <br>
+  {&quot;restaurantNames&quot;:&quot;Po\'s Atelier&quot;, &quot;restaurantLocations&quot;:&quot;Hong Kong&quot;,&quot;restaurantTypes&quot;:&quot;Bakery&quot;}, <br>
+  {&quot;restaurantNames&quot;:&quot;Bourke Street Bakery&quot;, &quot;restaurantLocations&quot;:&quot;Sydney&quot;,&quot;restaurantTypes&quot;:&quot;Chocolate&quot;},<br>
+  {&quot;restaurantNames&quot;:&quot;Haigh’s Chocolate&quot;, &quot;restaurantLocations&quot;:&quot;Hong Kong&quot;,&quot;restaurantTypes&quot;: &quot;Cafe&quot;}, <br>
+  {&quot;restaurantNames&quot;:&quot;Palomino Espresso&quot;, &quot;restaurantLocations&quot;:&quot;New York&quot;,&quot;restaurantTypes&quot;:&quot;American / Seafood&quot;}, <br>
+  {&quot;restaurantNames&quot;:&quot;Upstate&quot;,  &quot;restaurantLocations&quot;:&quot;Sydney&quot;,&quot;restaurantTypes&quot;:&quot;American&quot;}, <br>
+  {&quot;restaurantNames&quot;:&quot;Graham Avenue Meats And Deli&quot;, &quot;restaurantLocations&quot;:&quot;Hong Kong&quot;,&quot;restaurantTypes&quot;:&quot;American&quot;},<br>
+  {&quot;restaurantNames&quot;:&quot;Waffle &amp; Wolf&quot;, &quot;restaurantLocations&quot;:&quot;Hong Kong&quot;,&quot;restaurantTypes&quot;: &quot;Breakfast &amp; Brunch&quot;},<br>
+  {&quot;restaurantNames&quot;:&quot;Five Leaves&quot;, &quot;restaurantLocations&quot;:&quot;Hong Kong&quot;,&quot;restaurantTypes&quot;: &quot;Coffee &amp; Tea&quot;},<br>
+  {&quot;restaurantNames&quot;:&quot;Cafe Lore&quot;, &quot;restaurantLocations&quot;:&quot;New York&quot;,&quot;restaurantTypes&quot;: &quot;Coffee &amp; Tea&quot;}, <br>
+  {&quot;restaurantNames&quot;:&quot;Confessional&quot;, &quot;restaurantLocations&quot;:&quot;Hong Kong&quot;,&quot;restaurantTypes&quot;:&quot;Latin American&quot;}, <br>
+  {&quot;restaurantNames&quot;:&quot;Barrafina&quot;, &quot;restaurantLocations&quot;:&quot;New York&quot;,&quot;restaurantTypes&quot;:&quot;Spanish&quot;}, <br>
+  {&quot;restaurantNames&quot;:&quot;Donostia&quot;, &quot;restaurantLocations&quot;:&quot;Hong Kong&quot;,&quot;restaurantTypes&quot;:&quot;Spanish&quot;}, <br>
+  {&quot;restaurantNames&quot;:&quot;Royal Oak&quot;, &quot;restaurantLocations&quot;:&quot;New York&quot;,&quot;restaurantTypes&quot;:&quot;Spanish&quot;}, <br>
+  {&quot;restaurantNames&quot;:&quot;CASK Pub and Kitchen&quot;,&quot;restaurantLocations&quot;:&quot;London&quot;,&quot;restaurantTypes&quot;:&quot;British&quot;}<br>
+  ]';</p>
+<p>header(&quot;Access-Control-Allow-Origin: *&quot;);<br>
+  header(&quot;Content-Type: application/json; charset=UTF-8&quot;);<br>
+  echo($outp);</p>
+<p>?&gt;</p>
+<p>和一般網頁檔比較，他沒有</p>
+<p>&lt;!DOCTYPE html&gt;<br>
+  &lt;html lang=&quot;en&quot;&gt;<br>
+</p>
+<p>之類的HTML文件設定</p>
+<p>反而 他有這兩行</p>
+<p>header(&quot;Access-Control-Allow-Origin: *&quot;);<br>
+  header(&quot;Content-Type: application/json; charset=UTF-8&quot;);</p>
+<p>來表示他是JSON文件，不是HTML文件</p>
+<p>所以看一下整個log.php</p>
+<p>就是先組織一個JSON格式的字串$outp (PHP程式規定變數前面都必須加上$)</p>
+<p>加上兩行JSON標頭</p>
+<p>最後echo($outp);是把JSON格式的字串$outp丟出來給客戶端</p>
+<p>&nbsp;</p>
+<p>如果不是使用PHP而是使用其他的伺服器語言，原則上也是一樣==&gt;組織字串==&gt;加JSON標頭==&gt;發出JSON資料</p>
+<hr>
       </section>
       <section  id="no6"><h2 >練習二、從遠端透過HTPP協定讀取JSON資料放到那三個Label中</h2>
+        
+<p>一般我們很少會去讀JSON檔，大多是透過網路解析伺服器傳來的JSON資料</p>
+<p>使用練習一的程式，要修改的部分是viewDidLoad中，改成呼叫jsonParsingFromURL()，他會去http://support.colorlife.com.tw/log.php去抓JSON資料</p>
+<p>然後一樣存到<font color="#FF0004">data</font>裡面 ，再把<font color="#FF0004">data</font>放到<font color="#FF0004">startParsing</font>去拆卸JSON格式</p>
+<p> 讀遠端檔顯示</p>
+<p>程式如下</p>
+<p><img src="images/ch76.png" alt="" width="871" height="340"></p>
+<p>override func viewDidLoad() {<br>
+<p class="r1">super.viewDidLoad()<br>
+// Do any additional setup after loading the view, typically from a nib.<br>
+<font color="#FF0004">jsonParsingFromURL()</font><br>
+//jsonParsingFromFile()</p><br>
+}<br>
+<br>
+func jsonParsingFromURL () {<br>
+<p class="r1">let request = NSMutableURLRequest(url: NSURL(string: <font color="#FF0004">&quot;http://support.colorlife.com.tw/log.php&quot;</font>)! as URL)<br>
+let session = URLSession.shared<br>
+//request.httpMethod = &quot;POST&quot;<br>
+ //let params = [&quot;restaurantNames&quot;:&quot;restaurantNames&quot;, &quot;restaurantLocations&quot;:&quot;restaurantLocations&quot;,&quot;restaurantTypes&quot;:&quot;restaurantTypes&quot;] as Dictionary&lt;String, String&gt;<br>
+//request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
+<br>
+  request.addValue(&quot;application/json&quot;, forHTTPHeaderField: &quot;Content-Type&quot;)<br>
+  request.addValue(&quot;application/json&quot;, forHTTPHeaderField: &quot;Accept&quot;)<br>
+  let task = <font color="#FF0004">session.dataTask</font>(with: request as URLRequest,<br>
+   <div class="r2"><font color="#FF0004">completionHandler:</font><br>
+  {<br>
+  <span class="r3"><font color="#FF0004">data</font>, response, error -&gt; Void in<br></span>
+  <span class="r3">self.startParsing(<font color="#FF0004">data</font>: data! as NSData)<br></span>
+  }<br></div>
+  )<br>
+  task.resume()<br>
+  </p>
+  }
+<p>在這邊，先提一下寫通訊程式的基本知識，同步和非同步</p>
+<p>假設有ABC三行程式，其中B是去遠端抓一個資料要來給C處理，</p>
+<p>但是網路抓資料是有延遲的，所以有可能資料還沒回來，C就已經執行了，只是沒資料可用(因為還在路上)，我們會很懷疑，在C後面把資料印出來，結果又可以印出來(因為資料已經回來了)</p>
+<p>因此如果我們使用同步機制，讓C必須等B的資料回來之後才執行，那麼這個就是同步(synchronize)<br>
+</p>
+<p>同步會有風險，萬一資料都不回來，程式會在這邊卡很久</p>
+<p>反之，如果不等B的通訊結果就直接執行C，就是不同步(unsynchronize)</p>
+<p>例如，B發一封eamil出去給全公司的200人，如果要等到200都確定沒問題，你的程式這時候看起來就是在當機狀態中，你會被你的客戶瞧不起的。</p>
+<p>&nbsp;</p>
+<p> 上面的<font color="#FF0004">session.dataTask</font>&nbsp;會等伺服器回應之後才會去執行他的<font color="#FF0004">completionHandler:</font></p>
+<p>所以<font color="#FF0004">completionHandler:</font>裡面的data一訂有讀到資料，如果沒有讀到資料則error會有錯誤訊息</p>
+<p>****************************************************************</p>
+<p>iOS有通訊上的安全機制，當你想要使用HTTP協定之前，你必須解除這個安全機制。</p>
+<p>下面是未解除安全機制就執行所出現的錯誤訊息</p>
+<p><img src="images/ch77.png" alt="" width="590" height="248"></p>
+<p>&nbsp;</p>
+<p>下面是解除這個安全機制的方法</p>
+<p>必須做下面設定 來打開http的安全設定</p>
+<p><img src="images/ch78.png" alt="" width="1132" height="460"><img src="images/ch79.png" alt="" width="843" height="425"></p>
+<p>這樣應該就會成功了</p>
       </section>
       <section  id="no7"><h2 >多執行緒的概念，以及有些動作只能在main執行緒做，應該怎麼解決?</h2>
+        
+<p>一台電腦或手機同時間其實是有很多的程式在執行，作業系統(像WINDOW10或者MAC的iOS)他會負責調配讓這些程式能夠被執行順利，使得使用者會誤以為一次只有執行一個程式</p>
+<p>所以作業系統就一下子就讓這個執行，一下子又讓那個執行，他要把硬體的執行程式的能力妥善的分配下去</p>
+<p>而他分配的對象就是執行緒，一個程式通常會有多於一個的執行緒，所以</p>
+<p>作業系統就是把硬體的執行程式的能力妥善的分配給所有的執行緒</p>
+<p>在我們剛剛這個網路程式，他一開始會有一個main的執行緒，當要透過網路去伺服器抓資料時，她會多生出一個執行緒，專門幫你執行這些網路工作直到資料回來，所有指定的事情都辦好了</p>
+<p>這個執行緒就自己去跳樓結束他勞苦功高的一生</p>
+<p>在iOS的程式中有一項規定，視覺元件的操作指令都必須在main執行緒完成</p>
+<p>而我們剛剛的程式，</p>
+<p class="r1">let task = <font color="#FF0004">session.dataTask</font>(with: request as URLRequest,<br>
+<div class="r2"><font color="#FF0004">completionHandler:</font><br>
+  {<br>
+  <span class="r3"><font color="#FF0004">data</font>, response, error -&gt; Void in<br>
+  </span> <span class="r3">self.startParsing(<font color="#FF0004">data</font>: data! as NSData)<br>
+  </span> }<br>
+</div>
+)
+<p>他是在另一個執行緒，不是main執行緒，而
+self.startParsing(<font color="#FF0004">data</font>: data! as NSData)
+<p>會去動到那些Label，這樣就會比較麻煩了</p>
+<p>當然我們是可以在main中一直去偵測資料回來了嗎?回來了就放到label去</p>
+<p>可是這樣很麻煩也沒有效率，可能出問題的機會很高</p>
+<p>&nbsp;</p>
+<p>下面程式可以把工作self.tableView.reloadData()丟到main執行緒去做，是比較好的方式</p>
+<p>&nbsp;</p>
+<p>DispatchQueue.main.async {<br>
+self.tableView.reloadData()<br>
+}</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p><br>
+</p>
       </section>
       <section  id="no8"><h2 >作業</h2>
+        
+<h3>接下來 把程式加到上周進度去 讓上一個單元的進度中，cell5中除了影像之外的資料 都可以去伺服器的log.php抓取顯示</h3>
+<p>&nbsp;</p>
       </section>
 
 
