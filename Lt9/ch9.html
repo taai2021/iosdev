@@ -607,57 +607,85 @@ echo($outp);
                 }
 
               </XMP>
+              <li style="background-color: rgb(210, 230, 97);">APP TRANSPORT SECURITY → app傳輸安全</li>
+                <p>iOS有通訊上的安全機制，當你想要使用HTTP協定之前，你必須解除這個安全機制。<br>  
+                下面是未解除安全機制就執行所出現的錯誤訊息<br>  
+                <img src="images/ch77.png" alt="" width="590" height="248"><br>  
+          
+                <p>下面是解除這個安全機制的方法<br>  
+                必須做下面設定 來打開http的安全設定<br>  
+                <img src="images/ch78.png" alt="" width="1132" height="460"><br>  
+                  <img src="images/ch79.png" alt="" width="843" height="425"></p>
+              
         </ol>
-        func jsonParsingFromURL () {<br>
-        <p class="r1">let request = NSMutableURLRequest(url: NSURL(string: <font color="#FF0004">&quot;http://support.colorlife.com.tw/log.php&quot;</font>)! as URL)<br>
-        let session = URLSession.shared<br>
-        //request.httpMethod = &quot;POST&quot;<br>
-        //let params = [&quot;restaurantNames&quot;:&quot;restaurantNames&quot;, &quot;restaurantLocations&quot;:&quot;restaurantLocations&quot;,&quot;restaurantTypes&quot;:&quot;restaurantTypes&quot;] as Dictionary&lt;String, String&gt;<br>
-        //request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
-        <br>
-          request.addValue(&quot;application/json&quot;, forHTTPHeaderField: &quot;Content-Type&quot;)<br>
-          request.addValue(&quot;application/json&quot;, forHTTPHeaderField: &quot;Accept&quot;)<br>
-          let task = <font color="#FF0004">session.dataTask</font>(with: request as URLRequest,<br>
-          <div class="r2"><font color="#FF0004">completionHandler:</font><br>
-          {<br>
-          <span class="r3"><font color="#FF0004">data</font>, response, error -&gt; Void in<br></span>
-          <span class="r3">self.startParsing(<font color="#FF0004">data</font>: data! as NSData)<br></span>
-          }<br></div>
-          )<br>
-          task.resume()<br>
-          </p>
-          }
-        <p>在這邊，先提一下寫通訊程式的基本知識，同步和非同步</p>
-        <p>假設有ABC三行程式，其中B是去遠端抓一個資料要來給C處理，</p>
-        <p>但是網路抓資料是有延遲的，所以有可能資料還沒回來，C就已經執行了，只是沒資料可用(因為還在路上)，我們會很懷疑，在C後面把資料印出來，結果又可以印出來(因為資料已經回來了)</p>
-        <p>因此如果我們使用同步機制，讓C必須等B的資料回來之後才執行，那麼這個就是同步(synchronize)<br>
-        </p>
-        <p>同步會有風險，萬一資料都不回來，程式會在這邊卡很久</p>
-        <p>反之，如果不等B的通訊結果就直接執行C，就是不同步(unsynchronize)</p>
-        <p>例如，B發一封eamil出去給全公司的200人，如果要等到200都確定沒問題，你的程式這時候看起來就是在當機狀態中，你會被你的客戶瞧不起的。</p>
-        <p>&nbsp;</p>
-        <p> 上面的<font color="#FF0004">session.dataTask</font>&nbsp;會等伺服器回應之後才會去執行他的<font color="#FF0004">completionHandler:</font></p>
-        <p>所以<font color="#FF0004">completionHandler:</font>裡面的data一訂有讀到資料，如果沒有讀到資料則error會有錯誤訊息</p>
-        <p>****************************************************************</p>
-        <p>iOS有通訊上的安全機制，當你想要使用HTTP協定之前，你必須解除這個安全機制。</p>
-        <p>下面是未解除安全機制就執行所出現的錯誤訊息</p>
-        <p><img src="images/ch77.png" alt="" width="590" height="248"></p>
-        <p>&nbsp;</p>
-        <p>下面是解除這個安全機制的方法</p>
-        <p>必須做下面設定 來打開http的安全設定</p>
-        <p><img src="images/ch78.png" alt="" width="1132" height="460"><img src="images/ch79.png" alt="" width="843" height="425"></p>
         <p>這樣應該就會成功了</p>
               </section>
               <section  id="no7"><h2 >多執行緒的概念，以及有些動作只能在main執行緒做，應該怎麼解決?</h2>
-                
-        <p>一台電腦或手機同時間其實是有很多的程式在執行，作業系統(像WINDOW10或者MAC的iOS)他會負責調配讓這些程式能夠被執行順利，使得使用者會誤以為一次只有執行一個程式</p>
-        <p>所以作業系統就一下子就讓這個執行，一下子又讓那個執行，他要把硬體的執行程式的能力妥善的分配下去</p>
-        <p>而他分配的對象就是執行緒，一個程式通常會有多於一個的執行緒，所以</p>
-        <p>作業系統就是把硬體的執行程式的能力妥善的分配給所有的執行緒</p>
-        <p>在我們剛剛這個網路程式，他一開始會有一個main的執行緒，當要透過網路去伺服器抓資料時，她會多生出一個執行緒，專門幫你執行這些網路工作直到資料回來，所有指定的事情都辦好了</p>
-        <p>這個執行緒就自己去跳樓結束他勞苦功高的一生</p>
-        <p>在iOS的程式中有一項規定，視覺元件的操作指令都必須在main執行緒完成</p>
-        <p>而我們剛剛的程式，</p>
+                <h3>等 還是 不等？ </h3>
+                    <p>
+                      如下圖<br>
+                      程式執行時，向伺服器要求資料，要不要等收到回應資料，再繼續執行下一行程式碼？<br>
+                      就是等或者不等的問題
+                    </p>
+                      <img src="images/no2.png" alt="">
+                    <p><br>
+                      不等資料回來就執行的話是有問題的，<br>
+                      因為網路抓資料是有延遲的，所以有可能資料還沒回來，D就已經執行了，只是沒資料可用(因為還在路上)，<br>
+                      而且很可能在E步驟去把資料印出來，結果竟然印出來了，<br>
+                      想想看，E緊接在D後面，D印不到資料，E卻印出來了<br>
+                      這是因為執行到E的時候，資料已經回來了</p>
+                    <p>但是等也是有風險，萬一資料都不回來，程式會在這邊卡很久</p>
+                    <p>
+                      例如，發一封eamil出去給全公司的200人，如果要等到200都確定沒問題，<br>
+                      你的程式這時候看起來就是在當機狀態中，你的程式會被退貨的。
+                    </p>
+                <h3>多執行緒 </h3>
+                        <p>
+                          一台電腦或手機同時間其實是有很多的程式在執行，<br>
+                          雖然現在一台電腦可以有多個CPU可以去執行程式，<br>
+                          但是百分之百，電腦上需要同時被執行的程式一定遠比CPU多<br>
+                          所以作業系統(像WINDOW10或者MAC的iOS)他會負責調配讓這些程式能夠被執行，<br>
+                          使得使用者會誤以為所有程式都同時在執行，怎麼做呢？</p>
+                        <p>
+                          解答是<br>
+                          作業系統就一下子就讓這個執行，一下子又讓那個執行，<br>
+                          快速的在每個需要被執行的程式間巡迴執行<br>
+                          把CPU執行時間分配給每個程式，這個叫做分時系統<br>
+                          而他分配的對象就是執行緒，一個程式通常會有多於一個的執行緒，<br>
+                          所以前面等或不等問題的解答就是<br>
+                          另外增加一個執行緒去等以及處理收到的資料<br>
+                          而本身執行緒就繼續執行下去，如下圖<br>
+                        </p>
+                        <img src="images/no3.png" alt="">
+                        <p>
+                          上圖右邊，一開始會有一個main的執行緒，<br>
+                          當要透過網路去伺服器抓資料時，她會多生出一個執行緒，專門幫你等資料回來和處理資料<br>
+                          這樣有解決問題嗎？<br>
+                          1 D一定印得到資料，因為多增加一個執行緒來讓C等資料，等資料來了才來執行D。<br>
+                          2 不會卡卡，一發出request，主執行緒立馬撒手，把資料的事丟給執行緒去處理<br>
+                        </p>
+                <p>而我們剛剛的程式，</p>
+
+                <XMP style="background-color: black;color: white;"> 
+          
+                  unc jsonParsingFromURL () {
+   1個執行緒         主  let request = NSMutableURLRequest(url: NSURL(string: "http://163.17.20.6 /log.php")! as URL)    
+   1個執行緒         主  //request.httpMethod = "POST"
+   1個執行緒         主  request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+   1個執行緒         主  request.addValue("application/json", forHTTPHeaderField: "Accept")
+   1個執行緒         主  let session = URLSession.shared
+   1個執行緒         主  let task = session.dataTask(with: request as URLRequest,completionHandler:{
+   2個執行緒         主                 新 →  →  →  →  →  →  →                     data, response, error -> Void in
+   2個執行緒         主                 新 →  →  →  →  →  →  →                     self.startParsing(data: data! as NSData)
+   1個執行緒         主                                                         })
+   1個執行緒         主     task.resume()
+   1個執行緒         主  }
+   1個執行緒         主
+                            </XMP>          
+
+
+
+
         <p class="r1">let task = <font color="#FF0004">session.dataTask</font>(with: request as URLRequest,<br>
         <div class="r2"><font color="#FF0004">completionHandler:</font><br>
           {<br>
@@ -666,6 +694,12 @@ echo($outp);
           </span> }<br>
         </div>
         )
+        
+        <p> 
+          上面的<font color="#FF0004">session.dataTask</font>&nbsp;會等伺服器回應之後才會去執行他的<font color="#FF0004">completionHandler:</font></p>
+        <p>所以<font color="#FF0004">completionHandler:</font>裡面的data一訂有讀到資料，如果沒有讀到資料則error會有錯誤訊息</p>
+        <p>****************************************************************</p>
+                        <p>在iOS的程式中有一項規定，視覺元件的操作指令都必須在main執行緒完成</p>
         <p>他是在另一個執行緒，不是main執行緒，而
         self.startParsing(<font color="#FF0004">data</font>: data! as NSData)
         <p>會去動到那些Label，這樣就會比較麻煩了</p>
