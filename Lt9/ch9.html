@@ -377,6 +377,15 @@
               <li style="background-color: rgb(210, 230, 97);">tableView重載，讀取陣列資料</li>
                   <p>number of row 一樣是陣列長度</p> 
                   <p>cell for row 一樣從陣列塞資料進去tableView</p> 
+              <li style="background-color: rgb(210, 230, 97);">在viewDidLoad()中呼叫jsonParsingFromFile()啟動讀檔</li>
+               <XMP style="background-color: black;color: white;">
+                override func viewDidLoad() {
+                  super.viewDidLoad()
+                  jsonParsingFromFile()
+                  
+                }
+
+              </XMP>
             </ol>
           </div>
       <h3>練習一之2、JSON格式是一個陣列[ ]</h3>
@@ -446,6 +455,15 @@
           <li style="background-color: rgb(210, 230, 97);">tableView重載，讀取陣列資料</li>
               <p>number of row 一樣是陣列長度</p> 
               <p>cell for row 一樣從陣列塞資料進去tableView</p> 
+              <li style="background-color: rgb(210, 230, 97);">在viewDidLoad()中呼叫jsonParsingFromFile()啟動讀檔</li>
+               <XMP style="background-color: black;color: white;">
+                override func viewDidLoad() {
+                  super.viewDidLoad()
+                  jsonParsingFromFile()
+                  
+                }
+
+              </XMP>
         </ol>
       </div>
       </section>
@@ -455,7 +473,7 @@
 <p>請大家使用瀏覽器看一下呼叫結果http://163.17.20.6/log.php</p>
 <p>&nbsp;</p>
 <p>下面是 <a href="log.php"> log.php</a>的內容(如果複製貼上要注意＜?php 的＜我使用全形要改回來)</p>
-<pre>
+<XMP style="background-color: black;color: white;">
   ＜?php
 $outp='[{"restaurantNames":"スシロー壽司郎 ","restaurantLocations":"台中市南屯區市政南一路158號","restaurantTypes":"Japanese", "restaurantImages":"cafedeadend.jpg"},
 {"restaurantNames":" Elephant Restaurant", "restaurantLocations":"台中市西屯區西屯路二段267之1號","restaurantTypes":"Tea House","restaurantImages":"homei.jpg"},
@@ -484,113 +502,185 @@ header("Content-Type: application/json; charset=UTF-8");
 echo($outp);
 
 ?>
-</pre>
+</XMP>
 
-<p>和一般網頁檔比較，他沒有</p>
-<p>&lt;!DOCTYPE html&gt;<br>
-  &lt;html lang=&quot;en&quot;&gt;<br>
-</p>
-<p>之類的HTML文件設定</p>
-<p>反而 他有這兩行</p>
-<p>header(&quot;Access-Control-Allow-Origin: *&quot;);<br>
-  header(&quot;Content-Type: application/json; charset=UTF-8&quot;);</p>
-<p>來表示他是JSON文件，不是HTML文件</p>
-<p>所以看一下整個log.php</p>
-<p>就是先組織一個JSON格式的字串$outp (PHP程式規定變數前面都必須加上$)</p>
-<p>加上兩行JSON標頭</p>
-<p>最後echo($outp);是把JSON格式的字串$outp丟出來給客戶端</p>
-<p>&nbsp;</p>
-<p>如果不是使用PHP而是使用其他的伺服器語言，原則上也是一樣==&gt;組織字串==&gt;加JSON標頭==&gt;發出JSON資料</p>
-<hr>
+        <p>和一般網頁檔比較，他沒有</p>
+        <p>〈!DOCTYPE html〉<br>
+          〈html lang=＂en＂〉<br>
+        </p>
+        <p>之類的HTML文件設定</p>
+        <p>反而 他有這兩行</p>
+        <p>header(＂Access-Control-Allow-Origin: *＂);<br>
+          header(＂Content-Type: application/json; charset=UTF-8＂);</p>
+        <p>來表示他是JSON文件，不是HTML文件</p>
+        <p>所以看一下整個log.php</p>
+        <p>就是先組織一個JSON格式的字串$outp (PHP程式規定變數前面都必須加上$)</p>
+        <p>加上兩行JSON標頭</p>
+        <p>最後echo($outp);是把JSON格式的字串$outp丟出來給客戶端</p>
+        <p>如果不是使用PHP而是使用其他的伺服器語言，原則上也是一樣 → 組織字串 → 加JSON標頭 → 發出JSON資料</p>
+        <hr>
       </section>
-      <section  id="no6"><h2 >練習二、從遠端透過HTPP協定讀取JSON資料放到那三個Label中</h2>
+      <section  id="no6"><h2 >練習二、從 遠端透過HTPP協定讀取JSON資料放到那三個Label中</h2>
         
-<p>一般我們很少會去讀JSON檔，大多是透過網路解析伺服器傳來的JSON資料</p>
-<p>使用練習一的程式，要修改的部分是viewDidLoad中，改成呼叫jsonParsingFromURL()，他會去http://support.colorlife.com.tw/log.php去抓JSON資料</p>
-<p>然後一樣存到<font color="#FF0004">data</font>裡面 ，再把<font color="#FF0004">data</font>放到<font color="#FF0004">startParsing</font>去拆卸JSON格式</p>
-<p> 讀遠端檔顯示</p>
-<p>程式如下</p>
-<p><img src="images/ch76.png" alt="" width="871" height="340"></p>
-<p>override func viewDidLoad() {<br>
-<p class="r1">super.viewDidLoad()<br>
-// Do any additional setup after loading the view, typically from a nib.<br>
-<font color="#FF0004">jsonParsingFromURL()</font><br>
-//jsonParsingFromFile()</p><br>
-}<br>
-<br>
-func jsonParsingFromURL () {<br>
-<p class="r1">let request = NSMutableURLRequest(url: NSURL(string: <font color="#FF0004">&quot;http://support.colorlife.com.tw/log.php&quot;</font>)! as URL)<br>
-let session = URLSession.shared<br>
-//request.httpMethod = &quot;POST&quot;<br>
- //let params = [&quot;restaurantNames&quot;:&quot;restaurantNames&quot;, &quot;restaurantLocations&quot;:&quot;restaurantLocations&quot;,&quot;restaurantTypes&quot;:&quot;restaurantTypes&quot;] as Dictionary&lt;String, String&gt;<br>
-//request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
-<br>
-  request.addValue(&quot;application/json&quot;, forHTTPHeaderField: &quot;Content-Type&quot;)<br>
-  request.addValue(&quot;application/json&quot;, forHTTPHeaderField: &quot;Accept&quot;)<br>
-  let task = <font color="#FF0004">session.dataTask</font>(with: request as URLRequest,<br>
-   <div class="r2"><font color="#FF0004">completionHandler:</font><br>
-  {<br>
-  <span class="r3"><font color="#FF0004">data</font>, response, error -&gt; Void in<br></span>
-  <span class="r3">self.startParsing(<font color="#FF0004">data</font>: data! as NSData)<br></span>
-  }<br></div>
-  )<br>
-  task.resume()<br>
-  </p>
+        <p>前面是使用 jsonParsingFromFile()來讀取JSON檔，送到startParsing(）去套用JSON格式<br>
+          練習二則是透過jsonParsingFromURL()發送要求給遠端伺服器，並且接受JSON格式的資料（不是一個檔案）
+        </p>
+        <ol>
+          <li style="background-color: rgb(210, 230, 97);">
+            修改練習一的viewDidLoad中的部分，改成呼叫jsonParsingFromURL()</li>
+<XMP style="background-color: black;color: white;">
+
+          override func viewDidLoad() {
+            super.viewDidLoad()
+            
+            jsonParsingFromURL()
+            //jsonParsingFromFile()
+            
+            
+            }
+</XMP>
+         
+          <li style="background-color: rgb(210, 230, 97);">
+            加上jsonParsingFromURL ()
+          </li> 
+          <XMP style="background-color: black;color: white;"> 
+          
+  unc jsonParsingFromURL () {
+    let request = NSMutableURLRequest(url: NSURL(string: "http://163.17.20.6 /log.php")! as URL)    
+    //request.httpMethod = "POST"
+    request.addValue("application/json", forHTTPHeaderField: "Content-Type")
+    request.addValue("application/json", forHTTPHeaderField: "Accept")
+    let session = URLSession.shared
+    let task = session.dataTask(with: request as URLRequest,completionHandler:{
+                                                                  data, response, error -> Void in
+                                                                  self.startParsing(data: data! as NSData)
+                                                            })
+    task.resume()
   }
-<p>在這邊，先提一下寫通訊程式的基本知識，同步和非同步</p>
-<p>假設有ABC三行程式，其中B是去遠端抓一個資料要來給C處理，</p>
-<p>但是網路抓資料是有延遲的，所以有可能資料還沒回來，C就已經執行了，只是沒資料可用(因為還在路上)，我們會很懷疑，在C後面把資料印出來，結果又可以印出來(因為資料已經回來了)</p>
-<p>因此如果我們使用同步機制，讓C必須等B的資料回來之後才執行，那麼這個就是同步(synchronize)<br>
-</p>
-<p>同步會有風險，萬一資料都不回來，程式會在這邊卡很久</p>
-<p>反之，如果不等B的通訊結果就直接執行C，就是不同步(unsynchronize)</p>
-<p>例如，B發一封eamil出去給全公司的200人，如果要等到200都確定沒問題，你的程式這時候看起來就是在當機狀態中，你會被你的客戶瞧不起的。</p>
-<p>&nbsp;</p>
-<p> 上面的<font color="#FF0004">session.dataTask</font>&nbsp;會等伺服器回應之後才會去執行他的<font color="#FF0004">completionHandler:</font></p>
-<p>所以<font color="#FF0004">completionHandler:</font>裡面的data一訂有讀到資料，如果沒有讀到資料則error會有錯誤訊息</p>
-<p>****************************************************************</p>
-<p>iOS有通訊上的安全機制，當你想要使用HTTP協定之前，你必須解除這個安全機制。</p>
-<p>下面是未解除安全機制就執行所出現的錯誤訊息</p>
-<p><img src="images/ch77.png" alt="" width="590" height="248"></p>
-<p>&nbsp;</p>
-<p>下面是解除這個安全機制的方法</p>
-<p>必須做下面設定 來打開http的安全設定</p>
-<p><img src="images/ch78.png" alt="" width="1132" height="460"><img src="images/ch79.png" alt="" width="843" height="425"></p>
-<p>這樣應該就會成功了</p>
-      </section>
-      <section  id="no7"><h2 >多執行緒的概念，以及有些動作只能在main執行緒做，應該怎麼解決?</h2>
-        
-<p>一台電腦或手機同時間其實是有很多的程式在執行，作業系統(像WINDOW10或者MAC的iOS)他會負責調配讓這些程式能夠被執行順利，使得使用者會誤以為一次只有執行一個程式</p>
-<p>所以作業系統就一下子就讓這個執行，一下子又讓那個執行，他要把硬體的執行程式的能力妥善的分配下去</p>
-<p>而他分配的對象就是執行緒，一個程式通常會有多於一個的執行緒，所以</p>
-<p>作業系統就是把硬體的執行程式的能力妥善的分配給所有的執行緒</p>
-<p>在我們剛剛這個網路程式，他一開始會有一個main的執行緒，當要透過網路去伺服器抓資料時，她會多生出一個執行緒，專門幫你執行這些網路工作直到資料回來，所有指定的事情都辦好了</p>
-<p>這個執行緒就自己去跳樓結束他勞苦功高的一生</p>
-<p>在iOS的程式中有一項規定，視覺元件的操作指令都必須在main執行緒完成</p>
-<p>而我們剛剛的程式，</p>
-<p class="r1">let task = <font color="#FF0004">session.dataTask</font>(with: request as URLRequest,<br>
-<div class="r2"><font color="#FF0004">completionHandler:</font><br>
-  {<br>
-  <span class="r3"><font color="#FF0004">data</font>, response, error -&gt; Void in<br>
-  </span> <span class="r3">self.startParsing(<font color="#FF0004">data</font>: data! as NSData)<br>
-  </span> }<br>
-</div>
-)
-<p>他是在另一個執行緒，不是main執行緒，而
-self.startParsing(<font color="#FF0004">data</font>: data! as NSData)
-<p>會去動到那些Label，這樣就會比較麻煩了</p>
-<p>當然我們是可以在main中一直去偵測資料回來了嗎?回來了就放到label去</p>
-<p>可是這樣很麻煩也沒有效率，可能出問題的機會很高</p>
-<p>&nbsp;</p>
-<p>下面程式可以把工作self.tableView.reloadData()丟到main執行緒去做，是比較好的方式</p>
-<p>&nbsp;</p>
-<p>DispatchQueue.main.async {<br>
-self.tableView.reloadData()<br>
-}</p>
-<p>&nbsp;</p>
-<p>&nbsp;</p>
-<p><br>
-</p>
+            </XMP>          
+          <p>jsonParsingFromURL()會使用POST方式，對http://163.17.20.6伺服器發送要求<br>
+            前幾行在建立要求內容→ request → 包括 
+            <ul>
+              <li>ip=163.17.20.6</li>
+              <li>json要求形態 → application/json</li>
+              <li>POST 或 get → 沒指定就是 post </li>
+            </ul>
+            session.dataTask(with: request  . . . . . completionHandler:{閉包}）<br>            
+            session.dataTask是發出request<br>
+            completionHandler → completion是完成的意思，<br>  
+            <span style="color: red;"> app接收到伺服器回應《剛剛發出的request》的JSON資料</span>是一個事件，<br>  
+            他會觸發completionHandler（完成處理器）<br>  
+            執行completionHandler:<span style="color: red;">{閉包}</span>的閉包<br>  
+            data, response, error -> Void in   //四個部分標準閉包寫法 data是伺服器回應的json資料<br>  
+            self.startParsing(data: data! as NSData)  //把資料丟到staartParse去套json格式
+
+          </p>
+          <li style="background-color: rgb(210, 230, 97);">把data放到startParsing去套用JSON格式，並且把資料放到陣列，然後驅動tableview重載</li>
+             
+          <XMP style="background-color: black;color: white;"> 
+            先設定三個成員 陣列
+            var stloc :NSMutableArray=[]
+            var stname :NSMutableArray=[]
+            var sttype :NSMutableArray=[]     
+                 
+            func startParsing(data :NSData){
+                //jsonObject(with: data as Data,可以把data套用JSON格式，因為整個json是一個陣列[]，所以宣告為NSArray
+                let dictdata:NSArray=(try! JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSArray
+                for i in 0 ..&lt; (dictdata.count)
+                {//把資料放到陣列
+                  stname[i]=(dictdata[i] as! NSDictionary).value(forKey:"restaurantNames") as! NSString
+                  stloc[i]=(dictdata[i] as! NSDictionary).value(forKey: "restaurantLocations") as! NSString
+                  sttype[i]=(dictdata[i] as! NSDictionary).value(forKey: "restaurantTypes") as! NSString
+                }
+                tableView.reloadData() // 驅動tableview重載
+            }
+          </XMP>
+          <li style="background-color: rgb(210, 230, 97);">tableView重載，讀取陣列資料</li>
+              <p>number of row 一樣是陣列長度</p> 
+              <p>cell for row 一樣從陣列塞資料進去tableView</p> 
+              <li style="background-color: rgb(210, 230, 97);">在viewDidLoad()中呼叫jsonParsingFromFile()啟動讀檔</li>
+               <XMP style="background-color: black;color: white;">
+                override func viewDidLoad() {
+                  super.viewDidLoad()
+                  jsonParsingFromFile()
+                  
+                }
+
+              </XMP>
+        </ol>
+        func jsonParsingFromURL () {<br>
+        <p class="r1">let request = NSMutableURLRequest(url: NSURL(string: <font color="#FF0004">&quot;http://support.colorlife.com.tw/log.php&quot;</font>)! as URL)<br>
+        let session = URLSession.shared<br>
+        //request.httpMethod = &quot;POST&quot;<br>
+        //let params = [&quot;restaurantNames&quot;:&quot;restaurantNames&quot;, &quot;restaurantLocations&quot;:&quot;restaurantLocations&quot;,&quot;restaurantTypes&quot;:&quot;restaurantTypes&quot;] as Dictionary&lt;String, String&gt;<br>
+        //request.httpBody = try? JSONSerialization.data(withJSONObject: params, options: [])
+        <br>
+          request.addValue(&quot;application/json&quot;, forHTTPHeaderField: &quot;Content-Type&quot;)<br>
+          request.addValue(&quot;application/json&quot;, forHTTPHeaderField: &quot;Accept&quot;)<br>
+          let task = <font color="#FF0004">session.dataTask</font>(with: request as URLRequest,<br>
+          <div class="r2"><font color="#FF0004">completionHandler:</font><br>
+          {<br>
+          <span class="r3"><font color="#FF0004">data</font>, response, error -&gt; Void in<br></span>
+          <span class="r3">self.startParsing(<font color="#FF0004">data</font>: data! as NSData)<br></span>
+          }<br></div>
+          )<br>
+          task.resume()<br>
+          </p>
+          }
+        <p>在這邊，先提一下寫通訊程式的基本知識，同步和非同步</p>
+        <p>假設有ABC三行程式，其中B是去遠端抓一個資料要來給C處理，</p>
+        <p>但是網路抓資料是有延遲的，所以有可能資料還沒回來，C就已經執行了，只是沒資料可用(因為還在路上)，我們會很懷疑，在C後面把資料印出來，結果又可以印出來(因為資料已經回來了)</p>
+        <p>因此如果我們使用同步機制，讓C必須等B的資料回來之後才執行，那麼這個就是同步(synchronize)<br>
+        </p>
+        <p>同步會有風險，萬一資料都不回來，程式會在這邊卡很久</p>
+        <p>反之，如果不等B的通訊結果就直接執行C，就是不同步(unsynchronize)</p>
+        <p>例如，B發一封eamil出去給全公司的200人，如果要等到200都確定沒問題，你的程式這時候看起來就是在當機狀態中，你會被你的客戶瞧不起的。</p>
+        <p>&nbsp;</p>
+        <p> 上面的<font color="#FF0004">session.dataTask</font>&nbsp;會等伺服器回應之後才會去執行他的<font color="#FF0004">completionHandler:</font></p>
+        <p>所以<font color="#FF0004">completionHandler:</font>裡面的data一訂有讀到資料，如果沒有讀到資料則error會有錯誤訊息</p>
+        <p>****************************************************************</p>
+        <p>iOS有通訊上的安全機制，當你想要使用HTTP協定之前，你必須解除這個安全機制。</p>
+        <p>下面是未解除安全機制就執行所出現的錯誤訊息</p>
+        <p><img src="images/ch77.png" alt="" width="590" height="248"></p>
+        <p>&nbsp;</p>
+        <p>下面是解除這個安全機制的方法</p>
+        <p>必須做下面設定 來打開http的安全設定</p>
+        <p><img src="images/ch78.png" alt="" width="1132" height="460"><img src="images/ch79.png" alt="" width="843" height="425"></p>
+        <p>這樣應該就會成功了</p>
+              </section>
+              <section  id="no7"><h2 >多執行緒的概念，以及有些動作只能在main執行緒做，應該怎麼解決?</h2>
+                
+        <p>一台電腦或手機同時間其實是有很多的程式在執行，作業系統(像WINDOW10或者MAC的iOS)他會負責調配讓這些程式能夠被執行順利，使得使用者會誤以為一次只有執行一個程式</p>
+        <p>所以作業系統就一下子就讓這個執行，一下子又讓那個執行，他要把硬體的執行程式的能力妥善的分配下去</p>
+        <p>而他分配的對象就是執行緒，一個程式通常會有多於一個的執行緒，所以</p>
+        <p>作業系統就是把硬體的執行程式的能力妥善的分配給所有的執行緒</p>
+        <p>在我們剛剛這個網路程式，他一開始會有一個main的執行緒，當要透過網路去伺服器抓資料時，她會多生出一個執行緒，專門幫你執行這些網路工作直到資料回來，所有指定的事情都辦好了</p>
+        <p>這個執行緒就自己去跳樓結束他勞苦功高的一生</p>
+        <p>在iOS的程式中有一項規定，視覺元件的操作指令都必須在main執行緒完成</p>
+        <p>而我們剛剛的程式，</p>
+        <p class="r1">let task = <font color="#FF0004">session.dataTask</font>(with: request as URLRequest,<br>
+        <div class="r2"><font color="#FF0004">completionHandler:</font><br>
+          {<br>
+          <span class="r3"><font color="#FF0004">data</font>, response, error -&gt; Void in<br>
+          </span> <span class="r3">self.startParsing(<font color="#FF0004">data</font>: data! as NSData)<br>
+          </span> }<br>
+        </div>
+        )
+        <p>他是在另一個執行緒，不是main執行緒，而
+        self.startParsing(<font color="#FF0004">data</font>: data! as NSData)
+        <p>會去動到那些Label，這樣就會比較麻煩了</p>
+        <p>當然我們是可以在main中一直去偵測資料回來了嗎?回來了就放到label去</p>
+        <p>可是這樣很麻煩也沒有效率，可能出問題的機會很高</p>
+        <p>&nbsp;</p>
+        <p>下面程式可以把工作self.tableView.reloadData()丟到main執行緒去做，是比較好的方式</p>
+        <p>&nbsp;</p>
+        <p>DispatchQueue.main.async {<br>
+        self.tableView.reloadData()<br>
+        }</p>
+        <p>&nbsp;</p>
+        <p>&nbsp;</p>
+        <p><br>
+        </p>
       </section>
       <section  id="no8"><h2 >作業</h2>
         
