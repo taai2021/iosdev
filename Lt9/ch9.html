@@ -687,42 +687,42 @@ echo($outp);
                             
                               </XMP>
 
+                              <XMP style="background-color: black;color: white;"> 
+          
+   1個執行緒         主  let task = session.dataTask(with: request as URLRequest,completionHandler:{
+    2個執行緒         主                 新 →  →  →  →  →  →  →                     data, response, error -> Void in
+    2個執行緒         主                 新 →  →  →  →  →  →  →                     self.startParsing(data: data! as NSData)
+    1個執行緒         主                                                         })         
+                              </XMP>   
+              <p>
+              completionHandler裡面就是新的執行緒在執行<br>
+              當然也包括後續startParsing這個方法裡面的程式碼<br>
+              這樣後續就會又有一些問題'<br>
+              不止ios，其他的視窗程式都會有一個限制<br>
+              視覺元件的操作指令都必須在main執行緒完成<br>
+              這時候去看一下startParsing裡面<br>
+              發現self.tableView.reloadData()<br>
+              其中tableView是一個視窗元件<br>
+              這樣會出現錯誤<br>
+              但是有一個一個機制 DispatchQueue.main.async {}<br>
+              Dispatch → 分派<br>
+              Queue → 佇列<br>
+              .main. → 到主執行緒<br>
+              async  → 去非同步執行<br>
+              他可以把大括號內的程式碼放到主執行緒去執行，所以下面的程式碼<br>
+              會讓self.tableView.reloadData()回歸主執行緒去執行</p>
+              <XMP style="background-color: black;color: white;"> 
+                
+              DispatchQueue.main.async {
+                self.tableView.reloadData()
+                }
 
-
-        <p class="r1">let task = <font color="#FF0004">session.dataTask</font>(with: request as URLRequest,<br>
-        <div class="r2"><font color="#FF0004">completionHandler:</font><br>
-          {<br>
-          <span class="r3"><font color="#FF0004">data</font>, response, error -&gt; Void in<br>
-          </span> <span class="r3">self.startParsing(<font color="#FF0004">data</font>: data! as NSData)<br>
-          </span> }<br>
-        </div>
-        )
-        
-        <p> 
-          上面的<font color="#FF0004">session.dataTask</font>&nbsp;會等伺服器回應之後才會去執行他的<font color="#FF0004">completionHandler:</font></p>
-        <p>所以<font color="#FF0004">completionHandler:</font>裡面的data一訂有讀到資料，如果沒有讀到資料則error會有錯誤訊息</p>
-        <p>****************************************************************</p>
-                        <p>在iOS的程式中有一項規定，視覺元件的操作指令都必須在main執行緒完成</p>
-        <p>他是在另一個執行緒，不是main執行緒，而
-        self.startParsing(<font color="#FF0004">data</font>: data! as NSData)
-        <p>會去動到那些Label，這樣就會比較麻煩了</p>
-        <p>當然我們是可以在main中一直去偵測資料回來了嗎?回來了就放到label去</p>
-        <p>可是這樣很麻煩也沒有效率，可能出問題的機會很高</p>
-        <p>&nbsp;</p>
-        <p>下面程式可以把工作self.tableView.reloadData()丟到main執行緒去做，是比較好的方式</p>
-        <p>&nbsp;</p>
-        <p>DispatchQueue.main.async {<br>
-        self.tableView.reloadData()<br>
-        }</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-        <p><br>
-        </p>
+              </XMP>
       </section>
       <section  id="no8"><h2 >作業</h2>
         
-<h3>接下來 把程式加到上周進度去 讓上一個單元的進度中，cell5中除了影像之外的資料 都可以去伺服器的log.php抓取顯示</h3>
-<p>&nbsp;</p>
+<h3>接下來 把程式加到美食專案中，cell中除了影像之外的資料 都可以去伺服器的log.php抓取顯示</h3>
+
       </section>
 
 
