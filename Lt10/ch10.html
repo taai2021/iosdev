@@ -217,248 +217,112 @@
   <div  style="margin-top: 80px;">
      
     <div style="margin: auto; width: 96%; text-align: left; border-bottom: 1px solid darkgrey; "> 
-      <section  id="no1"><h2 >上課相關規定</h2>
-        <p>本學期課程主要是在MAC環境中學習使用Swift語言製作iOS App<br>
-            上課方式是以一個行動商務實例，一面開發一面講解開發中會用到的Swift語言和App的製作技術。
-        </p>
-        <div><h3>上課方式</h3>
-          <p>
-            兩個人一組，所以一些作業和分數是以分組分數來計算，開學第二週加退選完成後，上課時完成tronclass分組。<br>
-                                  強烈建議要找時間上能相互配合做課後指定作業的同學，以免無法完成指定作業被扣分數。   
+      <section  id="no1"><h2 >使用CocoaPods管理Swift的類別程式庫</h2>
+        <div>
+          <p>            
+            在XCODE中建置app，你常常會需要安裝套件<br>
+            例如想要寫一個app和facebook互動，那你就必須安裝其SDK。<br>
+            你當然可以直接下載，然後在其XCODE專案中直接一一設定。<br>
+            但是如果你要加入一個套件，這個套件又基於其他程式庫，<br>
+            那你安裝一個發現又相依到另一個，就必須再去抓那一個，<br>
+            萬一這一個又需要其他10個，那就會有點崩退。套件常常具有相依性。<br>
+            抓起來有時很燒心。cocoaPod就是一個可以讓你比較方便的抓抓幫手。<br>
+            你只要指定你要抓那一個，其餘和這個相依的會自動全部抓回來。
           </p>
-        </div>
-        <div><h3>雷區 VS. 安全區域</h3>
-            <ul> <span style="color: rgb(252, 8, 4);font-size: 2em; font-family: '標楷體'; text-shadow: 2px 2px 5px black;" >雷區</span>
-              <li>想靠組員的努力，自己可以不用做什麼就拿到學分。<span style="background-color:red; color: white;"> 1+1＜2 </span>。</li>
-              <li>打算單打獨鬥，自己帶Macbook Air做自己的，完全不和組員互動。
-                  <span style="background-color:red; color: white;">① + ① 絕對小於2</span></li>
-              <li>另一位組員很認真，自己猛滑手機，偶爾或完全不看他在弄什麼。
-                  <span style="background-color:red; color: white;">1+0.3＜1.3</span>，你在拖累他。</li>
-              <li>沒有1/3缺席扣考規定，出席分數佔比又不高，打算低空掠過，你礙了他。<span style="background-color:red; color: white;">1+0＜1</span></li>
-              <li>只想要混學分，對課程不感興趣，課程其實份量不輕，沒興趣很難撐下去，不少同學期中就退選了。
-                  <span style="background-color:red; color: white;">0+0=退選</span></li>
-            </ul>
-            <ul>
-                <span style="color: rgb(22, 255, 1);font-size: 2em; font-family: '標楷體'; text-shadow: 2px 2px 5px black;" >安全區域</span>
-                <li>兩人一組相互協助，操作時一直討論，非常吵。 <span style="background-color:red; color: white;">1+1會遠大於2</span>。</li>
-                <li>對iOS App很有興趣，打算當作以後可能發展的專長之一。<span style="background-color:red; color: white;">1+1>2。</span></li>
-                <li>原本程式能力不足，雖然學過python、java等等，但是覺得沒學好，<br>很想再試一下。<span style="background-color:red; color: white;">0.5+0.5>2</span></li>
-                <li>沒有iPhone或者iPad；沒上過Android App課程；只會python，但是java完全不會；連python也沒什麼信心；熱血不怕爆肝。
-                    <span style="background-color:red; color: white;">0.1+0.1>2。</span></li>
-            </ul>  
-        </div>
-        <div><h3>給分方式 </h3>          
-          <ul style="list-style-type: upper-alpha; line-height: normal;">
-            <li style="margin-top: 10px;">
-                平時作業:15%  A=平均*0.15<br>
-                是上課時的練習，和出席綁在一起，沒出席就沒有該週平時作業分數。<br>
-                
-            </li>
-            <li style="margin-top: 10px;">
-                課堂參與與出席:10%  B=(出席次數/點名次數)*0.1<br> 
-                分母是點名次數，一個學期如果點3次，分母就是3，如果每週都點2次，18週分母就是36。
-            </li>
-            <li style="margin-top: 10px;">
-                學習態度:10% C=主觀分數*0.1<br>
-                上課同學並不多，我可以確實知道每個學習態度是否積極，我會給一個整體印象分數。
-            </li>
-            <li  style="margin-top: 10px;">
-                小考:15% D=平均*0.15 <br>
-                小考包括課堂小考和回家實作的作業
-            </li>
-            <li  style="margin-top: 10px;">
-                期中專案:20%  E=分數*0.2<br>
-                期中專案實施方式也有可能視上課學習狀態改以以考試方式進行。
-            </li>
-            <li  style="margin-top: 10px;">
-                期末專案:30%  F=分數*0.3<br>
-                期末專案給分有不同起點分數:由高至低包括
-                <ol>
-                    <li>90:畢業專題中會用到的專案(完成度不用100%)</li>
-                    <li>85:從0開始的專案(強調原創，完成度不用100%)</li>
-                    <li>80:去github修改後專案(能夠看懂別人的原始碼做出修改)</li>
-                    <li>50:上課的範例專案做適當修改(每位同學原本基礎不同，這是給同學一個安下心盡力學習的選擇)</li>
-                    <li>0:直接繳交上課範例無任何修改(如果覺得分數很夠了，就試試看搞不好剛好過了)</li>
-                </ol>
-                期末專案分數=以上述起點分數為打分數基礎，再根據繳交專案的內容加減分數<br>
-                未必起點分數高的最後期末專案分數一定會高於起點分數低的。
-            </li>
-          </ul>      
-          學期成績=A+B+C+D+E+F   
-        </div>
-      </section>
-      <section id="no2"><h2>1.開發 iOS APP 需要準備什麼?</h2>
+          <p>
+            在這邊將展現一個範例，展示一個專案如何加入firebase類別庫，下面是步驟
+          </p>
+          <ol>
+            <li style="background-color: rgb(210, 230, 97);">建立專案</li>
+                <p>建立一個viewControlller專案。uppic</p>      
+            <li style="background-color: rgb(210, 230, 97);">安裝cocoapods</li>
+                <p>開終端機：啟動台 → 其他 → 終端機
+                  輸入 sudo gem install cocoapods</p>
+                <img src="images/no1.png" alt="">
+            <li style="background-color: rgb(210, 230, 97);">在終端機中，跳到uppic專案資料夾</li>
+            cd ~/Desktop/uppic 跳到xcode專案，我的xcode專案放在桌面，專案名稱是uppic
+            <li style="background-color: rgb(210, 230, 97);">在uppic資料夾產生Podfile</li>
+            <XMP style="background-color: black;color: white;">
 
-            <figure class="col-sm-3">
-                <img src="images/mac.jpeg" alt="" />
-                <figcaption>一台 Mac </figcaption>  
-            </figure>
-            <figure class="col-sm-3">
-                <img src="images/25.png" alt="" />
-                <figcaption>Xcode</figcaption>  
-            </figure>
-            <figure class="col-sm-3">
-                <img src="images/PM.jpeg" alt="" />
-                <figcaption>可以不用iphone,<br>有模擬器可以測試<br></figcaption>  
-            </figure>
-            <figure class="col-sm-3">
-                <img src="images/sw.png" alt="" />
-                <figcaption>Swift 要會</figcaption>  
-            </figure>
-      
-      </section>
-      <section id="no3"><h2>2 MAC作業系統基本操作</h2>
-        <div><h3> 快捷組合鍵</h3>
-          如果你用的是MAC+MAC鍵盤，,<br>
-          那麼基本上就是<br>
-          <span style="color: red;">⌘鍵</span> 對應到pc鍵盤的<span style="color: red;">ctrl鍵</span>，
-          例如，<span style="color: red;">ctrl-C</span>就是<span style="color: red;">⌘-C</span><br><br>
-          但是因為教室是MAC配PC鍵盤，沒有<span style="color: red;">⌘鍵</span><br>
-          所以可以用<span style="color: red;">視窗鍵</span>代替<br><br>
-          因為pc鍵盤的<span style="color: red;">視窗鍵</span>就是<span style="color: red;">⌘</span>，
-          所以<span style="color: red;">⌘-C</span>就是<span style="color: red;">視窗鍵-C</span><br><br>
-          但是pc鍵盤型號太多，常常又不一定<br>
-          有時候<span style="color: red;">⌘-C</span>是<span style="color: red;">ctrl-C</span><br><br>
-          所以在教室內，如果快捷鍵要按<span style="color: red;">⌘</span>，
-          那就<span style="color: red;">視窗鍵</span>和<span style="color: red;">ctrl</span>都試試看<br>
-          ，例如<span style="color: red;">⌘ + C </span>就<span style="color: red;">ctrl+c</span>
-          和 <span style="color: red;">視窗鍵+c</span> 都試試看。<br>
-          <ul>  
-            <li>⌘ + C 複製（拷貝）</li>
-            <li>⌘ + X 剪切</li>
-            <li>⌘ + V 粘貼</li>
-            <li>⌘ + A 全選</li>
-            <li>⌘ + delete 刪除</li>
-            <li>⌘ + S 保存</li>
-            <li>⌘ + N 新建</li>
-            <li>⌘ + 空格鍵切換輸入法</li>
-            <li>caps lock鍵 切換中英文輸入法==win10的shift鍵</li>
-            <li>⌘+shift+4 截圖</li>
-        </ul>   
+              pod init
+              
+            </XMP>
+            這樣會產生一個Podfile，內容如下
+            <XMP style="background-color: black;color: white;">
 
-        </div>
-        <div><h3>Mac操作環境介紹 </h3>       
-            <img style="width: 100%;" src="/images/n01.png" alt="" />
-           
-        </div>
-        <div><h3>全螢幕空間切換 </h3>
-          <img style="width: 100%;" src="/images/n02.png" alt="" />
-        </div>  
-      </section>
-      <section id="no4"><h2>3 建立APPLE ID，使用自己的APPLE ID建立MAC帳號和環境</h2>
-        <div><h3>建立Apple ID </h3>
-          <div class="ctext">                
-            <a href="https://support.apple.com/zh-tw/HT204316">申請教學</a><br>
-            如果兩人一組已經有人有了，可以用現成的
-          </div>
-        </div>
-        <div><h3> 在Mac建立帳號和環境</h3>
-          <img style="width: 100%;" src="/images/n03.png" alt="" />
-        </div>
-        <div><h3> </h3>
-        </div>
-        <div><h3> </h3>
-        </div>       
-      </section>
-      <section id="no5"><h2>4 練習去Apple store安裝壓縮軟體</h2>
-        <div><h3>練習安裝軟體 </h3>
-          <h6>打開apple store，搜尋7z，如圖上所示都可以，任選一個安裝</h6>
-          <img style="width: 100%;" src="/images/n04.png" alt="" />
-        </div>
-        <div><h3> </h3>
-        </div>
-        <div><h3> </h3>
-        </div>
-        <div><h3> </h3>
-        </div>       
-      </section>
+              # Uncomment this line to define a global platform for your project
+              # platform :ios, '9.0'              
+              target 'CocoapodsTest' do              
+              # Comment this line if you're not using Swift and don't want to use dynamic frameworks              
+              use_frameworks!              
+              # Pods for CocoapodsTest              
+              end
+              
+            </XMP>
 
-      <section id="no6"><h2>5 熟悉Xcode環境簡介</h2>
-        <div><h3> </h3>
-        </div>
-        <div><h3> </h3>
-        </div>
-        <div><h3> </h3>
-        </div>
-        <div><h3> </h3>
-        </div>       
+            <li style="background-color: rgb(210, 230, 97);"></li>
+            <li style="background-color: rgb(210, 230, 97);"></li>
+            <li style="background-color: rgb(210, 230, 97);"></li>
+            <li style="background-color: rgb(210, 230, 97);"></li>
+            <li style="background-color: rgb(210, 230, 97);"></li>
+          </ol>
+
+
+
+
+pod init
+這樣會產生一個Podfile，內容如下
+
+
+使用文字編輯器把內容修改如下
+# Uncomment this line to define a global platform for your project
+
+# platform :ios, '9.0'
+
+target 'CocoapodsTest' do
+
+# Comment this line if you're not using Swift and don't want to use dynamic frameworks
+
+use_frameworks!
+
+# Pods for CocoapodsTest
+
+pod 'Firebase'
+
+end
+
+pod 'Firebase使 CocoaPods 知道我們需要用上 ‘Firebase’
+
+存檔離開
+終端機執行 pod install
+這樣就會把Firebase套件及其相依的套件裝到xcode專案上去
+        </div>        
       </section>
-      <section id="no7"><h2>6 使用模擬器嘗試hello程式</h2>
-        <h3 id="p1">練習1</h3>
-        <p>寫一個程式 如下 (手機橫放畫面也不可以跑掉)</p>
-        <p><img src="images/p2d.png" alt="" width="365" height="496"></p>
-        <p>讓元件和程式產生關連</p>
-        <p><img src="images/sde.png" alt="" width="650" height="263"></p>
-        <p>上面叫出assistant editor</p>
-        <p>下面讓Label元件和程式產生關聯</p>
-        <p><img src="images/ascvb.png" alt="" width="950" height="493"></p>
-        <p>讓button和程式產生關聯</p>
-        <p><img src="images/untisdftled.png" alt="" width="832" height="371"></p>
-        <p>&nbsp;</p>  
+      <section  id="no1"><h2 >  </h2>
+        <div>
+
+        </div>        
       </section>
-      <section id="no8"><h2>7.學習SwiftUI還是UIKit?</h2>
-        <h3 id="no1">學習SwiftUI還是UIKit?</h3>
-        <div class="container-fluid" >
-            <div class="row" >                            
-                <div class="col-sm-12 ctext">
-                    <p>
-                        SwiftUI是一個很好的用戶界面框架，並且絕對會成為Apple平台上應用程序開發的未來。
-                        但是，如果您想今天（或未來一到兩年左右的任何時間）構建出色的應用App，
-                        那麼您也絕對需要用到UIKit，理由是什麼呢?
-                    </p>
-                    
-                <div class="col-sm-6 ">                    
-                    <details><summary><span style="font-size:1.5em;">限制版本</span></summary>    
-                        SwiftUI在WWDC2019上宣布，可在iOS 13設備或更高版本中使用。所以：
-                        <ul>
-                            <li>迄今為止，幾乎所有編寫的應用程序都使用UIKit。</li>
-                            <li>一年或更長時間內，任何需要支持iOS 12和iOS 11甚至都無法使用SwiftUI。</li>
-                        </ul>
-                        <p>
-                            這意味著，如果您打算在未來三年內找到一份iOS開發人員的工作，則UIKit經驗實際上是必不可少的，因為這是現有環境中的工具，公司不會任意改變。
-                            實際上，我完全希望UIKit在四年後仍將是主導的UI平台。我想沒有人-甚至沒有蘋果！–希望iOS社區能夠以任何快速的步伐遷移到SwiftUI。
-                            這些公司已經在UIKit的app應用程序中累積大量的程式庫，投入大量的時間和資金，馬上要換是不可能的。
-                            前幾年從Object-C切換到Swift非常的成功。
-                            所以或許也會想著SiwftUI也會這樣瞬間產生大轉變。但是Swift替換Object-C和SwiftUI替換UIkit是完全不一樣的難度。
-                            改採用Swift的速度很快，因為它可以在Apple支持的每個框架（UIKit，SpriteKit等）中工作，並且還向舊版支援，因此許多公司可以立即切換到它。
-                            而SwiftUI會成為蘋果平台開發的未來，但是要讓大家捨棄UIKit將需要不算短的時間。        
-                            
-                        </p>
-                    </details>
-                </div>
-                <div class="col-sm-6 ">
-                    <details><summary><span style="font-size:1.5em;">有限的資源</span></summary>    
-                        <p>UIKit已有十多年的歷史了，這意味著幾乎你可能遇到的每個問題都已經被他人解決，並且有許多人提供功能很強的程式讓你下載使用。
-                            所以使用Google，Stack Overflow等都可以找到問題的解決方案。
-                            當你卡住時，常常只要把錯誤消息貼到網站中，馬上就有一堆解答，但SwiftUI才開始而已，可用的解決方案少得多。
-                            而且很可能妳是第一個用德這個問題的人。
-                            這可能會很有趣，你可以去搞出解答，讓別人獲益並崇拜你，但也可能你正爆肝數日中，希望能有現成解答。
-                        </p>
-                    </details>
-                </div>
-                </div>
-                <div class="col-sm-12 ctext">
-                    <h2>所以……不要學SwiftUI嗎？</h2>
-                    <p>
-                        沒有！SwiftUI非常有趣，您可以用它來構建奇妙的東西。
-                        SwiftUI的存在並沒有以某種方式使U​​IKit變得過時：如果您打算在未來三年內獲得iOS開發工作，
-                        那麼知道如何使用UIKit將會是一項必要的技能。
-                        因此你是需要學SwiftUI，因為這是在蘋果平台上進行應用程序開發的未來，
-                        但是您仍然需要學習UIKit，因為這些技能在未來幾年中將非常有用。
-                        隨著每年的過去，隨著SwiftUI的實力，採用和支持的增長，以及隨著SwiftUI的增長，UIKit將開始縮小，
-                        上面列出的所有三個問題都將得到減少。但是，至少到目前為止，您確實確實需要兩者。
-                        所以上課還是上UIkit，學完就會有能力去自學UIkit，如果上課上SwiftUI，卡到你不要不要的，期中就辦退選了。
-                    </p>
-                </div>
-            </div>
-        </div>
+      <section  id="no1"><h2 >  </h2>
+        <div>
+
+        </div>        
       </section>
-      <section id="no9"><h2>8 把剛剛建立帳號和環境移除</h2>
-        把剛剛建立帳號和環境移除<br> 
-        在第二週分組之後，這台機器未必是這學期要使用機器，請先刪除帳號。<br>
-            <img style="width: 100%;" src="images/n05.png" alt="">
+      <section  id="no1"><h2 >  </h2>
+        <div>
+
+        </div>        
       </section>
-        
+      <section  id="no1"><h2 >  </h2>
+        <div>
+
+        </div>        
+      </section>
+      <section  id="no1"><h2 >  </h2>
+        <div>
+
+        </div>        
+      </section>
 
 
     
