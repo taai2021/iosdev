@@ -685,7 +685,7 @@ echo($outp);
 
                             <p>其中</p>
                             
-                              </XMP>
+                             
 
                               <XMP style="background-color: black;color: white;"> 
           
@@ -719,12 +719,110 @@ echo($outp);
 
               </XMP>
       </section>
-      <section  id="no8"><h2 >作業</h2>
+      <section  id="no8"><h2 >習題</h2>
         
-<h3>接下來 把程式加到美食專案中，cell中除了影像之外的資料 都可以去伺服器的log.php抓取顯示</h3>
+<h3>接下來 把程式加到美食專案中，cell中除了地圖的定位之外，都可以去伺服器的log.php抓取顯示。
+  後面是補充資料可以讓你將 經緯度和地址 互換,讓detailView 顯示地圖
+</h3>
 
       </section>
 
+      <section  id="no8"><h2 >補充資料 CLGeocoder - 經緯度和地址 互換</h2>
+        CllocationManager可以計算GPS傳回經緯度。<br>
+        雖然經緯度可以定位到地球上的任何位置，但用戶不太能從經緯度理解到實際上的位置。<br>
+        用戶比較熟悉街道名稱或城市名稱。 <br>
+        CLGeocoder 可以讓你在地理座標和與地址之間進行轉換。<br>
+        下面是一個互轉的實例畫面如下，轉換後均會在map上插上釘子顯示位置<br>
+        <img src="images/no4.png" style="border: blue solid 2px;" alt=""><br><br>
+        <XMP style="background-color: black;color: white;"> 
+
+          這是三個文字輸入格的變數
+          @IBOutlet weak var blat: UITextField!
+          @IBOutlet weak var blon: UITextField!
+          @IBOutlet weak var baddr: UITextField!
+          這是地圖的變數
+          @IBOutlet weak var mapView: MKMapView!
+
+        </XMP>
+        <h3>
+          由經緯度轉換到地址 geocoder.reverseGeocodeLocation(Location,completionHandler: { (placemarks, error) in 閉包 }
+        </h3>
+        <div>
+          <XMP style="background-color: black;color: white;"> 
+            
+    @IBAction func sder(_ sender: UIButton) {
+      //由文字輸入格取得經維度
+      let lat = Double(blat.text!)//經度
+      let lon = Double(blon.text!)//緯度
+      var addr = "" //等等用來組合地址的字串
+
+      //使用經維度設定地圖
+      let location = CLLocationCoordinate2D(latitude: lat!,longitude: lon!)
+      let span = MKCoordinateSpan(latitudeDelta:0.005, longitudeDelta: 0.005) // 縮放比例
+      let region = MKCoordinateRegion(center: location, span: span)
+      mapView.setRegion(region, animated: true)
+
+      //使用經維度插旗子      
+      let annotation = MKPointAnnotation()
+      annotation.coordinate = CLLocationCoordinate2D(latitude: lat!, longitude: lon!)
+      mapView.addAnnotation(annotation)
+
+      //使用經維度建立 CLLocation物件      
+      let Location:CLLocation = CLLocation(latitude: CLLocationDegrees(lat!), longitude: CLLocationDegrees(lon!))
+      
+      //使用CLLocation物件轉換地址，放在placemark，並且觸發執行閉包取出地址組合到字串addr
+      let geocoder = CLGeocoder()
+      geocoder.reverseGeocodeLocation(Location,completionHandler: { (placemarks, error) in
+                      if let a=placemarks![0].country{ addr=addr+a}
+                      if let a=placemarks![0].subAdministrativeArea{addr=addr+a}
+                      if let a=placemarks![0].locality{addr=addr+a}
+                      if let a=placemarks![0].subLocality{addr=addr+a}
+                      if let a=placemarks![0].thoroughfare{addr=addr+a}
+                      self.baddr.text=addr
+      })
+      
+      
+  }
+          </XMP>
+        </div>
+
+        
+        <h3>
+          由經緯度轉換到地址 geocoder.geocodeAddressString(addr) {(placemarks, error) in 閉包}
+        </h3>
+        <div>
+          <XMP style="background-color: black;color: white;"> 
+            
+  @IBAction func tolat(_ sender: Any) {
+    if let addr=baddr.text{ //由文字輸入格取得地址
+        let geocoder = CLGeocoder()
+        geocoder.geocodeAddressString(addr) {//在使用地址addr取得經緯度placemark之後，執行下面閉包程式
+            (placemarks, error) in
+                if let placemark = placemarks?[0] { 
+                    let lat = placemark.location!.coordinate.latitude //由placemark取得經度
+                    let lon = placemark.location!.coordinate.longitude //由placemark取得緯度
+                    self.blat.text = String(lat) //經度放到文字輸入格
+                    self.blon.text = String(lon) //緯度放到文字輸入格
+                    
+                    //利用經緯度設定地圖
+                    let Location = CLLocationCoordinate2D(latitude: lat,longitude: lon)
+                    let span = MKCoordinateSpan(latitudeDelta:0.005, longitudeDelta: 0.005) // 縮放比例
+                    let region = MKCoordinateRegion(center: Location, span: span)
+                    self.mapView.setRegion(region, animated: true)
+                    
+                    //利用經緯度插旗子
+                    let annotation = MKPointAnnotation()
+                    annotation.coordinate = CLLocationCoordinate2D(latitude: lat, longitude: lon)
+                    self.mapView.addAnnotation(annotation)
+                }
+        }
+    }
+}
+          </XMP>
+        </div>
+        
+              </section>
+        
 
     
     </div>
