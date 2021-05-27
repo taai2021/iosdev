@@ -500,9 +500,9 @@ class ViewController: UIViewController {
 @IBOutlet weak var img: UIImageView!
 
 @IBAction func pinch3(_ sender: UIPinchGestureRecognizer) {
-    if sender.state == UIGestureRecognizerState.began{
+    if sender.state == UIGestureRecognizer.began{
           // 這邊程式碼在開始縮放之前會被執行
-    } else if sender.state == UIGestureRecognizerState.changed{
+    } else if sender.state == UIGestureRecognizer.changed{
           // 將圖片放大或縮小的時候會執行這的程式碼
           let frame=img.frame // 取得圖片框
           let s=sender.scale // 縮放比例
@@ -513,7 +513,7 @@ class ViewController: UIViewController {
                 // 重設圖片框
                 img.frame=CGRect(x: frame.origin.x, y: frame.origin.y, width: s*w, height: s*h)
           }
-    } else if sender.state == UIGestureRecognizerState.ended{
+    } else if sender.state == UIGestureRecognizer.ended{
           // 這邊程式碼在結束縮放之後會被執行
           //
     }
