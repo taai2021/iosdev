@@ -720,6 +720,36 @@ echo($outp);
 
       </XMP>
       </section>
+      <section  id="no8"><h2 >練習三、如何傳送帳密到伺服器中驗證</h2>
+        <h3>POST和GET有什麼差別?</h3>  
+        <p>打一個比方，假設 HTTP 當作是目前的實體郵政的寄信機制，</p>
+        <ul>
+          <li style="background-color: rgb(210, 230, 97);">GET就像是明信片</li>          
+          <p>那麼GET就像是明信片資料要寫在外面，價格比較便宜，但是大家都看得到。<br>
+            <XMP>
+
+              http://127.0.0.1/memupdate.php/?acc=admin1&pwd=m512.1&newpwd=m512.12
+              http://127.0.0.1/memupdate.php/   就是目的地住址 
+              acc=admin1&pwd=m512.1&newpwd=m512.12  就是要傳送的資訊，掛在網址列大家都看得到
+              很像資料寫在明信片上面，大家都看得到
+
+            </XMP>
+            </p>
+          <li style="background-color: rgb(210, 230, 97);">POST 就是一般信封內裝信紙的郵件</li>
+          <p> POST 就是有信封，資料寫在裡面的信紙上，價格較貴，但是比較隱秘。<br>
+            <XMP>
+
+              http://127.0.0.1/memupdate.php
+              http://127.0.0.1/memupdate.php/   就是目的地住址 
+              acc=admin1&pwd=m512.1&newpwd=m512.12  這些就是要傳送的資料就是要傳送的資訊，掛在網址列大家都看得到
+              很像資料寫在明信片上面，大家都看得到
+
+            </XMP>
+            </p>
+        </ul>
+        <h3>使用POST傳送帳密驗證</h3>
+        <h3>使用GET傳送帳密驗證</h3>
+      </section>
       <section  id="no8"><h2 >習題</h2>
         
 <h3>接下來 把程式加到美食專案中，cell中除了地圖的定位之外，都可以去伺服器的log.php抓取顯示。
