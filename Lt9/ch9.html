@@ -546,9 +546,8 @@ echo($outp);
           </li> 
           <XMP style="background-color: black;color: white;"> 
           
-  unc jsonParsingFromURL () {
-    let request = NSMutableURLRequest(url: NSURL(string: "http://163.17.20.6 /log.php")! as URL)    
-    //request.httpMethod = "POST"
+  func jsonParsingFromURL () {
+    let request = NSMutableURLRequest(url: NSURL(string: "http://163.17.20.6 /log.php")! as URL) 
     request.addValue("application/json", forHTTPHeaderField: "Content-Type")
     request.addValue("application/json", forHTTPHeaderField: "Accept")
     let session = URLSession.shared
@@ -559,12 +558,11 @@ echo($outp);
     task.resume()
   }
             </XMP>          
-          <p>jsonParsingFromURL()會使用POST方式，對http://163.17.20.6伺服器發送要求<br>
+          <p>jsonParsingFromURL() http://163.17.20.6伺服器發送要求<br>
             前幾行在建立要求內容→ request → 包括 
             <ul>
               <li>ip=163.17.20.6</li>
               <li>json要求形態 → application/json</li>
-              <li>POST 或 get → 沒指定就是 post </li>
             </ul>
             session.dataTask(with: request  . . . . . completionHandler:{閉包}）<br>            
             session.dataTask是發出request<br>
@@ -670,8 +668,7 @@ echo($outp);
         <XMP style="background-color: black;color: white;"> 
   
           unc jsonParsingFromURL () {
-1個執行緒         主  let request = NSMutableURLRequest(url: NSURL(string: "http://163.17.20.6 /log.php")! as URL)    
-1個執行緒         主  //request.httpMethod = "POST"
+1個執行緒         主  let request = NSMutableURLRequest(url: NSURL(string: "http://163.17.20.6 /log.php")! as URL)
 1個執行緒         主  request.addValue("application/json", forHTTPHeaderField: "Content-Type")
 1個執行緒         主  request.addValue("application/json", forHTTPHeaderField: "Accept")
 1個執行緒         主  let session = URLSession.shared
@@ -720,40 +717,207 @@ echo($outp);
 
       </XMP>
       </section>
-      <section  id="no8"><h2 >練習三、如何傳送帳密到伺服器中驗證</h2>
+      
+      <section  id="no8"><h2 >習題1</h2>
+        
+        <h3>接下來 把程式加到美食專案中，cell中除了地圖的定位之外，都可以去伺服器的log.php抓取顯示。
+          後面是補充資料可以讓你將 經緯度和地址 互換,讓detailView 顯示地圖
+        </h3>
+        
+              </section>
+      <section  id="no9"><h2 >練習三、如何傳送帳密到伺服器中驗證</h2>
+        <p>前面單元是去伺服器取資料回來，<br>
+          做法是在伺服器寫一個程式<br>
+          app呼叫這個程式，<br>
+          這個程式把資料包成JSON格式傳回來<br><br>
+
+          這邊是要做帳密驗證<br>
+          和前述不同的地方在於我們必須傳送資料給伺服器<br>
+          也就是必須帶帳密資料給伺服器那支程式，這樣才能驗證<br><br>
+          
+          那麼問題又來了<br>
+          
+          怎樣才可以把資料送去給伺服器?<br>
+          
+          一般會有兩種方式一種是POST一種是GET，說明如下(這個很基礎，如果已經會了就直接跳過去)</p>
         <h3>POST和GET有什麼差別?</h3>  
         <p>打一個比方，假設 HTTP 當作是目前的實體郵政的寄信機制，</p>
         <ul>
           <li style="background-color: rgb(210, 230, 97);">GET就像是明信片</li>          
-          <p>那麼GET就像是明信片資料要寫在外面，價格比較便宜，但是大家都看得到。<br>
-            <XMP>
+          <p>那麼GET就像是明信片訊息要寫在外面，價格比較便宜，但是大家都看得到你寫了什麼。<br>
+            <XMP style="background-color: black;color: white;"> 
 
-              http://127.0.0.1/memupdate.php/?acc=admin1&pwd=m512.1&newpwd=m512.12
-              http://127.0.0.1/memupdate.php/   就是目的地住址 
-              acc=admin1&pwd=m512.1&newpwd=m512.12  就是要傳送的資訊，掛在網址列大家都看得到
-              很像資料寫在明信片上面，大家都看得到
+              http://163.17.20.6/mem.php/?acc=admin1&pwd=m512.1
+              http://163.17.20.6/mem.php/   就是目的地住址 
+              acc=admin1&pwd=m512.1  就是要傳送的資訊，掛在網址列大家都看得到
+              很像訊息寫在明信片上面，大家都看得到
 
             </XMP>
             </p>
           <li style="background-color: rgb(210, 230, 97);">POST 就是一般信封內裝信紙的郵件</li>
-          <p> POST 就是有信封，資料寫在裡面的信紙上，價格較貴，但是比較隱秘。<br>
-            <XMP>
+          <p> POST 就是有信封，訊息寫在裡面的信紙上，價格較貴，但是比較隱秘，無法直接看到你寫什麼。<br>
+            <XMP style="background-color: black;color: white;"> 
 
-              http://127.0.0.1/memupdate.php
-              http://127.0.0.1/memupdate.php/   就是目的地住址 
-              acc=admin1&pwd=m512.1&newpwd=m512.12  這些就是要傳送的資料就是要傳送的資訊，掛在網址列大家都看得到
-              很像資料寫在明信片上面，大家都看得到
-
+              http://163.17.20.6/mem.php   網址後面無掛載訊息，訊息是藏在封包內
+              
+              下面是擷取封包內容
+              POST / HTTP/1.1
+              Host: 163.17.20.6
+              User-Agent: Mozilla/5.0 (Windows; U; Windows NT 5.1; zh-TW; rv:1.9.2.13) Gecko/20101203 Firefox/3.6.13 GTB7.1 ( .NET CLR 3.5.30729)
+              Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8
+              Accept-Language: zh-tw,en-us;q=0.7,en;q=0.3
+              Accept-Encoding: gzip,deflate
+              Accept-Charset: UTF-8,*
+              Keep-Alive: 115
+              Connection: keep-alive               
+              Content-Type: application/x-www-form-urlencoded
+              Content-Length: 9
+              acc=admin1   ← 資訊在封包這個位置
+              pwd=m512.1   ← 資訊在封包這個位置
+              
             </XMP>
             </p>
         </ul>
-        <h3>使用POST傳送帳密驗證</h3>
+        <h3>練習用的網站功能</h3>
+        <p>網址→ http://163.17.20.6<br>
+        下面用GET寫法來說明參數</p>
+        <ul>
+          <li><span style="background-color: rgb(237, 240, 85);">驗證帳密</span> mem.php</li>
+              <p>http://163.17.20.6/mem.php/?acc=帳號&pwd=密碼
+                <ul>
+                  <li>帳密正確 {"result":"successful"}</li>
+                  <li>帳密錯誤 {"result":"fail"}</li>
+                </ul>
+              </p>
+          <li><span style="background-color: rgb(237, 240, 85);">新增帳密</span> memnew.php</li>
+              <p>http://163.17.20.6/memnew.php/?acc=帳號&pwd=密碼
+                <ul>
+                  <li>新增成功     {"result":"successful"}</li>
+                  <li>新增失敗     {"result":"fail"}</li>
+                  <li>帳號已被使用  {"result":"used"}</li>
+                </ul>
+              </p>
+          <li><span style="background-color: rgb(237, 240, 85);">刪除帳號</span> memdel.php</li>
+              <p>http://163.17.20.6/memdel.php/?acc=帳號&pwd=密碼
+                <ul>
+                  <li>刪除成功 {"result":"successful"}</li>
+                  <li>刪除失敗 {"result":"fail"}</li>
+                  <li>未發現要刪除的帳號 {"result":"not found"}</li>
+                </ul>
+              </p>
+          <li><span style="background-color: rgb(237, 240, 85);">修改密碼</span> memupdate.php</li>
+              <p>http://163.17.20.6/memupdate.php/?acc=帳號&pwd=密碼&newpwd=新密碼
+                <ul>
+                  <li>修改成功 {"result":"successful"}</li>
+                  <li>修改失敗 {"result":"fail"}</li>
+                  <li>未發現要修改的帳號 {"result":"not found"}</li>
+                </ul>
+              </p>
+        </ul>
+            <p>請使用GET方法玩一下上面四個網路服務，最後新增一個帳號給下面練習使用（請不用動到admin，不然範例程式會出錯）</p>
         <h3>使用GET傳送帳密驗證</h3>
-      </section>
-      <section  id="no8"><h2 >習題</h2>
+        <p>使用qserch8-3</p>
+        <p>要遠端認證，應該就是直接修改登入的程式就可以了，在8-3的登入程式如下</p>
+        <XMP style="background-color: black;color: white;"> 
+          
+    @IBAction func gin(_ sender: UIButton) {
+        if acc.text == myAccount && pwd.text == myPassword {
+            if rem.isOn{
+              let uuid = "apple"
+              UserDefaults.standard.set(uuid, forKey: "usid")
+            }
+            self.performSegue(withIdentifier:"login",sender:self)
+        }else{
+            fail.isHidden=false;
+        }
+    }
+
+        </XMP>
+        <p>修改如下</p>
+        <XMP style="background-color: black;color: white;"> 
+         
+    @IBAction func gin(_ sender: UIButton) {
+        let net="http://163.17.20.6/mem.php?acc="+acc.text!+"&pwd="+pwd.text!  //GET方法把帳密放在網址列
+        let request = NSMutableURLRequest(url: NSURL(string:net )! as URL)
+        let session = URLSession.shared
+        let task = session.dataTask(with: request as URLRequest,completionHandler:
+                    {
+                        data, response, error -> Void in
+                        DispatchQueue.main.async{  //因為等等會用到rem開關和fail標籤，所以丟到主執行緒
+                            self.testParsing(data: data! as NSData)
+                        }
+                    }
+                )
+        task.resume()
         
-<h3>接下來 把程式加到美食專案中，cell中除了地圖的定位之外，都可以去伺服器的log.php抓取顯示。
-  後面是補充資料可以讓你將 經緯度和地址 互換,讓detailView 顯示地圖
+    }
+    func testParsing(data :NSData){
+      //因為傳回的JSON 都是 {"result":" successful"} 字典，所以用NSDictionary來接驗證結果
+        let dictdata:NSDictionary=(try! JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSDictionary
+        let status=(dictdata as AnyObject).value(forKey:"result") as! NSString //取得驗證結果
+        if status == "successful" {  //驗證成功
+            if rem.isOn{
+              let uuid = "apple"
+              UserDefaults.standard.set(uuid, forKey: "usid")
+            }
+            self.performSegue(withIdentifier:"login",sender:self)
+        }else{  //驗證錯誤
+                self.fail.isHidden=false
+        }
+    } 
+
+        </XMP>
+        <h3>使用POST傳送帳密驗證</h3>
+        <p>要改用post方法傳送帳密，只需要改request的部分，下面是前面的GET程式</p>
+        <XMP style="background-color: black;color: white;"> 
+         
+          @IBAction func gin(_ sender: UIButton) {
+              let net="http://163.17.20.6/mem.php?acc="+acc.text!+"&pwd="+pwd.text!  //GET方法把帳密放在網址列
+              let request = NSMutableURLRequest(url: NSURL(string:net )! as URL)
+              let session = URLSession.shared
+              let task = session.dataTask(with: request as URLRequest,completionHandler:
+                          {
+                              data, response, error -> Void in
+                              DispatchQueue.main.async{  //因為等等會用到rem開關和fail標籤，所以丟到主執行緒
+                                  self.testParsing(data: data! as NSData)
+                              }
+                          }
+                      )
+              task.resume()
+              
+          }
+
+          </XMP>
+          <p>改成下面的POST寫法</p>
+        <XMP style="background-color: black;color: white;"> 
+
+          
+    @IBAction func gin(_ sender: UIButton) {
+      let net="http://163.17.20.6/mem.php"  //資訊不在這邊
+      let request = NSMutableURLRequest(url: NSURL(string:net )! as URL)
+      let session = URLSession.shared
+      request.httpMethod = "POST"  //改成POST
+      let postString = "acc="+acc.text!+"&pwd="+pwd.text!  //要傳送的帳密
+      request.httpBody = postString.data(using: .utf8) //把帳密放到request的httpBody裡面
+      let task = session.dataTask(with: request as URLRequest,completionHandler:
+                  {
+                      data, response, error -> Void in
+                      DispatchQueue.main.async{
+                          self.testParsing(data: data! as NSData)
+                      }
+                  }
+              )
+      task.resume()
+      
+  }
+
+        </XMP>
+
+
+      </section>
+      <section  id="no8"><h2 >習題2</h2>
+        
+<h3>接下來 把程式加到美食專案中，加上遠端帳密驗證，並且建立新增會員、修改密碼功能
 </h3>
 
       </section>
