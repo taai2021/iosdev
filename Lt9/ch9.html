@@ -920,7 +920,202 @@ echo($outp);
       </section>
 
       <section  id="no11"><h2 >補充資料 會員帳密管理的伺服器程式碼（php+apache+mysql）</h2>
+        
+        <ul>
+          <li><span style="background-color: rgb(237, 240, 85);">驗證帳密</span> mem.php</li>
+              <p>http://163.17.20.6/mem.php/?acc=帳號&pwd=密碼
+                <ul>
+                  <li>帳密正確 {"result":"successful"}</li>
+                  <li>帳密錯誤 {"result":"fail"}</li>
+                </ul>
+              </p>
+              <XMP style="background-color: black;color: white;"> 
+<?php
+  $acc="";
+  $pwd="";
+  if ( isset($_POST["acc"]) ){
+      $acc = $_POST["acc"];
+      $pwd = $_POST["pwd"];
+  }else{    
+      if ( isset($_GET["acc"]) ){
+          $acc = $_GET["acc"];
+          $pwd = $_GET["pwd"];
+      }
+  }
+  $res="錯誤";
+  // 檢查是否輸入使用者名稱和密碼
 
+  $link = mysqli_connect("localhost","root","2jgijjdl","foodpandan")
+          or die("無法開啟MySQL資料庫連接!<br/>");
+  //echo "資料庫test開啟成功!<br/>";
+  $sql = 'SELECT * FROM `member` WHERE `account` = "'.$acc.'" && `password`="'.$pwd.'"'; // 指定SQL字串
+  //echo "SQL字串: $sql <br/>";
+  //送出UTF8編碼的MySQL指令
+  $result = mysqli_query($link, $sql);
+  $total_records = mysqli_num_rows($result);
+  mysqli_close($link);  // 關閉資料庫連接
+  if ($total_records == 1){
+      $res="successful";
+  }else{
+      $res="fail";
+      
+  }
+  header("Access-Control-Allow-Origin: *");
+  header("Content-Type: application/json; charset=UTF-8");
+    echo'{"result":"'.$res.'"}';
+?>
+              </XMP>
+
+          <li><span style="background-color: rgb(237, 240, 85);">新增帳密</span> memnew.php</li>
+              <p>http://163.17.20.6/memnew.php/?acc=帳號&pwd=密碼
+                <ul>
+                  <li>新增成功     {"result":"successful"}</li>
+                  <li>新增失敗     {"result":"fail"}</li>
+                  <li>帳號已被使用  {"result":"used"}</li>
+                </ul>
+              </p>
+              <XMP style="background-color: black;color: white;"> 
+              
+<?php
+  $acc="";
+  $pwd="";
+  if ( isset($_POST["acc"]) ){
+      $acc = $_POST["acc"];
+      $pwd = $_POST["pwd"];
+  }else{    
+      if ( isset($_GET["acc"]) ){
+          $acc = $_GET["acc"];
+          $pwd = $_GET["pwd"];
+      }
+  }
+  $res="錯誤";
+  $link = mysqli_connect("localhost","root","2jgijjdl","foodpandan")
+          or die("無法開啟MySQL資料庫連接!<br/>");
+  $sql = 'SELECT * FROM `member` WHERE `account` = "'.$acc.'"'; 
+  $result = mysqli_query($link, $sql);
+  $total_records = mysqli_num_rows($result);
+  if ($total_records == 0){
+          $sql = 'INSERT INTO `member`( `account`, `password`) VALUES ("'.$acc.'","'.$pwd.'")'; // 指定SQL字串
+          mysqli_query($link, $sql);
+          $sql = 'SELECT * FROM `member` WHERE `account` = "'.$acc.'" && `password`="'.$pwd.'"'; // 指定SQL字串
+          $result = mysqli_query($link, $sql);
+          $total_records = mysqli_num_rows($result);
+          mysqli_close($link);  // 關閉資料庫連接
+          if ($total_records == 1){
+              $res="successful";
+          }else{
+              $res="fail";                
+          }
+  }else{
+      $res="used";
+  }
+  header("Access-Control-Allow-Origin: *");
+  header("Content-Type: application/json; charset=UTF-8");
+  echo'{"result":"'.$res.'"}';
+?>
+              </XMP>
+          <li><span style="background-color: rgb(237, 240, 85);">刪除帳號</span> memdel.php</li>
+              <p>http://163.17.20.6/memdel.php/?acc=帳號&pwd=密碼
+                <ul>
+                  <li>刪除成功 {"result":"successful"}</li>
+                  <li>刪除失敗 {"result":"fail"}</li>
+                  <li>未發現要刪除的帳號 {"result":"not found"}</li>
+                </ul>
+              </p>
+              <XMP style="background-color: black;color: white;"> 
+                
+<?php
+  $acc="";
+  $pwd="";
+  if ( isset($_POST["acc"]) ){
+      $acc = $_POST["acc"];
+      $pwd = $_POST["pwd"];
+  }else{    
+      if ( isset($_GET["acc"]) ){
+          $acc = $_GET["acc"];
+          $pwd = $_GET["pwd"];
+      }
+  }
+  $res="錯誤";
+  // 檢查是否輸入使用者名稱和密碼
+
+  $link = mysqli_connect("localhost","root","2jgijjdl","foodpandan")
+          or die("無法開啟MySQL資料庫連接!<br/>");
+  $sql = 'SELECT * FROM `member` WHERE `account` = "'.$acc.'" && `password`="'.$pwd.'"'; // 指定SQL字串
+  $result = mysqli_query($link, $sql);
+  $total_records = mysqli_num_rows($result);
+  if ($total_records >= 1){
+          $sql = 'DELETE FROM `member` WHERE `account`="'.$acc.'"'; // 指定SQL字串
+          mysqli_query($link, $sql);
+          $sql = 'SELECT * FROM `member` WHERE `account` = "'.$acc.'" && `password`="'.$pwd.'"'; // 指定SQL字串
+          $result = mysqli_query($link, $sql);
+          $total_records = mysqli_num_rows($result);
+          mysqli_close($link);  // 關閉資料庫連接
+          if ($total_records == 0){
+              $res="successful";
+          }else{
+              $res="fail";                
+          }
+  }else{
+      $res="not found";
+  }
+  header("Access-Control-Allow-Origin: *");
+  header("Content-Type: application/json; charset=UTF-8");
+  echo'{"result":"'.$res.'"}';
+?>
+              </XMP>
+          <li><span style="background-color: rgb(237, 240, 85);">修改密碼</span> memupdate.php</li>
+              <p>http://163.17.20.6/memupdate.php/?acc=帳號&pwd=密碼&newpwd=新密碼
+                <ul>
+                  <li>修改成功 {"result":"successful"}</li>
+                  <li>修改失敗 {"result":"fail"}</li>
+                  <li>未發現要修改的帳號 {"result":"not found"}</li>
+                </ul>
+              </p>
+              <XMP style="background-color: black;color: white;"> 
+<?php
+  $acc="";
+  $pwd="";
+  $newpwd="";
+  if ( isset($_POST["acc"]) ){
+      $acc = $_POST["acc"];
+      $pwd = $_POST["pwd"];
+      $newpwd=$_POST["newpwd"];
+  }else{    
+      if ( isset($_GET["acc"]) ){
+          $acc = $_GET["acc"];
+          $pwd = $_GET["pwd"];
+          $newpwd=$_GET["newpwd"];
+      }
+  }
+  $res="錯誤";
+  $link = mysqli_connect("localhost","root","2jgijjdl","foodpandan")
+          or die("無法開啟MySQL資料庫連接!<br/>");
+  $sql = 'SELECT * FROM `member` WHERE `account` = "'.$acc.'" && `password`="'.$pwd.'"'; // 指定SQL字串
+  $result = mysqli_query($link, $sql);
+  $total_records = mysqli_num_rows($result);
+  if ($total_records == 1){
+          $sql = 'UPDATE `member` SET `password`="'.$newpwd.'" WHERE `account`= "'.$acc.'"'; // 指定SQL字串
+          mysqli_query($link, $sql);
+          $sql = 'SELECT * FROM `member` WHERE `account` = "'.$acc.'" && `password`="'.$newpwd.'"'; // 指定SQL字串
+          $result = mysqli_query($link, $sql);
+          $total_records = mysqli_num_rows($result);
+          mysqli_close($link);  // 關閉資料庫連接
+          if ($total_records == 1){
+              $res="successful";
+          }else{
+              $res="fail";                
+          }
+  }else{
+      $res="not found";
+  }
+
+  header("Access-Control-Allow-Origin: *");
+  header("Content-Type: application/json; charset=UTF-8");
+  echo'{"result":"'.$res.'"}';
+?>
+              </XMP>
+        </ul>
       </section>
       <section  id="no12"><h2 >補充資料 CLGeocoder - 經緯度和地址 互換</h2>
         CllocationManager可以計算GPS傳回經緯度。<br>
