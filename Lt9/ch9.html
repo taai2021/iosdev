@@ -165,10 +165,11 @@
             <a class="dropdown-item" href="../Lt9/ch9.html#no6">6. 練習二、從遠端透過HTPP協定讀取JSON資料放到那三個Label中</a>
             <a class="dropdown-item" href="../Lt9/ch9.html#no7">7. 多執行緒的概念，以及有些動作只能在main執行緒做，應該怎麼解決?</a>
             <a class="dropdown-item" href="../Lt9/ch9.html#no8">8. 作業 1</a>
-            <a class="dropdown-item" href="../Lt9/ch9.html#no8">9. 練習三、如何傳送帳密到伺服器中驗證</a>
-            <a class="dropdown-item" href="../Lt9/ch9.html#no8">10. 作業 2</a>
-            <a class="dropdown-item" href="../Lt9/ch9.html#no8">11. 補充資料 會員帳密管理的伺服器程式碼（php+apache+mysql）</a>
-            <a class="dropdown-item" href="../Lt9/ch9.html#no9">12. 補充資料 CLGeocoder - 經緯度和地址 互換</a>        
+            <a class="dropdown-item" href="../Lt9/ch9.html#no9">9. 練習三、下載遠端圖檔</a>
+            <a class="dropdown-item" href="../Lt9/ch9.html#no10">10. 練習四、如何傳送帳密到伺服器中驗證</a>
+            <a class="dropdown-item" href="../Lt9/ch9.html#no11">11. 作業 2</a>
+            <a class="dropdown-item" href="../Lt9/ch9.html#no12">12. 補充資料 會員帳密管理的伺服器程式碼（php+apache+mysql）</a>
+            <a class="dropdown-item" href="../Lt9/ch9.html#no13">13. 補充資料 CLGeocoder - 經緯度和地址 互換</a>        
           </div>
         </li>
         <li class="nav-item dropdown"><!-- Registration-->
@@ -726,8 +727,12 @@ echo($outp);
           後面是補充資料可以讓你將 經緯度和地址 互換,讓detailView 顯示地圖
         </h3>
         
+      </section>      
+      <section  id="no9"><h2 >練習三、下載遠端圖檔</h2>             
+        <h3>接下來 把程式加到美食專案中，加上遠端帳密驗證，並且建立新增會員、修改密碼功能
+        </h3>
       </section>
-      <section  id="no9"><h2 >練習三、如何傳送帳密到伺服器中驗證</h2>
+      <section  id="no10"><h2 >練習四、如何傳送帳密到伺服器中驗證</h2>
         <p>前面單元是去伺服器取資料回來，<br>
           做法是在伺服器寫一個程式<br>
           app呼叫這個程式，<br>
@@ -917,11 +922,13 @@ echo($outp);
 
 
       </section>
-      <section  id="no10"><h2 >作業 2</h2>              
-        <h3>接下來 把程式加到美食專案中，加上遠端帳密驗證，並且建立新增會員、修改密碼功能
+      <section  id="no11"><h2 >作業 2</h2>              
+        <h3>
+          修改美食專案，將讀取本地端圖檔程式部分，改成遠端讀取。
+          接下來 把程式加到美食專案中，加上遠端帳密驗證，並且建立新增會員、修改密碼功能
         </h3>
       </section>
-      <section  id="no11"><h2 >補充資料 會員帳密管理的伺服器程式碼（php+apache+mysql）</h2>
+      <section  id="no12"><h2 >補充資料 會員帳密管理的伺服器程式碼（php+apache+mysql）</h2>
         
         <ul>
           <li><span style="background-color: rgb(237, 240, 85);">驗證帳密</span> mem.php</li>
@@ -1119,7 +1126,7 @@ echo($outp);
               </XMP>
         </ul>
       </section>
-      <section  id="no12"><h2 >補充資料 CLGeocoder - 經緯度和地址 互換</h2>
+      <section  id="no13"><h2 >補充資料 CLGeocoder - 經緯度和地址 互換</h2>
         CllocationManager可以計算GPS傳回經緯度。<br>
         雖然經緯度可以定位到地球上的任何位置，但用戶不太能從經緯度理解到實際上的位置。<br>
         用戶比較熟悉街道名稱或城市名稱。 <br>
