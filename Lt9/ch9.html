@@ -729,8 +729,34 @@ echo($outp);
         
       </section>      
       <section  id="no9"><h2 >練習三、下載遠端圖檔</h2>             
-        <h3>接下來 把程式加到美食專案中，加上遠端帳密驗證，並且建立新增會員、修改密碼功能
-        </h3>
+        <p>我們開一個新專案來練習讀取伺服器端圖檔，伺服器仍是163.17.20.6，而且放在其images的資料夾內，<br>
+        假設圖檔名稱是homei.jpg，則url=http://163.17.20.6/images/homei.jpg<br>
+        接下來開一個空專案，拉進來一個imageView，假設其IBOutlet名稱是img，<br>
+      則在viewDidLoad中加入這一段程式碼，imageView會顯示這一張圖形</p>
+      <XMP style="background-color: black;color: white;"> 
+
+
+        override func viewDidLoad() {
+          super.viewDidLoad()
+          // Do any additional setup after loading the view.
+          
+          let url=URL(string:"http://163.17.20.6/images/homei.jpg")
+        
+          DispatchQueue.global().async { [weak self] in  //丟到非同步執行，也就是另一個執行緒
+                      if let data = try? Data(contentsOf: url!) {  //Data(contentsOf: url!)  可以取回遠端圖檔資料
+                          if let image = UIImage(data:data) {   //套用image格式
+                              DispatchQueue.main.async {   //只有主執行緒才可以操作元件
+                                  self?.img.image = image   //放進去imageView 顯示
+                              }
+                          }
+                      }
+          }
+      }
+
+        
+      </XMP>
+      <p>下面是執行截圖</p>
+      <img src="images/no5.png" alt="">
       </section>
       <section  id="no10"><h2 >練習四、如何傳送帳密到伺服器中驗證</h2>
         <p>前面單元是去伺服器取資料回來，<br>
