@@ -448,7 +448,7 @@
             func startParsing(data :NSData){
                 //jsonObject(with: data as Data,可以把data套用JSON格式，因為整個json是一個陣列[]，所以宣告為NSArray
                 let dictdata:NSArray=(try! JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSArray
-                for i in 0 ..&lt; (dictdata.count)
+                for i in 0 ..< (dictdata.count)
                 {//把資料放到陣列
                   stname[i]=(dictdata[i] as! NSDictionary).value(forKey:"restaurantNames") as! NSString
                   stloc[i]=(dictdata[i] as! NSDictionary).value(forKey: "restaurantLocations") as! NSString
