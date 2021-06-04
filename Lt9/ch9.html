@@ -602,7 +602,8 @@ echo($outp);
               <p>number of row 一樣是陣列長度</p> 
               <p>cell for row 一樣從陣列塞資料進去tableView</p> 
               
-              <li style="background-color: rgb(210, 230, 97);">APP TRANSPORT SECURITY → app傳輸安全</li>
+              <li  style="background-color: rgb(210, 230, 97);">APP TRANSPORT SECURITY → app傳輸安全</li>
+              <div id="security"> 
                 <p>iOS有通訊上的安全機制，當你想要使用HTTP協定之前，你必須解除這個安全機制。<br>  
                 下面是未解除安全機制就執行所出現的錯誤訊息<br>  
                 <img src="images/ch77.png" alt="" width="590" height="248"><br>  
@@ -611,7 +612,7 @@ echo($outp);
                 必須做下面設定 來打開http的安全設定<br>  
                 <img src="images/ch78.png" alt="" width="1132" height="460"><br>  
                   <img src="images/ch79.png" alt="" width="843" height="425"></p>
-              
+                </div>
         </ol>
         <p>這樣應該就會成功了?</p>
       </section>
@@ -841,7 +842,7 @@ echo($outp);
         </ul>
             <p>請使用GET方法玩一下上面四個網路服務，最後新增一個帳號給下面練習使用（請不用動到admin，不然範例程式會出錯）</p>
         <h3>使用GET傳送帳密驗證</h3>
-        <p>使用qserch8-3</p>
+        <p>使用ch8-3的執行結果，萬一出現APP TRANSPORT SECURITY 錯誤，記得去加上設定<a href="#security">在這邊</a></p>
         <p>要遠端認證，應該就是直接修改登入的程式就可以了，在8-3的登入程式如下</p>
         <XMP style="background-color: black;color: white;"> 
           
