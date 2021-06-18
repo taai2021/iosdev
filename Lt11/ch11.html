@@ -246,13 +246,19 @@
           <ol>
           <li> 申請相機許可權：</li>
           <XMP>
-            <key>NSCameraUsageDescription</key><string>This app will use camera </string>
-          </XMP>
-      
+              <key>NSCameraUsageDescription</key>
+              <string>This app will use camera </string>
+          </XMP>      
           <li>申請相冊許可權</li>
-          <key>NSPhotoLibraryUsageDescription</key><string> You can select photos to attach to reports.</string>
+          <XMP>
+              <key>NSPhotoLibraryUsageDescription</key>
+              <string> You can select photos to attach to reports.</string>
+          </XMP>          
           <li>拉一個imageview元件到一個viewController，取名為imagePicked</li>
           <li>控制項繼承下面兩個協定UINavigationControllerDelegate ，UIImagePickerControllerDelegate </li>
+          <p>
+            
+          </p>
           實現方法：class yourController:..., UINavigationControllerDelegate, UIImagePickerControllerDelegate  <br>{...  }<br>
           imagePicker在拍完照片之後，會啟動imagePickerController這個程式，把照片帶過去，並且停止相機，<br>
           所以必須要加這個協定，imagePicker才能指定delegate到這個類別。
