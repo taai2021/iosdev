@@ -218,6 +218,8 @@
   
 <!--below is the content**************************************************************************************below is the content -->
   <div  style="margin-top: 80px;">
+    
+    <div style="margin: auto; width: 96%; text-align: left; border-bottom: 1px solid darkgrey; "> 
     <p>這個單元介紹UIImagePickerController和ARKIT</p>
     <ul>
       <li>UIImagePickerController</li>
@@ -234,18 +236,84 @@
         <li>偵測一張圖，當偵測到圖，就顯示一個預設的AR模型</li>
       </ol>
     </ul>
+    </div>
+
     <div style="margin: auto; width: 96%; text-align: left; border-bottom: 1px solid darkgrey; "> 
-      <section  id="no1"><h2 >自相機取得影像放入imageview/h2>
-        <p>本學期課程主要是在MAC環境中學習使用Swift語言製作iOS App<br>
-            上課方式是以一個行動商務實例，一面開發一面講解開發中會用到的Swift語言和App的製作技術。
-        </p>
+      <section  id="no1"><h2 >自相機取得影像放入imageview</h2>
+      
+        <p>下面是拍照的控制步驟，其中1和2是編輯.plist文件,添加兩個key-value，打開相機和相冊的存取權限</p>
+        <div><h3>建立步驟</h3>              
+          <ol>
+          <li> 申請相機許可權：</li>
+          <XMP>
+            <key>NSCameraUsageDescription</key><string>This app will use camera </string>
+          </XMP>
+      
+          <li>申請相冊許可權</li>
+          <key>NSPhotoLibraryUsageDescription</key><string> You can select photos to attach to reports.</string>
+          <li>拉一個imageview元件到一個viewController，取名為imagePicked</li>
+          <li>控制項繼承下面兩個協定UINavigationControllerDelegate ，UIImagePickerControllerDelegate </li>
+          實現方法：class yourController:..., UINavigationControllerDelegate, UIImagePickerControllerDelegate  <br>{...  }<br>
+          imagePicker在拍完照片之後，會啟動imagePickerController這個程式，把照片帶過去，並且停止相機，<br>
+          所以必須要加這個協定，imagePicker才能指定delegate到這個類別。
+          <li>宣告一個成員變數為相機控制項</li>
+          var imagePicker = UIImagePickerController()
+          <li>指定imagepicker的delegate為自己本身類別</li>
+          在viewdidload加入imagePicker.delegate = self
+          <li>加一個拍照按鈕，用來啟動相機</li>
+          做一個按鈕的IBAction，當按下按鈕時執行下面程式，啟動相機<br>
+          @IBAction func openCameraButton (_ sender: UIButton) <br>                 
+          <span class=r2">imagePicker.sourceType = .camera   <br>   </span>
+          <span class=r2">present(imagePicker, animated: true, completion: nil)  <br></span>
+          }
+          <li>拍照之後利用imagePickerController取回照片 </li>
+          在imagepicker取得影像後，會執行下列函式，<br>
+          停止相機<br>
+          自info取出image放入imageview<br>
+          private func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [String : AnyObject]) {<br>
+                  imagePicker.dismiss(animated: true, completion: nil)<br>
+                  imagePicked.image = info[UIImagePickerControllerOriginalImage] as? UIImage<br>
+          }
+          
+          
+          </ol>
+          
+        </div>
+      </section>
+      <section  id="no1"><h2 >自相簿取得影像放入imageview</h2>
+      
         <div><h3>上課方式</h3>
           <p>
-            兩個人一組，所以一些作業和分數是以分組分數來計算，開學第二週加退選完成後，上課時完成tronclass分組。<br>
-                                  強烈建議要找時間上能相互配合做課後指定作業的同學，以免無法完成指定作業被扣分數。   
+           
           </p>
         </div>
-        <div><h3>雷區 VS. 安全區域</h3>
+           
+      </section>
+      <section  id="no1"><h2 >從imageview把影像存入相簿</h2>
+      
+        <div><h3>上課方式</h3>
+          <p>
+           
+          </p>
+        </div>
+           
+      </section>
+      <section  id="no1"><h2 >把一個3D的立方體放進去AR空間內</h2>
+      
+        <div><h3>上課方式</h3>
+          <p>
+           
+          </p>
+        </div>
+           
+      </section>
+      <section  id="no1"><h2 >偵測一張圖，當偵測到圖，就顯示一個預設的AR模型</h2>
+      
+        <div><h3>上課方式</h3>
+          <p>
+           
+          </p>
+        </div>
            
       </section>
         
