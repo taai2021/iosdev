@@ -348,56 +348,52 @@ let real = complex.real
         <div style="font-size: 1.5em;">
 <XMP style="background-color: black;color: white;">
 nil是指空值，對應到java是null，
+optional 是指可以有也可以沒有，也就是可以有值也可以是nil
 在swift，
+一個變數可以是
+optional: 可以是nil
+或者不是optional: 不能放nil
+</XMP>
+<h3>變數不是optional</h3>
+<XMP style="background-color: black;color: white;">
 var a:int=1 
 如果設定a=nil 就會出現錯誤
-
-請大家試試看
-var a:Int = 1 
-a=100 //沒問題
-a = nil // 失敗
-
-nil是指空值，什麼都沒有，連0都沒有
-你怎麼表示a裡面什麼都沒有？
-a是一個放數字的記憶體空間，不管怎樣裡面就是有010101的資料，
-怎樣才能表示a變數是什麼都沒有的空值nil?
-
-
-swift使用可選類型（optionals）來處理值可能為nil的情況。
-optional就是在原來的資料形態後面加一個？
-例如
 </XMP>
-var b:Int<span style="color: red;" >?</span> = 1 <br>
-b = nil // 成功
+<h3>變數不是optional</h3>
 <XMP style="background-color: black;color: white;">
+var b:Int? = 1 
+b = nil // 成功
+
 Int？  就是Int的optional變數 
 所以
 b = nil // 成功
-a和b有什麼不同？也就是Int和Int?有什麼不同？
-可以這樣想像 
-Int? 的變數加了一個框，把裡面東西拿走，就變成空的狀態
-所以可以表示nil
 </XMP>
+可以這樣想像<BR> 
+Int? 的變數加了一個框，把裡面東西拿走，就變成空的狀態<BR>
+所以可以表示nil<BR>
+
           var a:Int = 1<br>
           var b:Int? =<span style="border: 1px solid red;">1</span><br>
           當b=nil，b就變成一個空的框 b=<span style="border: 1px solid red; padding: 0 5px;"> </span><br>
-          a就無法表示nil （Int 無法表示 空）
+          a就無法表示nil （Int 無法表示 空）<BR>
+            下面兩者結構實際上的差異<BR>
+          <img width="50%" src="images/n02.png" alt="">
 <div class="pratb">
   <h3 class="prat" >練習</h3> 
   <XMP style="background-color: black;color: white;">
-試一下，下面程式會發生甚麼事？
+    class Apo{
+      func foo()->Int?{
+          var x:Int?=3;
+          var y:Int
+          y=x!
+          return y
+      }
+      func koo(){
+          var x:Int
+          x=foo() //為什麼錯誤？試著解釋一下。
+      }
+  }
 
-var a:Int = 1
-var b:Int? = 1
-a=nil
-b=nil
-解釋一下那邊錯誤，為什麼錯？
-
-接下來再試這一個
-var a:Int = 1
-var b:Int? = 1
-a = b
-發生甚麼事？試著解釋一下。
 
   </XMP>
 </div>
@@ -407,63 +403,160 @@ a = b
 <div class="pratb">
   <h3 class="prat" >練習</h3> 
   <XMP style="background-color: black;color: white;">
-再試看看
+試看看這一個，是否就正常了
 
-接下來再試這一個
-var a:Int = 1
-var b:Int? = 6
-a = b！
-發生甚麼事？試著解釋一下。
+class Apo{
+  func foo()->Int?{
+      var x:Int?=3;
+      var y:Int
+      y=x!
+      return y
+  }
+  func koo(){
+      var x:Int
+      x=foo()!
+  }
+}
 
   </XMP>
-<img width="50%" src="images/n02.png" alt="">
 </div>
-<XMP style="background-color: black;color: white;">
-
+<XMP >
+很多方法的傳回值都像foo()，都是 ?
+Int()也是，因為字串轉整數還是有可能失敗失敗時會傳回nil(foo沒有寫這一段傳回nil的程式碼)
 總之
-宣告變數用了 ? 該變數加了框，所以以後可以表示成nil
-而加了框的變數如果使用了 !  就是拆開框，只取出值來用
-所以a = b！ 就是把</XMP>
-<span style="border: 1px solid red;">6</span>變成6，再指定給a，a就變成6
-<hr>
-<XMP style="background-color: black;color: white;">
-再學一下 ??
-先解釋 ??用法
-a ?? b  
-就是a不等於nil 就是a
-a如果等於nil 就是 b
-
-看看這個例子
-let s = "123"
-let a = Int(s)
-print(a*2)
-Int()可以把字串轉成整數
-這樣很危險 有可能手殘打成 s="12t"
-就轉不過來了 Int("12t")只能傳回 nil
-如果改成let a = Int(s) ?? 0
-這樣
-let s = "123"
-let a = Int(s) ?? 0
-print(a*2)
-
-印出456
-
-let s = "12t"
-let a = Int(s) ?? 0
-print(a*2)
-印出0
-
+x=Int("123")  x是數字123
+y=Int("A100")  y是nil
 
 </XMP>
 <div class="pratb">
   <h3 class="prat" >練習</h3> 
+  <XMP style="background-color: black;color: white;">
+請問 會印出什麼?
+print(Int("A100"))
+
+  </XMP>
+</div>
+
+<XMP>
+
+var x:Int=Int("A100")!
+這樣會出錯，訊息如下
+2022-02-22 11:31:53.574354+0800 hello world[27316:5703600] 
+hello_world/ContentView.swift:31: Fatal error: 
+Unexpectedly found nil while unwrapping an Optional value
+意思就是Int("A100")是nil，nil不能拆框
+
+</XMP>
+
+<hr>
+<H3>??的用法<br>安全的拆框方式</H3>
+<XMP >
+X = A ?? B  
+如果
+A等於nil 則 X=B
+否則 X=A!
+
+也就是?? 可以用來幫A去掉框放到X，如果A是nil就是不能去框，則用B來當預設值放入X
+
+</XMP>
+
+
+
+<div class="pratb">
+  <h3 class="prat" >練習</h3> 
+  <XMP style="background-color: black;color: white;">
+請問 會印出什麼? (注意： a和b是 Int不是Int? 所以有拆框了)
+p
+var x=10
+var y="d100"
+var z="123"
+var a : Int = Int(y) ?? x
+var b : Int = Int(z) ?? x
+print(a)
+print(b)
+
+  </XMP>
+</div>
+
+<h3>更方便的拆框方式 if let a=Int(y) { </h3>
+<XMP>
+  if let a=Int(y) { 
+
+    Int(y)不等於nil的時候
+    把Int(y)拆框後放到a
+
+  } else { 
+
+    Int(y)不等於nil的時候
+    給一點警告的提示
+
+  }
+</XMP>
+
+<div class="pratb">
+  <h3 class="prat" >練習</h3> 
 <XMP style="background-color: black;color: white;">
-用眼睛看出下面會印出什麼，然後寫出每一行的執行結果
-  var x:Int=10
-  var y="d"
-  var a = "123"
-  var b : Int = Int(a+y) ?? x
-  print(b*2)
+用眼睛看出下面會印出什麼? 並且解釋一下
+var y=Int("d100")
+if let x=y {
+    print(x)
+}else{
+    print("y is nil")
+}
+
+var z=Int("123")
+if let x=z {
+    print(x)
+}else{
+    print("z is nil")
+}
+</XMP>
+</div>
+
+<H3>guard讀使用<BR>函數怎麼檢查輸入參數</H3>
+<XMP>
+
+guard 常用來檢查 輸入參數是否有問題
+有問題就執行els{} 必須含有return 
+也就是輸入參數不合格 就return返回 
+不要繼續執行這個function
+func foo(){
+  guard 判斷式 else { 
+    給錯誤訊息
+    return  
+  }
+  函式正常運行部分
+}
+
+
+參考一下下面程式
+  func poo(p:Int?){
+    guard let x=p else{
+        print("p是nil 不能執行這個函式") //給點警告然後離開
+        return
+    }
+    可以開始使用已經拆包的x了
+  }
+</XMP>
+<div class="pratb">
+  <h3 class="prat" >練習</h3> 
+<XMP style="background-color: black;color: white;">
+當我呼叫hoo()之後的結果是甚麼?
+
+  func poo(p:Int?){
+    guard let x=p else{
+        print("輸入資料是空值")
+        return
+    }
+    print(x)
+  }
+  func hoo(){
+      var y=Int("d100")
+      poo(p:y)
+      
+      var z=Int("123")
+      poo(p:z)
+  }
 </XMP>
 </div>
 <hr>
@@ -471,7 +564,7 @@ print(a*2)
 
         </div>  
       </section>
-      <section id="no4"><h2>4. 條件式和迴圈</h2>
+      <section id="no4"><h2>4. for迴圈</h2>
         <div style="font-size: 1.5em;">
         <div><h3>for </h3>
 <XMP style="background-color: black;color: white;">
@@ -494,41 +587,7 @@ for (animalName, legCount) in numberOfLegs {
 }
 </XMP>
 </div>
-<div><h3>if 和 = 的糾葛</h3>
-<XMP style="background-color: black;color: white;">
-  == 是比較
-  if a==b{
-    print("yes")
-  } else{
-    print("no")
-  }
-a等於b 印yes 否則印no
-而 = 也可以用在if，
-if let a=b {
-  如果b不是nil 則值給a 然後等於是true的狀況
-}
 
-</XMP>
-
-<div class="pratb">
-  <h3 class="prat" >練習</h3> 
-  <XMP style="background-color: black;color: white;">
-試看看
-
-var x:Int?=10
-x=nil
-if let y=x{ 
-    print("yes")
-}else{
-    print("no")
-}
-接下來 把x=nil拿掉再試一次
-發生甚麼事？試著解釋一下。
-
-  </XMP>
-</div>
-
-</div>
         </div>
       </section>
       <section id="no5"><h2>5. Function</h2>
@@ -546,70 +605,7 @@ func baz() -> () { /* function body */ }
 func quz() { /* function body */ } 
           </XMP>
         </div>
-        <div><h3>guard  </h3>
-          <XMP style="background-color: black;color: white;">
-guard 判斷式 else { return  }
-guard 常用來檢查 輸入參數是否有問題
-有問題就執行else 通常是return 
-也就是輸入參數不合格 就return返回 不要繼續執行這個function
-有點像 if else
-只是guard如果true 就直接過  所以他只有else部分
-參考一下下面程式
-func greet(person: [String: String]) {
-  guard let name = person["name"] else {
-      return
-  }
-  print("Hello \(name)")
-  guard let location = person["location"] else {
-      print("I hope the weather is nice near you.")
-      return
-  }
-  print("I hope the weather ......
-          </XMP>
- 
-<div class="pratb">
-  <h3 class="prat" >練習</h3> 
-  <XMP style="background-color: black;color: white;">
-試看看
-       
-class A{
-  func sss(x:Int)->Int{
-      guard x>5 else {
-          return 0
-      }
-      return 1
-  }
-}
 
-let p=A()
-print(p.sss(x:12))
-結果是？
-
-接下來 把print(p.sss(x:12))改成print(p.sss(x:2))再試一次
-發生甚麼事？試著解釋一下。
-
-  </XMP>
-</div>  
-<div><h3>_ 表示忽略 </h3>
-  <img src="images/n03.png" alt="">
-  <br>
-  <br>
-  呼叫時 可以省略參數名稱<br>
-  <img src="images/n07.png" alt="">
-          </div>
-
-<div><h3>輸入參數是陣列 </h3>
-  <img src="images/n04.png" alt="">
-  <br>
-  <br>
-          </div>
-          <div><h3> 參數預設值 </h3>
-            <img src="images/n05.png" alt="">
-            <br>
-            <br>
-                    </div>
-         
-        </div>
         </div>
       </section>
       <br><br>
