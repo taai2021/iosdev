@@ -220,14 +220,12 @@
     <div style="margin: auto; width: 96%; text-align: left; border-bottom: 1px solid darkgrey; "> 
       <section  id="no1"><h2 >熟悉XCODE各個面板部位和操作</h2>
         <p>
-          教室內XCODE版本不一致，講義上的版本是目前最新版的截圖，如果和你目前使用的畫面不同，應該可以找一下會有相對應的按鈕。<br>
-          或者你可以利用非上課時間來教室把自己的機器更新一下，如果教室網路慢，建議也可以用手機吃到飽更新一下<br>
-          但是目前除了操作畫面略有不同之外，教室內的XCODE應該都可以滿足上課需求。
+          把下面的圖示一一點選測試和熟悉。
         </p>
-        <div style="font-size: 1.5em;"><h3>各部位的功能 （點選程式畫面時）  </h3>   
+        <div style="font-size: 1.5em;"><h3>所有會用到的功能 （點選程式畫面時）  </h3>   
           <XMP >
 試著隱藏和顯示左右下三個區，其中下面除錯資訊需要先執行一下才會出現，
-XCODE版本不一致，自己找一下
+
           </XMP>
           <img src="images/n01.png" alt="" width="100%">
         </div>
@@ -237,42 +235,231 @@ XCODE版本不一致，自己找一下
         
           <img src="images/n04.png" alt="">
         </div>
-      </section>
-      <section  id="no2"><h2 >TEXT屬性設定+VSack+HStack+Spacer()</h2>
-        <div style="font-size: 1.5em;"><h3> 選擇viewController </h3>   
+
+        <div style="font-size: 1.5em;"><h3>如何調整元件屬性 </h3>   
+        
           <img src="images/n05.png" alt="">
         </div>
-
-        <div style="font-size: 1.5em;"><h3>使用版面配置固定元件 </h3>   
+        <div style="font-size: 1.5em;"><h3>如何叫出code action </h3>   
+        <p>練習把TEXT元件加入VStack</p>
           <img src="images/n06.png" alt="">
         </div>
-       
-      </section>
-      <section  id="no3"><h2 >Button、Textfield以及變數綁定</h2>
-        <div style="font-size: 1.5em;"><h3> 先來跑版看看 </h3> 
+        <div style="font-size: 1.5em;"><h3>如何加入新的元件 </h3>   
+        <p>練習加入另一個TEXT元件到VStack</p>
           <img src="images/n07.png" alt="">
-
+        </div>
+      </section>
+      <section  id="no2"><h2 >TEXT屬性設定+VSack+HStack+Spacer()</h2>
+        <div style="font-size: 1.5em;"><h3> 幫TEXT增加BACKGROUND屬性，調整背景顏色 </h3>   
+         <p> 將TEXT背景分別調成橘色和藍色</p>
+         <img src="images/n08.png" alt="">
         </div>
 
+        <div style="font-size: 1.5em;"><h3>讓橘色文字距離左右距離框線20點 </h3>   
+          <img src="images/n09.png" alt="">
+        </div>
+       
+<div class="pratb">
+  <h3 class="prat" >練習</h3> 
+  <XMP style="background-color: black;color: white;">
+  請嘗試下面屬性
+  要注意到 
+  加上多個屬性前後次序會有不同結果
+  有些屬性會相互牴觸
+
+  .fontWeight(.bold) 粗體
+
+  .font(.title) 使用系統預設標題字型
+
+  .font(.system(.title,design: .rounded)) 使用系統預設標題字型，並且圓化
+
+  .font(.system(size: 20)) 20點的字
+
+  .font(.custom("Savoye LET", size: 30)) 使用自訂字體
+
+  .multilineTextAlignment(.center)  多行置中
+
+  .lineLimit(3)  限制3行多出來的截斷，以...取代
+
+  .lineSpacing(15) 行距15點
+
+  .rotationEffect(.degrees(45)) 以中心點為基準 旋轉45度 
+
+  .rotationEffect(.degrees(45), anchor: UnitPoint(x:0,y:0)) 以左上角為基準 旋轉45度 
+
+  .rotation3DEffect(.degrees(45), axis:(x:1,y:0,z:0)) 三維旋轉
+
+  .shadow(color:.gray,radius:2,x:0,y:15) 灰色陰影 兩點模糊成一點 左右不動 只向下15點
+
+  </XMP>
+</div>
+      </section>
+      <section  id="no3"><h2 >Button、Textfield以及變數綁定</h2>
+        <div style="font-size: 1.5em;"><h3> struct是不可變的 不能修改 包括變數 </h3> 
+         
+          <img src="images/n10.png" alt="">
+          <XMP>
+            
+import SwiftUI
+
+struct ContentView: View {
+    var x="Helo, world!"
+    var body: some View {
+        Button(/*@START_MENU_TOKEN@*/"Button"/*@END_MENU_TOKEN@*/) {
+            x="Hello, world!"
+        }
+        VStack {
+            Text(x)
+                .padding()
+        }
+    }
+}
+
+          </XMP>
+        </div>
+        <div style="font-size: 1.5em;"><h3> binding : 用 @State 綁變數 就可以修改了 </h3> 
+         
+    
+          <XMP>
+            
+import SwiftUI
+
+struct ContentView: View {
+    @State var x="Helo, world!"
+    var body: some View {
+        Button(/*@START_MENU_TOKEN@*/"Button"/*@END_MENU_TOKEN@*/) {
+            x="Hello, world!"
+        }
+        VStack {
+            Text(x)
+                .padding()
+        }
+    }
+}
+
+          </XMP>
+        </div>
+        <div style="font-size: 1.5em;"><h3> Two ways binding : 用 @State 綁變數 就可以修改了 </h3> 
+         <p> 
+           前面的binding是單向，修改變數，然後元件上的也被改變，<br>
+           但是有些應用需要能在元件上數值改變之後，binding的變數也跟著改，例如Textfield，<br>
+           當使用者在TextField上輸入文字之後，變數也會跟著改變，也就是雙向改變<br>
+           做法是在需要雙向的地方加上$，例如下方程式y綁到textfield，需要雙向所以加上$<br>
+           而Button裡面的 x=y 並不需要雙向改變所以使用y，而不是$y
+        </p>
+
+    
+          <XMP>
+            
+
+            import SwiftUI
+
+            struct ContentView: View {
+                @State var y=""
+                @State var x="Helo, world!"
+                var body: some View {
+                    TextField(/*@START_MENU_TOKEN@*/"Placeholder"/*@END_MENU_TOKEN@*/, text: $y)
+                    Button(/*@START_MENU_TOKEN@*/"Button"/*@END_MENU_TOKEN@*/) {
+                        x=y
+                    }
+                    VStack {
+                        Text(x)
+                            .padding()
+                    }
+                }
+            }
+            
+          </XMP>
+        </div>
+        <div style="font-size: 1.5em;"><h3> binding struct: 一次把多個變數綁起來，用 @State 綁進來使用 </h3> 
+         <p>應該可以發現下面程式，按鈕用不著了，因為會自動更新</p>
+    
+          <XMP>
+            import SwiftUI
+
+            struct rest{
+                var name="饗食天堂"
+                var location="台中市大遠百"
+                var type="歐式自助"
+            }
+            struct ContentView: View {
+                @State var y=rest()
+                
+                var body: some View {
+                    
+                    VStack {
+                        TextField("輸入提示", text: $y.name)
+                        TextField("輸入提示", text: $y.location)
+                        TextField("輸入提示", text: $y.type)
+                        Button("Button") {
+                            //不用做什麼
+                        }
+                        Text(y.name)
+                        Text(y.location)
+                        Text(y.type)
+                           
+                    }
+                }
+            }
+
+          </XMP>
+          
+         <p>因為共用y 所以會一起變化，假設你需要分開變化呢?等到你的指令再更新TEXT的資料?<br>
+           那麼多宣告一個x，y給 textfield用，x給TEXT用，如下</p>
+    
+         <XMP>
+           import SwiftUI
+
+           struct rest{
+               var name="饗食天堂"
+               var location="台中市大遠百"
+               var type="歐式自助"
+           }
+           
+            struct ContentView: View {
+              @State var y=rest()
+              @State var x=rest() //加一個x
+              
+              var body: some View {
+                  
+                  VStack {
+                      TextField(/*@START_MENU_TOKEN@*/"Placeholder"/*@END_MENU_TOKEN@*/, text: $y.name)
+                      TextField(/*@START_MENU_TOKEN@*/"Placeholder"/*@END_MENU_TOKEN@*/, text: $y.location)
+                      TextField(/*@START_MENU_TOKEN@*/"Placeholder"/*@END_MENU_TOKEN@*/, text: $y.type)
+                      Button(/*@START_MENU_TOKEN@*/"Button"/*@END_MENU_TOKEN@*/) {
+                          
+                      }
+                      Text(y.name)
+                      Text(y.location)
+                      Text(y.type)
+                        
+                  }
+              }
+            }
+
+
+         </XMP>
+        </div>
+        
         <div style="font-size: 1.5em;"><h3>constraints 束縛 約束 </h3> 
           <XMP >
 除了可以使用 預設的水平垂直的版面設置來固定元件避免跑版之外，還可以使用constraints來綁元件位置避免跑版
           </XMP>
-          <img src="images/n08.png" alt="">
+         
         </div>
         <div style="font-size: 1.5em;"><h3>修改contraints的屬性 </h3>   
           <XMP >
 可以透過修改contraints的屬性達到更精準的版面控制 
 也可以產生IBOutlet在程式中控制
           </XMP>
-          <img src="images/n09.png" alt="">
+         
         </div>
         <div style="font-size: 1.5em;"><h3>修改contraints的屬性 </h3>   
           <XMP >
 可以透過修改contraints的屬性達到更精準的版面控制 
 也可以產生IBOutlet在程式中控制
           </XMP>
-          <img src="images/n09.png" alt="">
+       
         
           <XMP >
 有加constraints的元件
