@@ -294,9 +294,22 @@
   </XMP>
 </div>
       </section>
-      <section  id="no3"><h2 >Button、Textfield以及變數綁定</h2>
-        <div style="font-size: 1.5em;"><h3> struct是不可變的 不能修改 包括變數 </h3> 
-         
+      <section  id="no3"><h2 >Button、Textfield以及@State</h2>
+        <div style="font-size: 1.5em;"><h3> struct是不可變的 不能修改 </h3> 
+         <XMP>
+          要如何變更TEXT裡面的文字？ 
+          Text("Helo World") 會顯示Helo World 拼錯了
+          
+          假設我要改變文字變成正確的 Hello World 
+          怎麼辦？
+          當然是設定變數 x
+          然後Test(x)
+          那麼只要改變x為   Hello World 
+          不就可以了嗎？
+          但是看一下下圖，卻是錯誤的
+          ㄨㄟˋㄕㄜˊㄇㄛ˙ㄋㄜ˙？
+          因為struct是不可變的 不能修改包括變數
+          </XMP>
           <img src="images/n10.png" alt="">
           <XMP>
             
@@ -305,7 +318,7 @@ import SwiftUI
 struct ContentView: View {
     var x="Helo, world!"
     var body: some View {
-        Button(/*@START_MENU_TOKEN@*/"Button"/*@END_MENU_TOKEN@*/) {
+        Button("Button") {
             x="Hello, world!"
         }
         VStack {
@@ -317,8 +330,15 @@ struct ContentView: View {
 
           </XMP>
         </div>
-        <div style="font-size: 1.5em;"><h3> binding : 用 @State 綁變數 就可以修改了 </h3> 
-         
+        <div style="font-size: 1.5em;"><h3> 用 @State 宣告變數 就可以修改了 《變數 傳值進去 元件》</h3> 
+        <h4> 
+          那該如何解決呢？  <br>
+          用@State宣告變數 就可以修改了<br>
+          所以會產生單向的影響<br>
+          變數  → 元件的資料<br>
+          如下方程式，請測試看看
+        </h4>
+
     
           <XMP>
             
@@ -327,7 +347,7 @@ import SwiftUI
 struct ContentView: View {
     @State var x="Helo, world!"
     var body: some View {
-        Button(/*@START_MENU_TOKEN@*/"Button"/*@END_MENU_TOKEN@*/) {
+        Button("Button") {
             x="Hello, world!"
         }
         VStack {
@@ -339,11 +359,16 @@ struct ContentView: View {
 
           </XMP>
         </div>
-        <div style="font-size: 1.5em;"><h3> Two ways binding : 用 @State 綁變數 就可以修改了 </h3> 
+        <div style="font-size: 1.5em;"><h3> 《變數 傳值進去 元件 》 而且 《元件可以傳值出來 放到變數 》 :  @State + $變數  </h3> 
          <p> 
-           前面的binding是單向，修改變數，然後元件上的也被改變，<br>
-           但是有些應用需要能在元件上數值改變之後，binding的變數也跟著改，例如Textfield，<br>
+           前面的binding是單向，修改變數，然後元件上的也被改變，<br>  
+           變數  → 元件的資料<br>
+
+           但是有些應用需要能在元件上數值改變之後，變數也跟著改，例如Textfield，<br>
            當使用者在TextField上輸入文字之後，變數也會跟著改變，也就是雙向改變<br>
+           變數  ←→ 元件的資料<br>
+
+
            做法是在需要雙向的地方加上$，例如下方程式y綁到textfield，需要雙向所以加上$<br>
            而Button裡面的 x=y 並不需要雙向改變所以使用y，而不是$y
         </p>
@@ -358,8 +383,8 @@ struct ContentView: View {
                 @State var y=""
                 @State var x="Helo, world!"
                 var body: some View {
-                    TextField(/*@START_MENU_TOKEN@*/"Placeholder"/*@END_MENU_TOKEN@*/, text: $y)
-                    Button(/*@START_MENU_TOKEN@*/"Button"/*@END_MENU_TOKEN@*/) {
+                    TextField("Placeholder", text: $y)
+                    Button("Button") {
                         x=y
                     }
                     VStack {
@@ -371,82 +396,203 @@ struct ContentView: View {
             
           </XMP>
         </div>
-        <div style="font-size: 1.5em;"><h3> binding struct: 一次把多個變數綁起來，用 @State 綁進來使用 </h3> 
-         <p>應該可以發現下面程式，按鈕用不著了，因為會自動更新</p>
+        <div style="font-size: 1.5em;"><h3>subview 和 binding </h3> 
+          <p>你可以把幾個元件組合起來變成一個subview，方便重複使用或者讓整體程式碼簡潔易讀。<br>
+          先回到hello world</p>
+
+          <XMP>
+            struct ContentView: View {
+              var body: some View {
+                  
+                  VStack {
+                      Text("Hello World！")
+                  }
+              }
+          }
+          </XMP>
+          <p>游標停在text，然後選擇code action（視窗+shift+A），選擇Extract subview，如下</p>
+          <img src="images/n13.png" alt="">
+          <p>接著在所產生的subview多加上兩個TEXT，然後多重複兩次subview，如下</p>
+          <img src="images/n14.png" alt="">
+          <div class="pratb">
+            <h3 class="prat" >練習</h3> 
+            <p>練習一下，修改subview，產出下面結果</p>
+            <img src="images/n141.png" alt="">
+            <p>答案在下面，請自行反白</p>
+            <XMP style="background-color: white ;color: white;">
+             
+struct ExtractedView: View {
+  var body: some View {
+      HStack {
+          Text("Hello World!").background(Color.red)
+          Text("Hello World!").background(Color.green)
+          Text("Hello World!").background(Color.blue)
+      }.foregroundColor(Color.white)
+  }
+}
+
+          
+          
+            </XMP>
+          </div>
+        </div>
+        <br>
+        <div style="font-size: 1.5em;"><h3> @Binding : 永遠只能Hello World!嗎？ </h3> 
+          <p>@State是可以把連結到元件，但是想要把變數連結到其他Subview的元件就要使用@binding </p>
+          <img src="images/n142.png" alt="">
+           <XMP>
+             
+import SwiftUI
+
+struct ContentView: View {
     
+    @State var u="sindy"
+    var body: some View {
+        VStack {
+            ExtractedView(name:$u)
+            ExtractedView(name:$u)
+            ExtractedView(name:$u)
+        }
+    }
+}
+struct ExtractedView: View {
+    @Binding var name:String
+    var body: some View {
+        HStack {
+            Text(name).background(Color.red)
+            Text(name).background(Color.green)
+            Text(name).background(Color.blue)
+        }.foregroundColor(Color.white)
+    }
+}
+
+           </XMP>
+           <div class="pratb">
+            <h3 class="prat" >練習</h3> 
+            <p>增加年齡和性別的變數，練習一下，修改subview，產出下面結果</p>
+            <img src="images/n143.png" alt="">
+            <p>答案在下面，請自行反白</p>
+            <XMP style="background-color: white ;color: white;">
+              import SwiftUI
+
+              struct ContentView: View {
+                  @State var u="sindy"
+                  @State var x="18"
+                  @State var y="女"
+                  var body: some View {
+                      VStack {
+                          ExtractedView(name:$u,age:$x,gender:$y)
+                          ExtractedView(name:$u,age:$x,gender:$y)
+                          ExtractedView(name:$u,age:$x,gender:$y)
+              
+                      }
+                  }
+              }
+              struct ExtractedView: View {
+                  @Binding var name:String
+                  @Binding var age:String
+                  @Binding var gender:String
+                  var body: some View {
+                      HStack {
+                          
+                          Text(name).background(Color.red)
+                          Text(age).background(Color.green)
+                          Text(gender).background(Color.blue)
+                      }.foregroundColor(Color.white)
+                  }
+              }
+
+          
+          
+            </XMP>
+          </div>
+         </div>
+         
+        <div style="font-size: 1.5em;"><h3> binding struct: 一次把多個變數綁起來，用 @State 綁進來使用 </h3> 
+         <p>如果一次傳10個變數過去，還是這樣一個一個列出來，也太愚蠢，<br>
+          試著用Sruct包起來如下</p>
+          <img src="images/n144.png" alt="">
           <XMP>
             import SwiftUI
-
-            struct rest{
-                var name="饗食天堂"
-                var location="台中市大遠百"
-                var type="歐式自助"
+            struct Student{
+                var name="sindy"
+                var age="18"
+                var gender="女"
             }
             struct ContentView: View {
-                @State var y=rest()
-                
+                @State var u=Student()
                 var body: some View {
-                    
                     VStack {
-                        TextField("輸入提示", text: $y.name)
-                        TextField("輸入提示", text: $y.location)
-                        TextField("輸入提示", text: $y.type)
-                        Button("Button") {
-                            //不用做什麼
-                        }
-                        Text(y.name)
-                        Text(y.location)
-                        Text(y.type)
-                           
+                        ExtractedView(person:$u)
+                        ExtractedView(person:$u)
+                        ExtractedView(person:$u)
                     }
                 }
             }
+            struct ExtractedView: View {
+                @Binding var person:Student
+                var body: some View {
+                    HStack {            
+                        Text(person.name).background(Color.red)
+                        Text(person.age).background(Color.green)
+                        Text(person.gender).background(Color.blue)
+                    }.foregroundColor(Color.white)
+                }
+            }
+            
 
           </XMP>
-          
-         <p>因為共用y 所以會一起變化，假設你需要分開變化呢?等到你的指令再更新TEXT的資料?<br>
-           那麼多宣告一個x，y給 textfield用，x給TEXT用，如下</p>
+          <p>你應該可以發現改了最上面一個饗食天堂，其他的全部跟著一起改，如下圖    </p>
+          <img src="images/n11.png" alt="">
+         <p>接下來把</p>
     
          <XMP>
-           import SwiftUI
-
            struct rest{
                var name="饗食天堂"
                var location="台中市大遠百"
                var type="歐式自助"
            }
+           改成
            
-            struct ContentView: View {
-              @State var y=rest()
-              @State var x=rest() //加一個x
-              
-              var body: some View {
-                  
-                  VStack {
-                      TextField(/*@START_MENU_TOKEN@*/"Placeholder"/*@END_MENU_TOKEN@*/, text: $y.name)
-                      TextField(/*@START_MENU_TOKEN@*/"Placeholder"/*@END_MENU_TOKEN@*/, text: $y.location)
-                      TextField(/*@START_MENU_TOKEN@*/"Placeholder"/*@END_MENU_TOKEN@*/, text: $y.type)
-                      Button(/*@START_MENU_TOKEN@*/"Button"/*@END_MENU_TOKEN@*/) {
-                          
-                      }
-                      Text(y.name)
-                      Text(y.location)
-                      Text(y.type)
-                        
-                  }
-              }
+            class rest{
+              var name="饗食天堂"
+              var location="台中市大遠百"
+              var type="歐式自助"
             }
-
-
          </XMP>
+         <p>你應該可以發現改了最上面一個饗食天堂，其他的都沒跟著變，如下圖    </p>
+         <img src="images/n12.png" alt="">
+
+         <p>這是因為struct永遠只有一份，所以改了最上面一個饗食天堂，其他的全部跟著一起改 </p>
+        
+         <p>而class則每一個都獨立</p>
         </div>
         
-        <div style="font-size: 1.5em;"><h3>constraints 束縛 約束 </h3> 
-          <XMP >
-除了可以使用 預設的水平垂直的版面設置來固定元件避免跑版之外，還可以使用constraints來綁元件位置避免跑版
-          </XMP>
+
+        <p>你應該可以發現改了最上面一個饗食天堂，其他的全部跟著一起改，如下圖    </p>
+        <img src="images/n11.png" alt="">
+       <p>接下來把</p>
+  
+       <XMP>
+         struct rest{
+             var name="饗食天堂"
+             var location="台中市大遠百"
+             var type="歐式自助"
+         }
+         改成
          
-        </div>
+          class rest{
+            var name="饗食天堂"
+            var location="台中市大遠百"
+            var type="歐式自助"
+          }
+       </XMP>
+       <p>你應該可以發現改了最上面一個饗食天堂，其他的都沒跟著變，如下圖    </p>
+       <img src="images/n12.png" alt="">
+
+       <p>這是因為struct永遠只有一份，所以改了最上面一個饗食天堂，其他的全部跟著一起改 </p>
+      
+       <p>而class則每一個都獨立</p>
         <div style="font-size: 1.5em;"><h3>修改contraints的屬性 </h3>   
           <XMP >
 可以透過修改contraints的屬性達到更精準的版面控制 
