@@ -61,11 +61,11 @@
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
             <a class="dropdown-item" href="../Lt3/ch3.html">第3章 app基礎練習</a>         
             <a class="dropdown-item" href="../Lt3/ch3.html#no1">1. 熟悉XCODE各個面板部位和操作</a>
-            <a class="dropdown-item" href="../Lt3/ch3.html#no2">2. 視覺元件和程式的連結</a>
-            <a class="dropdown-item" href="../Lt3/ch3.html#no3">3. 使用constraints固定元件的位置和大小</a>
-            <a class="dropdown-item" href="../Lt3/ch3.html#no4">4. 設定APP開啟畫面</a>
-            <a class="dropdown-item" href="../Lt3/ch3.html#no5">5. APP的ICON設定</a>
-            <a class="dropdown-item" href="../Lt3/ch3.html#no6">6. 隱藏狀態欄</a>
+            <a class="dropdown-item" href="../Lt3/ch3.html#no2">2. TEXT元件和屬性設定</a>
+            <a class="dropdown-item" href="../Lt3/ch3.html#no3">3. VStack+HStack+ZStack+Spacer()</a>
+            <a class="dropdown-item" href="../Lt3/ch3.html#no4">4. Button、@State 《從變數傳值到元件》</a>
+            <a class="dropdown-item" href="../Lt3/ch3.html#no5">5. Textfield、$ 《變數和元件雙向傳值》</a>
+            <a class="dropdown-item" href="../Lt3/ch3.html#no6">6. subview和@Binding</a>
             <a class="dropdown-item" href="../Lt3/ch3.html#no7">7. 習題</a>
           </div>
         </li>
@@ -249,7 +249,7 @@
           <img src="images/n07.png" alt="">
         </div>
       </section>
-      <section  id="no2"><h2 >TEXT屬性設定+VSack+HStack+Spacer()</h2>
+      <section  id="no2"><h2 >TEXT元件和屬性設定</h2>
         <div style="font-size: 1.5em;"><h3> 幫TEXT增加BACKGROUND屬性，調整背景顏色 </h3>   
          <p> 將TEXT背景分別調成橘色和藍色</p>
          <img src="images/n08.png" alt="">
@@ -294,7 +294,32 @@
   </XMP>
 </div>
       </section>
-      <section  id="no3"><h2 >Button、Textfield以及@State</h2>
+      <section  id="no3"><h2 >VStack+HStack+ZStack+Spacer()</h2>
+        <div style="font-size: 1.5em;"><h3> VStack </h3>   
+          <p>兩個元件次序對調看看</p>        
+         <img src="images/c01.png" alt="">
+        </div>
+        <div style="font-size: 1.5em;"><h3> HStack </h3>  
+          <p>兩個元件次序對調看看</p>                 
+         <img src="images/c02.png" alt="">
+        </div>
+        <div style="font-size: 1.5em;"><h3> ZStack </h3>     
+          <p>兩個元件次序對調看看</p>              
+         <img src="images/c03.png" alt="">
+        </div>
+        <div style="font-size: 1.5em;"><h3> Spacer </h3>     
+          <p>三個Spacer() 分別留下或者去除 看看發生什麼事</p>              
+         <img src="images/c04.png" alt="">
+        </div>
+
+<div class="pratb">
+  <h3 class="prat" >練習</h3> 
+  
+  <p>請使用五個Text完成下圖</p>
+  <img src="images/prat1.png" alt="">
+</div>
+      </section>
+      <section  id="no4"><h2 >Button、@State 《從變數傳值到元件》</h2>
         <div style="font-size: 1.5em;"><h3> struct是不可變的 不能修改 </h3> 
          <XMP>
           要如何變更TEXT裡面的文字？ 
@@ -359,6 +384,9 @@ struct ContentView: View {
 
           </XMP>
         </div>
+        
+      </section>
+      <section  id="no5"><h2 >Textfield、$ 《變數和元件雙向傳值》</h2>
         <div style="font-size: 1.5em;"><h3> 《變數 傳值進去 元件 》 而且 《元件可以傳值出來 放到變數 》 :  @State + $變數  </h3> 
          <p> 
            前面的binding是單向，修改變數，然後元件上的也被改變，<br>  
@@ -396,6 +424,9 @@ struct ContentView: View {
             
           </XMP>
         </div>
+      </section>
+      <section  id="no6"><h2 >subview和@Binding</h2>
+        
         <div style="font-size: 1.5em;"><h3>subview 和 binding </h3> 
           <p>你可以把幾個元件組合起來變成一個subview，方便重複使用或者讓整體程式碼簡潔易讀。<br>
           先回到hello world</p>
@@ -542,144 +573,30 @@ struct ExtractedView: View {
             
 
           </XMP>
-          <p>你應該可以發現改了最上面一個饗食天堂，其他的全部跟著一起改，如下圖    </p>
-          <img src="images/n11.png" alt="">
-         <p>接下來把</p>
-    
-         <XMP>
-           struct rest{
-               var name="饗食天堂"
-               var location="台中市大遠百"
-               var type="歐式自助"
-           }
-           改成
-           
-            class rest{
-              var name="饗食天堂"
-              var location="台中市大遠百"
-              var type="歐式自助"
-            }
-         </XMP>
-         <p>你應該可以發現改了最上面一個饗食天堂，其他的都沒跟著變，如下圖    </p>
-         <img src="images/n12.png" alt="">
-
-         <p>這是因為struct永遠只有一份，所以改了最上面一個饗食天堂，其他的全部跟著一起改 </p>
-        
-         <p>而class則每一個都獨立</p>
-        </div>
-        
-
-        <p>你應該可以發現改了最上面一個饗食天堂，其他的全部跟著一起改，如下圖    </p>
-        <img src="images/n11.png" alt="">
-       <p>接下來把</p>
-  
-       <XMP>
-         struct rest{
-             var name="饗食天堂"
-             var location="台中市大遠百"
-             var type="歐式自助"
-         }
-         改成
-         
-          class rest{
-            var name="饗食天堂"
-            var location="台中市大遠百"
-            var type="歐式自助"
-          }
-       </XMP>
-       <p>你應該可以發現改了最上面一個饗食天堂，其他的都沒跟著變，如下圖    </p>
-       <img src="images/n12.png" alt="">
-
-       <p>這是因為struct永遠只有一份，所以改了最上面一個饗食天堂，其他的全部跟著一起改 </p>
-      
-       <p>而class則每一個都獨立</p>
-        <div style="font-size: 1.5em;"><h3>修改contraints的屬性 </h3>   
-          <XMP >
-可以透過修改contraints的屬性達到更精準的版面控制 
-也可以產生IBOutlet在程式中控制
-          </XMP>
          
         </div>
-        <div style="font-size: 1.5em;"><h3>修改contraints的屬性 </h3>   
-          <XMP >
-可以透過修改contraints的屬性達到更精準的版面控制 
-也可以產生IBOutlet在程式中控制
-          </XMP>
-       
-        
-          <XMP >
-有加constraints的元件
-也可以在這邊看到調整的屬性
-舊版xcode可能沒有            
-          </XMP>
-          <img src="images/n10.png" alt="">
-          
-          <XMP >
-沒有constraints的元件
-也可以在這邊做一些簡單的調整 
-          </XMP>
-          <img src="images/n11.png" alt="">
-
-          <XMP >
-橘色線條表示
-目前位置或者大小
-不符合目前的constraint
-在app執行後會按constraint調整
-就會和目前看到的不同
-藍色則表示符合目前的constraint
-          </XMP>
-          <img src="images/n12.png" alt="">
-<p><a href="https://developer.apple.com/library/archive/documentation/UserExperience/Conceptual/AutolayoutPG/WorkingwithConstraintsinInterfaceBuidler.html">
-這邊有一些官方說明可以使用
-</a></p>
-        </div>
       </section>
-      <section  id="no4"><h2 >影像、標籤和ZStack</h2>
-        <div style="font-size: 1.5em;"><h3>LaunchScreen.storyboard  </h3>   
-          <XMP >
-main.storyboard是正常App運作時的工作區
-LaunchScreen.storyboard 則是開機時會短暫顯示的畫面
-通常會放一張公司的LOGO
-
-          </XMP>
-          <img src="images/n13.png" alt="">
-        </div>
-      </section>
-   
-      <section  id="no7"><h2 >習題</h2>           
-             
-      </section>
-
-          
+      <section  id="no7"><h2 >習題</h2>    
         <div class="pratb">
-          <h3 class="prat" >習題1</h3> 
-          <p>寫一個程式，在文字輸入格輸入數字就乘以2放到上面標籤，必須加入防呆機制(若輸入非數字資料則標籤顯示"輸入錯誤")，下面是要求:</p>
-          <ul>
-            <li>加上6個constraint</li>
-            <ul>
-              <li>按鈕永遠在畫面正中央(2個constraint)</li>
-              <li>標籤和文字輸入格水平置中(各一個constraint)</li>
-              <li>以按鈕的top為基準，標籤和文字輸入格top離基準100(各一個constraint)</li>
-            </ul>
-            <p>如此所有元件都根據按鈕固定位置，而按鈕位於絕對中央，所以不可能跑版</p>
-            <li>文字輸入格背景顏色是Placeholder Text Color</li>
-            <li>使用下面的結構來完成防呆機制</li>
-            <div style="border: 2px blue solid; width: 500px;">
-            <XMP style="background-color: black;color: white;">
-      let b = Int(self.te.text!)
-      if let a=b{
-          
-      }else{
-          
-      }
-            </XMP>
-          </div>
-          </ul>
-          <p><img src="images/p2d.png" alt="" ></p>
+          <h3 class="prat" >習題1 slider</h3> 
+          <p>寫一個程式，含slider和Text，slider滑動時Text顯示其slider的指標位置</p>
+          <p><img src="images/hw1.png" alt="" ></p>
           
         </div>
         <div class="pratb">
-          <h3 class="prat" >習題2</h3> 
+          <h3 class="prat" >習題2 colorPicker</h3> 
+          <p>寫一個程式可以將兩數字相加後輸出到標籤(不用加constraint，但是<span style="color: red;">+ = 執行</span> 這3個標籤文字顯示要正確)，畫面如下面左圖，要求如下 </p>
+          <p>寫一個function，輸入兩個字串，輸出一個字串，再利用guard結構，抓出輸入錯誤，下面右圖是參考框架</p>          
+          <p><img src="images/p3.png" alt="" width="363" height="438"><img src="images/n15.png" alt="" ></p>
+        </div>
+        <div class="pratb">
+          <h3 class="prat" >習題3 datepicker</h3> 
+          <p>寫一個程式可以將兩數字相加後輸出到標籤(不用加constraint，但是<span style="color: red;">+ = 執行</span> 這3個標籤文字顯示要正確)，畫面如下面左圖，要求如下 </p>
+          <p>寫一個function，輸入兩個字串，輸出一個字串，再利用guard結構，抓出輸入錯誤，下面右圖是參考框架</p>          
+          <p><img src="images/p3.png" alt="" width="363" height="438"><img src="images/n15.png" alt="" ></p>
+        </div>
+        <div class="pratb">
+          <h3 class="prat" >習題4 picker</h3> 
           <p>寫一個程式可以將兩數字相加後輸出到標籤(不用加constraint，但是<span style="color: red;">+ = 執行</span> 這3個標籤文字顯示要正確)，畫面如下面左圖，要求如下 </p>
           <p>寫一個function，輸入兩個字串，輸出一個字串，再利用guard結構，抓出輸入錯誤，下面右圖是參考框架</p>          
           <p><img src="images/p3.png" alt="" width="363" height="438"><img src="images/n15.png" alt="" ></p>
