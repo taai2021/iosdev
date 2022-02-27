@@ -342,11 +342,11 @@ import SwiftUI
 
 struct ContentView: View {
     var x="Helo, world!"
-    var body: some View {
-        Button("Button") {
-            x="Hello, world!"
-        }
+    var body: some View {        
         VStack {
+            Button("Button") {
+              x="Hello, world!"
+            }
             Text(x)
                 .padding()
         }
@@ -372,10 +372,10 @@ import SwiftUI
 struct ContentView: View {
     @State var x="Helo, world!"
     var body: some View {
-        Button("Button") {
-            x="Hello, world!"
-        }
         VStack {
+            Button("Button") {
+                x="Hello, world!"
+            }
             Text(x)
                 .padding()
         }
@@ -411,11 +411,11 @@ struct ContentView: View {
                 @State var y=""
                 @State var x="Helo, world!"
                 var body: some View {
-                    TextField("Placeholder", text: $y)
-                    Button("Button") {
-                        x=y
-                    }
                     VStack {
+                        TextField("Placeholder", text: $y)
+                        Button("Button") {
+                            x=y
+                        }
                         Text(x)
                             .padding()
                     }
@@ -427,7 +427,7 @@ struct ContentView: View {
       </section>
       <section  id="no6"><h2 >subview和@Binding</h2>
         
-        <div style="font-size: 1.5em;"><h3>subview 和 binding </h3> 
+        <div style="font-size: 1.5em;"><h3>subview </h3> 
           <p>你可以把幾個元件組合起來變成一個subview，方便重複使用或者讓整體程式碼簡潔易讀。<br>
           先回到hello world</p>
 
@@ -584,13 +584,33 @@ struct ExtractedView: View {
           
         </div>
         <div class="pratb">
-          <h3 class="prat" >習題2 colorPicker</h3> 
-          <p>寫一個程式可以將兩數字相加後輸出到標籤(不用加constraint，但是<span style="color: red;">+ = 執行</span> 這3個標籤文字顯示要正確)，畫面如下面左圖，要求如下 </p>
-          <p>寫一個function，輸入兩個字串，輸出一個字串，再利用guard結構，抓出輸入錯誤，下面右圖是參考框架</p>          
-          <p><img src="images/p3.png" alt="" width="363" height="438"><img src="images/n15.png" alt="" ></p>
+          <h3 class="prat" >習題2 datePicker</h3> 
+           <p>看懂下面程式，然後完成填空</p>      
+          <img src="images/hw2.png" alt="">
+          <XMP>
+            
+class rest{
+  func dtos(d:Date)->String{
+      let f=DateFormatter()
+      f.dateStyle = .full
+      return f.string(from:d)
+  }
+}
+struct ContentView: View {
+  @State var x=Date()
+  @State var y=rest()
+  var body: some View {
+      VStack {
+          DatePicker(selection:《該填什麼？》  , label: { Text("請選擇日期") })
+          Text(y.dtos(d:x))
+      }
+  }
+}
+
+          </XMP>
         </div>
         <div class="pratb">
-          <h3 class="prat" >習題3 datepicker</h3> 
+          <h3 class="prat" >習題3 colorpicker</h3> 
           <p>寫一個程式可以將兩數字相加後輸出到標籤(不用加constraint，但是<span style="color: red;">+ = 執行</span> 這3個標籤文字顯示要正確)，畫面如下面左圖，要求如下 </p>
           <p>寫一個function，輸入兩個字串，輸出一個字串，再利用guard結構，抓出輸入錯誤，下面右圖是參考框架</p>          
           <p><img src="images/p3.png" alt="" width="363" height="438"><img src="images/n15.png" alt="" ></p>
