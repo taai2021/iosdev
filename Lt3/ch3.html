@@ -611,15 +611,69 @@ struct ContentView: View {
         </div>
         <div class="pratb">
           <h3 class="prat" >習題3 colorpicker</h3> 
-          <p>寫一個程式可以將兩數字相加後輸出到標籤(不用加constraint，但是<span style="color: red;">+ = 執行</span> 這3個標籤文字顯示要正確)，畫面如下面左圖，要求如下 </p>
-          <p>寫一個function，輸入兩個字串，輸出一個字串，再利用guard結構，抓出輸入錯誤，下面右圖是參考框架</p>          
-          <p><img src="images/p3.png" alt="" width="363" height="438"><img src="images/n15.png" alt="" ></p>
+          <p>寫一個程式，宣告一個紅顏色的變數，顏色本身就是一個view，所以把這個變數放在ZStack的最下方，當作背景，
+            再放入colorpicker，選了甚麼顏色，背景就變成什麼顏色，如下圖</p>          
+         <img src="images/hw3.png" alt="">
         </div>
         <div class="pratb">
-          <h3 class="prat" >習題4 picker</h3> 
-          <p>寫一個程式可以將兩數字相加後輸出到標籤(不用加constraint，但是<span style="color: red;">+ = 執行</span> 這3個標籤文字顯示要正確)，畫面如下面左圖，要求如下 </p>
-          <p>寫一個function，輸入兩個字串，輸出一個字串，再利用guard結構，抓出輸入錯誤，下面右圖是參考框架</p>          
-          <p><img src="images/p3.png" alt="" width="363" height="438"><img src="images/n15.png" alt="" ></p>
+          <h3 class="prat" >習題4 subview @Binding</h3> 
+          <XMP>
+            試試看執行下面的程式，
+            1 請將三個Text裝到subview,
+              binding三個變數過去 包括
+              @State var s:Double=1.0
+              @State var d=Date()
+              @State var x=Color.red
+            2 這三個變數要包起來，不可以個別傳
+            3 調整後3個Text會立即跟著變化，功能不能有變化
+</XMP>
+            <img src="images/hw4.png" alt="" ></p>
+            <XMP>
+import SwiftUI
+
+class rest{
+    func dtos(d:Date)->String{
+        let f=DateFormatter()
+        f.dateStyle = .full
+        return f.string(from:d)
+    }
+    func StringFromUIColor(color: UIColor) -> String {
+        let components = color.cgColor.components
+        return "[\(components![0]), \(components![1]), \(components![2]), \(components![3])]"
+        }
+}
+struct ContentView: View {
+    @State var s:Double=1.0
+    @State var d=Date()
+    @State var x=Color.red
+    @State var y=rest()
+    var body: some View {
+       ZStack {
+           x
+           VStack{
+               Slider(value: $s, in: 0...100 , step:1.0)
+               Text(String(s) )
+               DatePicker(selection: $d, label: {Text("請選擇日期")})
+               Text(y.dtos(d: d))
+               ColorPicker("請選擇顏色", selection: $x)
+                   .frame(width: 200.0)
+                   .background(Color.blue)
+               Text(y.StringFromUIColor(color: UIColor(x)))
+           }
+            
+           
+        }
+    }
+}
+
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+          </XMP>
+
         </div>
       </section>
     </div>
