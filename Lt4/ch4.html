@@ -75,18 +75,14 @@
           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="border-radius: 20px; color: orangered;">
           4</a>               
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="../Lt4/ch4.html">第4章 Tableview元件的使用</a>      
-            <a class="dropdown-item" href="../Lt4/ch4.html#no1">1. 新增viewcontroller及其類別並建立連結</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no2">2. 如何設定app開啟時的第一個view?</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no3">3. UITableView和UITableviewController</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no4">4. UITableView結構介紹</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no5">5. Delegate和DataSource是甚麼?</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no6">6. 如何將UITableView連結到UITableViewDelegate和UITableViewDataSource?</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no7">7. 什麼是Prototype cell?</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no8">8. Tableiew-cell-style設定成basic和custom有什麼區別?</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no9">9. 建立一個style=basic的tableview小練習</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no10">10. 建立一個style=custom的tableview小練習</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no11">11. 習題</a>
+            <a class="dropdown-item" href="../Lt4/ch4.html">第4章 Image, Label元件的使用以及按鈕動畫</a>      
+            <a class="dropdown-item" href="../Lt4/ch4.html#no1">1. icon → Label →  Button (SF Symbols的應用)</a>
+            <a class="dropdown-item" href="../Lt4/ch4.html#no2">2. Button使用label和動畫</a>
+            <a class="dropdown-item" href="../Lt4/ch4.html#no3">3. 很炫的按鈕動畫</a>
+            <a class="dropdown-item" href="../Lt4/ch4.html#no4">4. 浮動按鈕和Alert</a>
+            <a class="dropdown-item" href="../Lt4/ch4.html#no5">5. Image屬性設定</a>
+            <a class="dropdown-item" href="../Lt4/ch4.html#no6">6. optionals的使用</a>
+            <a class="dropdown-item" href="../Lt4/ch4.html#no7">7. 習題</a>
           </div>
         </li>
         <li class="nav-item dropdown"><!-- Registration-->
@@ -207,7 +203,7 @@
   </nav>
   <p style=" position: fixed; top: 0; right: 0;z-index: 5000; color:chocolate;margin-right: 5px;  border-radius: 5px;
   padding: 0px 3px;">
-  第4章 Tableview元件的使用
+  第4章 Image, Label元件的使用以及按鈕動畫
 </p>
   <p style=" font-size:0.8em; position: fixed; bottom: 0; right: 0;z-index: 5000; color:white;
   font-weight: bold;margin-right: 5px; background-color: chocolate; border-radius: 5px;
@@ -216,24 +212,80 @@
   
 <!--below is the content**************************************************************************************below is the content -->
   <div  style="margin-top: 80px;">
-     
+      
     <div style="margin: auto; width: 96%; text-align: left; border-bottom: 1px solid darkgrey; "> 
       
-      <section id="no1"><h2>1. 新增viewcontroller及其類別並建立連結</h2>
-        <p>因為等等要比較兩種設定，所以我們要建在兩個viewcontroller，切換著看，所以一開始我們先建立好環境。</p>
-        <h3>開新專案，然後另外在拉一個View Controller元件，再新增一個cocoa touch class，指定UIViewController為其父類別，命名為custom.swift</h3>
-        <img style="width: 100%;" src="images/n11.png" alt="">
-        <h3>在main.stroyBoard將customView的類別指定為custom.swift</h3>
-        <img style="width: 100%;" src="images/n12.png" alt="">
+      <section id="no1"><h2>1. icon → Label →  Button (SF Symbols的應用)</h2>
+        <h3>ICON：安裝SF Symbols</h3>       
+          <p>從iOS13開始，APPLE導入「SF Symbols」的大量系統圖片供開發者在任何APP中使用，請在MAC上安裝下面的APP</p>
+          <a href="https://developer.apple.com/sf-symbols">Download SF Symbols 3.2</a>
+          <p>使用方式</p> 
+          <img src="images/n01.png" alt=""><br>
+
+        <h3>Label = ICON+Text    </h3>
+        <img src="images/n02.png" alt="">
+        <XMP>
+          Label(
+            title:{Text(x).font(.title)},
+            icon:{Image(systemName:"trash.square")
+                    .resizable()
+                    .frame(width: 50.0, height: 50.0)
+            }
+        )
+        </XMP>
+        <h3>button = action + Label （本來是刪除 按了變成復原）   </h3>
+        <img src="images/n03.png" alt="">
+        <XMP>
+          struct ContentView: View {
+            @State var x="刪除"
+             var body: some View {
+                 
+                 Button(action:  {x="復原"})
+                     {Label(
+                             title:{Text(x)},
+                             icon:{Image(systemName:"trash.square")
+                                    
+                             }
+                            )
+                     }
+                 
+                
+                 
+             }
+         }
+        </XMP>
+        
+        <h3>button = action + Label （按了 刪除 ←→ 復原 ）   </h3>
+         <XMP>
+           
+struct ContentView: View {
+  @State var x:Bool = true
+  
+  var body: some View {
+      Button(action:{x = !x}){
+          Label(
+              title:{Text(x ? "刪除" : "復原")},
+              icon:{Image(systemName:"trash.square")
+              }
+          )
+      }
+      
+     
+      
+  }
+}
+         </XMP>
+        
       </section>
-      <section id="no2"><h2>2. 如何設定app開啟時的第一個view?</h2>
+      <section id="no2"><h2>2. Button使用label和動畫</h2>
        
         <h3>原先viewcontroller新增標籤，標籤文字《Basic》，新的放上標籤為《custom》，各拉一個TableView元件，測試一下兩種設定起始APP Vview的方法</h3>
         <img style="width: 100%;" src="images/n13.png" alt="">
         
         
       </section>
-      <section id="no3"><h2>3. UITableView和UITableviewController</h2>
+      <section id="no3"><h2>3. 很炫的按鈕動畫</h2>
+        <section id="no3"><h2>3. 很炫的按鈕動畫</h2>
         <h4>＊＊　剛剛建的專案等等會用到，先擱著，先來講一些重要的概念。</h4>
         <p>tableview的版面在手機APP上使用非常廣，像臉書的APP就是了。 iOS建立tableview有兩種方式 </p>
         <ol>
@@ -246,7 +298,7 @@
         <p>因為使用TableView元件必須要學會很多必要的技能，所以我們這一章雖然不會用在我們學期專案上，但是裡面包含很多重要的概念。</p>
 
       </section>
-      <section id="no4"><h2>4.UITableView結構介紹</h2>
+      <section id="no4"><h2>4. 浮動按鈕和Alert</h2>
         <p>先定義名詞，如下圖上下直排叫做欄column，左右橫排叫做列row，內容由儲存格cell組成</p>
         <img src="images/n02.png" alt="">
         <p>TableView就是一欄的表格，所以一個row只有一個cell，因此在使用時row和cell會交互混在一起使用，可以把它視為就是儲存格。</p>
@@ -259,7 +311,7 @@
           <li>每個row裡面的元件要放什麼資料?</li>
         </ul>
       </section>
-      <section id="no5"><h2>5 DataSource和Delegate是甚麼?</h2>
+      <section id="no5"><h2>5. Image屬性設定</h2>
         <p><span style="font-size: 1.5em; color: red;">資料來源(datasource)-</span> <br>
           上面提到的要顯示tableview，必須提供它總共要顯示幾個row、每個cell裡面的資料，所以需要有一個機制來提供他資料。</p>
         <p><span style="font-size: 1.5em; color: red;">事件處理委派(delegate)-</span><br>
@@ -273,7 +325,7 @@
           <p>定義一些事件處理程式，row被點擊或著滑動就去執行這些事件處理程式。</p>
         </ul>
       </section>
-      <section id="no6"><h2>6 如何將UITableView連結到UITableViewDelegate和UITableViewDataSource?</h2>
+      <section id="no6"><h2>6. optionals的使用</h2>
         <h3>UITableViewDelegate和UITableViewDataSource都是一些定義好的方法，例如</h3>
         <p>剛才提到的UITableViewDataSource就要指定資料源，這個資料源可以提供tableview的所需要的資料。具體而言，資料源是甚麼樣的形式?其實就是像下面這兩個方法</p>
         <ol>
@@ -312,113 +364,7 @@
             <img src="images/n06.png" width="100%" alt="">
           </ol>      
       </section>
-      <section id="no7"><h2>7 什麼是prototype cell?</h2>
-        <div>
-          <p>假設我們總共要顯示100個row，我們不可能在mainstory board上拉100個cell，
-            而且想一下臉書的動態消息，往下滑永遠滑不完。所以實際的做法是設計一個cell的內含物，
-            例如哪邊放label，或者那邊放image，
-            雖然只設計一個，但是可以顯示無數個，
-            只要我們能夠設定我們總共要顯示多少個，
-            然後提供每一個cell的資料就可以了。prototype 是原型的意思，
-            而prototype cell就是我們設計好的要顯示的樣式，如下圖 </p>
-          <img  src="images/n07.png" alt="" />
-        </div>   
-      </section>
-      <section id="no8"><h2>8. Tableiew-cell-style設定成basic和custom有什麼區別?</h2>
-        <div><p>tableView元件拉進來時，預設沒有prototype cell，要先新增一個 </p>
-            <img src="images/n08.png" alt="">
-            <p>比較basic和custom兩者，你應該可以發現basic有預設的標籤，而custom則完全空白。</p>
-            <img src="images/n09.png" alt="">
-            <p>仔細考慮一下，tableview cell是可能放各種元件上去的，假設它放了一個imageView，
-              我們將會在cell for row那個方法中使用程式把影像指定到cell裡面的imageview，所以我們需要指定IBOutlet變數才能在程式中將image放進去，
-            但是不一定有多少row也沒辦法事先命名，甚至再想一下，往下滑動臉書動態消息無窮無盡的，那個imageview要怎麼命名呢?
-             </p>
-             <p>實際的做法是TableView cell也是有類別與之連結，就是UITableViewCell，
-               在這類別中已經預先拉好imageView的變數為其成員變數，當tableview要顯示時會產生一堆cell物件(使用UITableViewCell)，
-               cell本身有序號所以可以抓到cell物件，抓到cell物件後就可以使用其成員變數，就是IBOutlet變數來寫程式放資料進去。</p>
-               <p style="color: red;">UITableViewCell預設已經連結一個標籤和一個imageview，如果設定style=Basic，則就不能再新增元件，只能使用那兩個元件，</p>
-               <p style="color: red;">如果設定style為custom，cell就可以新增元件，那問題來了，你新增的元件要拉IBOutlet變數吧，拉到哪一個程式?</p>
-               <p>我以View Controller為例子說明。<br>目前為止我們操作都是針對View Controller所以都拉到viewcontroller.swift，他是定義viewController的類別，他的父類別是UIViewController。</p>
-               <p>UIViewController本身就是一個空白完全沒有元件的view，如果新增元件在UIViewController，
-                 那麼以後你寫程式用到UIViewController，那些元件就會礙眼的出現在那邊。這樣是很笨的事情。怎樣做才聰明? 
-                 當然是複製一個和UIViewController一模一樣的，那個複製品可以隨便我們亂搞，下次要寫新的專案用的的時候，再拿原版複製一份來用，
-                 原版永遠保持清白整齊。這樣聽起來是不是很有感?看下面這行，</p>
-                 <p>class ViewController: UIViewController{</p>
-                  <p>你應該可以看出那一個是原版，那一個是複製品吧。因此你可以在viewController.swift任意的放元件，而父類別UIViewController則不會被破壞</p>
-                <p style="color: red;">繼承很有用吧!!</p>
-
-                  <p>回到剛剛的問題，</p>
-                  <p style="color: red;">如果設定style為custom，cell就可以新增元件，那問題來了，你新增的元件要拉IBOutlet變數吧，拉到哪一個程式?</p>
-                  <p>當然不可能是父類別UITableViewCell，所以我們會新增一個UITableViewCell的子類別，
-                    然後把prototype cell連結到這個複製品(子類別)，大概是這樣，參考下圖。</p>
-                    <img src="images/n10.png" alt="">
-
-        </div>
-      </section>
-      <section id="no9"><h2>9. 建立一個style=basic的tableview小練習</h2>
-        <h3 id="p1">使用課程剛開始的那個專案中的Basic部分</h3>
-        <p>完成後執行應該可以看到Basic的View有一個3個row的表格</p>
-        <img src="images/n14.png" alt="">
-      </section>
-      <section id="no10"><h2>10. 建立一個style=custom的tableview小練習</h2>
-        <h3 id="no1">建立一個UITableViewCell的子類別</h3>
-        <p>剛剛已經做過新增cocoa touch class 並且繼承UIViewContoleer，產生一個檔案customView.swift，<br>
-          而且main.storyboard(後面簡稱MS)上那個上面有custom標籤的新增view controller已經連結到這個customView.swift，<br>
-          接下來要來建立這個cell style=custom的view，所以先到MS，把起始view改成custom那個View Controller。然後後面的步驟都是針對custom的那個view。</p>
-       
-        <ol>
-          <li>選擇file/new/file，選cocoa touch class，注意父類別要選對，為了方便檔名就是TableViewCell.swist</li>
-          <img src="images/n15.png" alt="">
-          <li>幫customView.swift加上Datasource和delegate的協定。</li>
-          <li>customView.swift加上協定後，會因為缺少該有的datasource方法而出現錯誤，請修正他。</li>
-          <li>到MS，把TableView的Datasource和delegate指定到customView.swift。</li>
-          <li>到MS，檢查tableView的prototype cells有沒有設定1。</li>
-          <li>設定cell的style=custom，identifier=ccell。</li>
-          <li>把這個prototype cell的類別指定到TableViewCell.swift</li>
-          <li>在MS中幫cell拉2個Label和一個imageView。</li>
-          <li>拉這三個元件的IBOutlet到TableViewCell.swift</li>
-          <li>使用number of row方法指定會顯示3個row</li>
-          <li>找1張影像，拉到目錄中</li>
-          <li>在cell for row 中製作cell</li>
-          <XMP style="background-color: black;color: white;">
-1 func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-2  let cell=tableView.dequeueReusableCell(withIdentifier: "ccell", for: indexPath) as! TableViewCell
-3  cell.lab1.text="qqq"
-4  cell.lab2.text="dfg"
-5  cell.img.image=UIImage(named: "axc.png")
-6  return cell
-  
-}
-          </XMP>
-          <p>
-            第2行的《as! TableViewCell》，如果沒有加，那麼你拿到的會是UITableViewCell，<br>
-            也就是說程式會認為你拿到的是他的父類別，不會有你剛剛加的那3個元件，<br>
-            你剛剛加的3個元件是加在你剛剛新增的TableViewCell.swift中所定義的TableViewCell類別</p>
-            <XMP style="background-color: black;color: white;">
-class TableViewCell: UITableViewCell {
-  @IBOutlet weak var img: UIImageView!
-  @IBOutlet weak var lab1: UILabel!
-  @IBOutlet weak var lab2: UILabel!
-  
-  override func awakeFromNib() {
-      super.awakeFromNib()
-      // Initialization code
-  }
-
-  override func setSelected(_ selected: Bool, animated: Bool) {
-      super.setSelected(selected, animated: animated)
-
-      // Configure the view for the selected state
-  }
-
-}
-            </XMP>
-            <p>ccell是剛剛定義的identifier</p>
-            <p>UIImage(named: "axc.png") 可以讀取你剛剛拉進來的影像</p>
-            <li>最後，TableView的row hight預設是自動調整大小的可以去點掉</li>
-        </ol>
-      </section>
-      <section id="no11"><h2>11. 習題</h2>
+      <section id="no7"><h2>7  習題</h2>
        <p>使用custom的cell style，從頭不看資料做一遍 內容改成12星座</p>
        <h4>不要邊看資料邊做，要一次看完！ 後不要再看，用猜的猜錯修正後就會了，一直照著打，永遠都不會</h4>
        <p>上面有兩個標籤，一個是星座名稱，另一個是日期區間</p>
