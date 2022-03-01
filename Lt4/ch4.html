@@ -75,14 +75,15 @@
           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="border-radius: 20px; color: orangered;">
           4</a>               
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="../Lt4/ch4.html">第4章 Image, Label元件的使用以及按鈕動畫</a>      
-            <a class="dropdown-item" href="../Lt4/ch4.html#no1">1. icon → Label →  Button (SF Symbols的應用)</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no2">2. Button使用label和動畫</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no3">3. 很炫的按鈕動畫</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no4">4. 浮動按鈕和Alert</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no5">5. Image屬性設定</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no6">6. optionals的使用</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no7">7. 習題</a>
+            <a class="dropdown-item" href="../Lt4/ch4.html">第4章 Button進階</a>      
+            <a class="dropdown-item" href="../Lt4/ch4.html#no1">1. Image的使用</a>
+            <a class="dropdown-item" href="../Lt4/ch4.html#no2">2. Button《image》</a>
+            <a class="dropdown-item" href="../Lt4/ch4.html#no3">3. ICON《SF Symbols》</a>
+            <a class="dropdown-item" href="../Lt4/ch4.html#no4">4. Label《文字+ICON》</a>
+            <a class="dropdown-item" href="../Lt4/ch4.html#no5">5. Button《Label》</a>
+            <a class="dropdown-item" href="../Lt4/ch4.html#no6">6. Button-動畫</a>
+            <a class="dropdown-item" href="../Lt4/ch4.html#no7">7. 浮動按鈕與Alert</a>
+            <a class="dropdown-item" href="../Lt4/ch4.html#no8">8. 習題</a>
           </div>
         </li>
         <li class="nav-item dropdown"><!-- Registration-->
@@ -203,7 +204,7 @@
   </nav>
   <p style=" position: fixed; top: 0; right: 0;z-index: 5000; color:chocolate;margin-right: 5px;  border-radius: 5px;
   padding: 0px 3px;">
-  第4章 Image, Label元件的使用以及按鈕動畫
+  第4章 Button進階
 </p>
   <p style=" font-size:0.8em; position: fixed; bottom: 0; right: 0;z-index: 5000; color:white;
   font-weight: bold;margin-right: 5px; background-color: chocolate; border-radius: 5px;
@@ -215,13 +216,29 @@
       
     <div style="margin: auto; width: 96%; text-align: left; border-bottom: 1px solid darkgrey; "> 
       
-      <section id="no1"><h2>1. icon → Label →  Button (SF Symbols的應用)</h2>
-        <h3>ICON：安裝SF Symbols</h3>       
-          <p>從iOS13開始，APPLE導入「SF Symbols」的大量系統圖片供開發者在任何APP中使用，請在MAC上安裝下面的APP</p>
-          <a href="https://developer.apple.com/sf-symbols">Download SF Symbols 3.2</a>
-          <p>使用方式</p> 
-          <img src="images/n01.png" alt=""><br>
+      <section id="no1"><h2>1. Image的使用</h2>
+      
 
+      
+        
+        
+      </section>
+      <section id="no2"><h2>2. Button《image》</h2>
+       
+        <h3>原先viewcontroller新增標籤，標籤文字《Basic》，新的放上標籤為《custom》，各拉一個TableView元件，測試一下兩種設定起始APP Vview的方法</h3>
+        <img style="width: 100%;" src="images/n13.png" alt="">
+        
+        
+      </section>
+      <section id="no3"><h2>3. ICON《SF Symbols》</h2>
+        <h3>ICON：安裝SF Symbols</h3>       
+        <p>從iOS13開始，APPLE導入「SF Symbols」的大量系統圖片供開發者在任何APP中使用，請在MAC上安裝下面的APP</p>
+        <a href="https://developer.apple.com/sf-symbols">Download SF Symbols 3.2</a>
+        <p>使用方式</p> 
+        <img src="images/n01.png" alt=""><br>
+      </section>
+      <section id="no4"><h2>4. Label《文字+ICON》</h2>
+       
         <h3>Label = ICON+Text    </h3>
         <img src="images/n02.png" alt="">
         <XMP>
@@ -233,6 +250,8 @@
             }
         )
         </XMP>
+      </section>
+      <section id="no5"><h2>5. Button《Label》</h2>
         <h3>button = action + Label （本來是刪除 按了變成復原）   </h3>
         <img src="images/n03.png" alt="">
         <XMP>
@@ -256,6 +275,7 @@
         </XMP>
         
         <h3>button = action + Label （按了 刪除 ←→ 復原 ）   </h3>
+        <img src="images/n04.png" alt="">
          <XMP>
            
 struct ContentView: View {
@@ -275,96 +295,14 @@ struct ContentView: View {
   }
 }
          </XMP>
-        
       </section>
-      <section id="no2"><h2>2. Button使用label和動畫</h2>
-       
-        <h3>原先viewcontroller新增標籤，標籤文字《Basic》，新的放上標籤為《custom》，各拉一個TableView元件，測試一下兩種設定起始APP Vview的方法</h3>
-        <img style="width: 100%;" src="images/n13.png" alt="">
-        
-        
+      <section id="no6"><h2>6. Button-動畫</h2>
+              
       </section>
-      <section id="no3"><h2>3. 很炫的按鈕動畫</h2>
-        <section id="no3"><h2>3. 很炫的按鈕動畫</h2>
-        <h4>＊＊　剛剛建的專案等等會用到，先擱著，先來講一些重要的概念。</h4>
-        <p>tableview的版面在手機APP上使用非常廣，像臉書的APP就是了。 iOS建立tableview有兩種方式 </p>
-        <ol>
-          <li>用空白的viewcontroller，加上tableview的元件，然後建立彼此的關聯</li>
-          <li>直接使用附有tableview的TableViewController</li>
-        </ol>
-        <img width="100%" src="images/n01.png" alt="">
-        <p>很明顯的，如果完成我們學期的專題，用TableViewController更方便，而且下一章就會直接使用tableViewController了，為什麼要特地開一個章節來提TableView這個元件?
-        </p>
-        <p>因為使用TableView元件必須要學會很多必要的技能，所以我們這一章雖然不會用在我們學期專案上，但是裡面包含很多重要的概念。</p>
-
+      <section id="no7"><h2>7. 浮動按鈕與Alert</h2>
+         
       </section>
-      <section id="no4"><h2>4. 浮動按鈕和Alert</h2>
-        <p>先定義名詞，如下圖上下直排叫做欄column，左右橫排叫做列row，內容由儲存格cell組成</p>
-        <img src="images/n02.png" alt="">
-        <p>TableView就是一欄的表格，所以一個row只有一個cell，因此在使用時row和cell會交互混在一起使用，可以把它視為就是儲存格。</p>
-        <p>tableview的結構如下圖，tableview包著cell，然後cell裡面放元件</p>
-        
-        <img src="images/n03.png" alt="" />
-        <p>，tableview要顯示時，必須</p>
-        <ul>
-          <li>告訴他有幾個row?</li>
-          <li>每個row裡面的元件要放什麼資料?</li>
-        </ul>
-      </section>
-      <section id="no5"><h2>5. Image屬性設定</h2>
-        <p><span style="font-size: 1.5em; color: red;">資料來源(datasource)-</span> <br>
-          上面提到的要顯示tableview，必須提供它總共要顯示幾個row、每個cell裡面的資料，所以需要有一個機制來提供他資料。</p>
-        <p><span style="font-size: 1.5em; color: red;">事件處理委派(delegate)-</span><br>
-          另外，以gmail app為例，tableview列出信件列表，點選row就可以開啟信件，滑動row就刪除或者封存，點選和滑動都是一個事件，需要提供事件處理程式。</p>
-        <p>以上兩點一個是提供資料來源，另一個是提供事件處理程式，在這邊DataSource和Delegate就是指這兩件事情。</p>
-        <p>TableView提供了兩個協定(UITableViewDelegate, UITableViewDataSource)來處理這兩件事</p>
-        <ul>
-          <li>UITableView<span style="color: red;">DataSource</span></li>
-          <p>定義一些方法，tableview要顯示時，就呼叫這些方法，這些方法就會傳回tableview所需要的資料。</p>
-          <li>UITableView<span style="color: red;">Delegate</span></li>
-          <p>定義一些事件處理程式，row被點擊或著滑動就去執行這些事件處理程式。</p>
-        </ul>
-      </section>
-      <section id="no6"><h2>6. optionals的使用</h2>
-        <h3>UITableViewDelegate和UITableViewDataSource都是一些定義好的方法，例如</h3>
-        <p>剛才提到的UITableViewDataSource就要指定資料源，這個資料源可以提供tableview的所需要的資料。具體而言，資料源是甚麼樣的形式?其實就是像下面這兩個方法</p>
-        <ol>
-          <li>傳回表格有幾個row，所以這個方法傳回值是<span style="color:blue;">Int</span></li>
-          <p>func tableView(_ tableView: UITableView, <span style="color: red;">numberOfRows</span>InSection section: Int) -> <span style="color:blue;">Int</span> {<br>
-          
-          </p>
-          <li>cell本身有序號，開啟時，每個cell就用自己的編號(indexPath.row)去呼叫下面程式，
-            下面程式根據序號將對應資料填入cell裡面的各個元件，再傳回cell，所以方法傳回值是<span style="color:blue;">UITableViewCell</span>。</li>
-          <p>func tableView(_ tableView: UITableView, <span style="color: red;">cellForRow</span>At <span style="color:blue;">
-            indexPath</span>: IndexPath) -> <span style="color:blue;">UITableViewCell</span> {</p>
-        </ol>
-        <p>這兩個方法的名稱都是tableView，而且接下來還有一堆方法都是tableView，
-          為了上課說明方便我會稱呼他們為<span style="color: red;">number of row</span>和<span style="color: red;">cell for row</span>
-        </p>   
-        <p> tableview呼叫<span style="color: red;">number of row</span>，可以得到總共有多少row</p>
-        <p>tableview的每個cell呼叫<span style="color: red;">cell for row</span>方法時，
-          把自己的序號用<span style="color: blue;">indexPath.row</span>帶進去，
-          <span style="color: red;">cell for row</span>就把該序號的資料放進去cell裡面的元件，完成資料裝載。        </p>
-          <h3>UITableViewDelegate和UITableViewDataSource就是協定</h3>
-          <p>協定有點像是java的介面，裡面定義了一些特定目的的方法名稱，<br>
-            如果類別加了協定就必須把那些方法寫出來，那類別就具有擔任datasource和delegate的資格。<br>
-            那麼tableview就可以指定這個類別為datasource和delegate，在需要資料或事件被觸發時，知道到那一個類別去找這些方法。
-          </p>
-        <p>所以將UITableView連結到UITableViewDelegate和UITableViewDataSource的步驟如下:</p>
-          <ol>
-            <li>找一個類別加入協定</li>
-            <p>一般挑tableview所在的viewcontroller最方便，所以在類別宣告時加入協定，如下:<br>
-              class ViewController: UIViewController, <span style="color: red;">UITableViewDelegate, UITableViewDataSource</span> {</p>
-            <li>改寫協定所規定的方法</li>
-              <p>加入協定後會產生警告，要求你必須把tableview需要的那些方法定義出來，
-              按一下紅色錯誤訊息，選擇fix，xcode會自動幫你加入必要的方法。然後你就按你的開發需求改寫這些方法，
-              讓tableview可以經由這些方法取得資料來顯示。</p>
-            <img src="images/n05.png" alt="">
-            <li>指定tableview的 DataSource和Delegate為這個類別</li>
-            <img src="images/n06.png" width="100%" alt="">
-          </ol>      
-      </section>
-      <section id="no7"><h2>7  習題</h2>
+      <section id="no8"><h2>8. 習題</h2>
        <p>使用custom的cell style，從頭不看資料做一遍 內容改成12星座</p>
        <h4>不要邊看資料邊做，要一次看完！ 後不要再看，用猜的猜錯修正後就會了，一直照著打，永遠都不會</h4>
        <p>上面有兩個標籤，一個是星座名稱，另一個是日期區間</p>
