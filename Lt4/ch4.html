@@ -82,8 +82,7 @@
             <a class="dropdown-item" href="../Lt4/ch4.html#no4">4. Label《文字+ICON》</a>
             <a class="dropdown-item" href="../Lt4/ch4.html#no5">5. Button《Label》</a>
             <a class="dropdown-item" href="../Lt4/ch4.html#no6">6. Button-buttonStyle-動畫</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no7">7. 浮動按鈕與Alert</a>
-            <a class="dropdown-item" href="../Lt4/ch4.html#no8">8. 習題</a>
+            <a class="dropdown-item" href="../Lt4/ch4.html#no7">7. 習題</a>
           </div>
         </li>
         <li class="nav-item dropdown"><!-- Registration-->
@@ -217,18 +216,68 @@
     <div style="margin: auto; width: 96%; text-align: left; border-bottom: 1px solid darkgrey; "> 
       
       <section id="no1"><h2>1. Image的使用</h2>
-      
+        <h3>如何建立一個資材檔，讓專案整齊</h3>   
+        <img style="width: 95%;" src="images/no051.png" alt="">
+        <div><h3>如何建立一組多解析度的圖片</h3>   
+          
+          <p>國外有個名為 MakeAppicon 的線上產生器，只要將圖片上傳，即可為你自動產生 iOS 和 Android 適用的圖示，包括各種能用在 iPhone、iPad 的應用程式、Spotlight 搜尋和設定畫面的大小，也包括可用於 Android 平台不同大小的圖示</p>
+            <p><a href="https://makeappicon.com/"> MakeAppicon 的線上產生器</a></p>
+            <p>1 點選choose file，選擇你要製作的圖片檔案，</p>
+            <p><img src="images/ch310a.jpg" width="357" height="567">
+            </p>
 
-      
-        
-        
+            <p>2 輸入app名稱</p>
+            <p><img src="images/ch310b.png" width="477" height="314"></p>
+
+            <p>3 選擇APP的屬性</p>
+            <p><img src="images/ch310c.jpg" width="498" height="303"></p>
+            <p>&nbsp;</p>
+            <p>4 選擇關鍵字</p>
+            <img src="images/ch310e.jpg" width="501" height="324">
+            <p>&nbsp;</p>
+            <p>5 填寫email</p>
+            <p>&nbsp;</p>
+            <p><img src="images/CH310D.png" width="657" height="846"></p>
+            <p>6 下載之後，去收email即可取出，打開ios資料夾，裡面即包含所以需要的ICON</p>
+            <p><img src="images/ch310f.png" width="505" height="135"></p><br>
+            <p><img src="images/ch310h.png" ></p>
+            <p>&nbsp;</p>
+        </div>
+        <div> <h3>APP的icon如何設定</h3>
+         
+          <p>在Assets.xcassets中或者image.xcassets中有一個appicon裡面就是放APP的ICON，當安裝好會顯示在手機頁面上的圖示。一一放入相對應的圖示。</p>
+          <p>&nbsp;</p>
+          <p><img src="images/ch310g.png" ></p>
+        </div>
+       
       </section>
       <section id="no2"><h2>2. Button《image》</h2>
+        <div> <h3>image("影像名稱") 預設是原圖大小</h3>
+          <img src="images/im01.png" alt="">
+        </div>
+        
+        <div> <h3>讓image可以調整大小，resizable，預設是fill、不保持長寬比變形，充滿frame(frame預設是整個螢幕)</h3>
+          <img src="images/im02.png" alt="">
+        </div><div> <h3>讓image可以調整大小，預設是變形充滿螢幕(包括安全區域)</h3>
+          <img src="images/im03.png" alt="">
+        </div>
+        
+        <div> <h3>設定IMAGE的FRAME改變大小</h3>
+          <img src="images/im05.png" alt="">
+        </div>
+        <div> <h3>保持比例 FIT: 比例不變， aspectRatio</h3>
+          <img src="images/im04.png" alt="">
+        </div>
+        <div> <h3>圖片剪裁clipShape</h3>
+          <img src="images/im06.png" alt="">
+        </div>
+        <div> <h3>調整透明度-opacity</h3>
+          <img src="images/im07.png" alt="">
+        </div>
+        <div> <h3>重疊圖片-overlay</h3>
+          <img src="images/im08.png" alt="">
+        </div>
        
-        <h3>原先viewcontroller新增標籤，標籤文字《Basic》，新的放上標籤為《custom》，各拉一個TableView元件，測試一下兩種設定起始APP Vview的方法</h3>
-        <img style="width: 100%;" src="images/n13.png" alt="">
-        
-        
       </section>
       <section id="no3"><h2>3. ICON《SF Symbols》</h2>
         <h3>ICON：安裝SF Symbols</h3>       
@@ -323,66 +372,9 @@ struct ContentView: View {
         }
         </XMP>
       </section>
-      <section id="no7"><h2>7. 浮動按鈕與Alert</h2>
-         
-      </section>
-      <section id="no8"><h2>8. 習題</h2>
-       <p>使用custom的cell style，從頭不看資料做一遍 內容改成12星座</p>
-       <h4>不要邊看資料邊做，要一次看完！ 後不要再看，用猜的猜錯修正後就會了，一直照著打，永遠都不會</h4>
-       <p>上面有兩個標籤，一個是星座名稱，另一個是日期區間</p>
-       <p>一個imameview放每個星座對應的icon圖</p>
-         <p>  <br>
-              <br>
-              <br>
-          </p>
-          <figure>
-            <img width="150px" src="https://static.ettoday.net/images/4349/d4349238.jpg" alt="">
-            <figcaption>天秤座（9/23～10/23） </figcaption>
-          </figure>
-          <figure>
-            <img width="150px"  src="https://static.ettoday.net/images/4349/d4349240.jpg" alt="">
-            <figcaption> 天蠍座（10/24～11/21）</figcaption>
-          </figure>
-          <figure>
-            <img width="150px"  src="https://pics.ettoday.net/images/4349/d4349233.jpg" alt="">
-            <figcaption>水瓶座 (1/21~2/18)</figcaption>
-          </figure>
-          <figure>
-            <img width="150px"  src="https://static.ettoday.net/images/4349/d4349234.jpg" alt="">
-            <figcaption>巨蟹座 (6/22~7/22)</figcaption>
-          </figure>
-          <figure>
-            <img width="150px"  src="https://static.ettoday.net/images/4349/d4349244.jpg" alt="">
-            <figcaption>牡羊座 (3/21-4/19)  </figcaption>
-          </figure>
-          <figure>
-            <img width="150px"  src="https://static.ettoday.net/images/4349/d4349243.jpg" alt="">
-            <figcaption> 雙魚座 (2/18~320)</figcaption>
-          </figure>
-          <figure>
-            <img width="150px"  src="https://static.ettoday.net/images/4349/d4349241.jpg" alt="">
-            <figcaption>金牛座(4/20~5/20)</figcaption>
-          </figure>
-          <figure>
-            <img width="150px"  src="https://pics.ettoday.net/images/4349/d4349239.jpg" alt="">
-            <figcaption>射手座 (11/23~12/21)</figcaption>
-          </figure>
-          <figure>
-            <img width="150px"  src="https://static.ettoday.net/images/4349/d4349242.jpg" alt="">
-            <figcaption>處女座 (8/23~9/23)</figcaption>
-          </figure>
-          <figure>
-            <img width="150px"  src="https://static.ettoday.net/images/4349/d4349237.jpg" alt="">
-            <figcaption>獅子座 (7/23~8/22)</figcaption>
-          </figure>
-          <figure>
-            <img width="150px"  src="https://static.ettoday.net/images/4349/d4349235.jpg" alt="">
-            <figcaption>摩羯座 (12/22~1/20)</figcaption>
-          </figure>
-          <figure>
-            <img width="150px"  src="https://static.ettoday.net/images/4349/d4349236.jpg" alt="">
-            <figcaption>雙子座 (5/21~6/21) </figcaption>
-          </figure>
+      <section id="no7"><h2>7. 習題</h2>
+       <p>請按照下圖指示，製作一個login畫面</p>
+       <img src="images/HW1.png" alt="">
       </section>
     </div>
   </div>  
