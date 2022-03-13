@@ -662,179 +662,26 @@ struct ContentView_Previews: PreviewProvider {
 
           </XMP>
         </div>
-
-
-          <ol>
-            <li>建立一個程式檔 作為剛剛拉進來的UITableviewcontroller的控制程式，取名為newTableViewController.swift
-            </li>
-            <p style="color: red;">要注意父類別是誰</p>
-           
-           
-           
-            <li> 讓newTableViewController.swift和UITableviewcontroller產生關連，如下圖。這
-              樣UITableviewcontroller這個元件的所有程式碼就寫在newTableViewController.swift</li>
-              <img src="images/n02.png" alt="">
-
-          </ol>
-      </section>
-      <section id="no4"><h2>4. 使用NavigationLink傳送資料到下一階視圖</h2>
-        <p>cell的style使用basic的話，預設類別是UITableViewCell這個別，所以會有預設的textLabel和ImageView的變數可以使用。<br>
-          如果要使用更多的元件，就必須在類別增加IBOutlet變數屬性，如果新增加了屬性，類別就變成新類別了<br>
-          所以作法就是建立一個新的類別，繼承UITableViewCell，本質上他就是UITableViewCell，<br>   
-          但是cell的style使用custom的時候，可以任意加元件上去，並且幫這些元件加IBOutlet到這個新的子類別<br>  
-          這個子類別本質上還是UITableViewCell，只是多加了幾個成員變數， 這幾個成員變數就是我們自訂的元件。  <br>        
-          首先為自訂cell建立新類別， 這樣view才能和程式產生關連，記得一定要繼承UITableViewCell，建立好的cell類別，名字在這邊我用CustomTableViewCell</p>
-
-          <img src="images/n08.png" alt=""><br><br>
-      
-      </section>
-      <section id="no5"><h2>5. 導覽列外觀設定</h2>
-        <p>TableviewController預設有一個protottype，所以不用加，只要設定cell為Custom，identifier為ccell,
-          然後拉好3個標籤和一個imageView
-        </p>
-        <img src="images/n07.png" alt=""><br><br>
-      </section>
-      <section id="no6"><h2>6. 建立餐廳個別細節視圖</h2>
-      
-      
-        <div><h3>在CustomTableViewCell類別建立自訂元件的變數 </h3>
-          <p>在CustomTableViewCell.swift中加入四個屬性
-            一個imageview和三個label            
-            使用下面方法加入</p>
-            <img src="images/n10.png" alt=""><br><br>
-            <p>重複建立其他三個Location name type
-               </p>
-               <ul>
-                 <li> @IBOutlet weak var nameLabel: UILabel!</li>
-                 <li> @IBOutlet weak var locationLabel: UILabel!</li>
-                 <li>@IBOutlet weak var typeLabel: UILabel!</li>
-                 <li>@IBOutlet weak var thumbnailImageView: UIImageView!</li>
-               </ul>
-               <p>
-                其中         <br>       
-                @IBAction指示動作的方法 <br>               
-                @IBOutlet作為輸出的一個屬性</p>
+        <div> <h3>設定列表title</h3>
+          <p>.navigationBarTitle(Text("餐廳列表"),displayMode: .automatic)  inline or large</p>
+          <XMP>
+            var body: some View {
+              NavigationView {
+                  List(restaurants) { restaurant in
+                      NavigationLink(
+                          destination: DetailView(restaurant: restaurant)) { RestView(restaurant: restaurant) }
+                  }
+                  .navigationBarTitle(Text("餐廳列表"),displayMode: .automatic)
+              }
+          }
+          </XMP>>
         </div>
-        
+
       </section>
-      <section id="no7"><h2>7. 其他優化設定</h2>
-
-        <div>
-          <h3>先準備一下那4個陣列</h3>
-          <p>
-              所以我們先把這幾個陣列設為成員變數備用。</p>
-              <h4>那麼看看大家腦袋清楚嗎？?這幾個陣列設為成員變數?要設定成那一個類別的成員變數?
-                目前就兩個選項? 1 或 2   </h4>
-                <ol>
-                  <li>newTableViewController.swift</li>
-                  <li>CustomTableViewCell.swift</li>
-                </ol>
-              
-        <XMP style="background-color: black;color: white;">
-餐廳名稱 
-var restaurantNames = ["スシロー壽司郎 ", " Elephant Restaurant", "燒肉風間 Kazama", "高沐手作料理餐廳", "鐵克諾餐酒館", "元 YUAN", "RÊVE 黑浮咖啡", 
-"八豆食府壽喜燒專門店", "瓦庫燒肉 WOW COOL", "信川屋博多豚骨拉麵店", "麵廊Meelang", "本壽司",  "Nikuya 燒肉", "龍之軒",
- "興鮮幸福鍋物", "小潞屋 A Dream Road", "聖地庭園複合廚房", "NU PASTA 台中霧峰店", "霧峰振卿肉羹大王", "霧峰鴉片工場", "鴻利麵店"]
-餐廳影像檔名
-var restaurantImages = ["cafedeadend.jpg", "homei.jpg", "teakha.jpg", "cafeloisl.jpg", "petiteoyster.jpg", "forkeerestaurant.jpg",
- "posatelier.jpg", "bourkestreetbakery.jpg", "haighschocolate.jpg", "palominoespresso.jpg", "upstate.jpg", "traif.jpg", "grahamavenuemeats.jpg", 
- "wafflewolf.jpg", "fiveleaves.jpg", "cafelore.jpg", "confessional.jpg", "barrafina.jpg", "donostia.jpg", "royaloak.jpg", "thaicafe.jpg"]
-餐廳地點
-var restaurantLocations = ["台中市南屯區市政南一路158號","台中市西屯區西屯路二段267之1號", "台中市南屯區公益路二段171-1號", "台中市北區太平路19巷3弄15號", 
-"台中市西區忠明南路329號g", "408台中市南屯區大墩十七街35號", "台中市西區公益路290號", "台中市南屯區大光街162號", "台中市中區民權路16號", 
-"台中市西區中興八巷24號", "台中市南屯區公益路二段612號", "台中市北區太原路二段175號", "台中市北區健行路407巷1號", "台中市霧峰區樹仁路23號號", 
-"台中市霧峰區四德路53號", "台中市霧峰區中正路677號", "台中市霧峰區中正路1224巷17弄1號", "台中市霧峰區樹仁路107號", "台中市霧峰區林森路762號",
- "台中市霧峰區中正路1180號", "台中市霧峰區中正路1035號"]
-餐廳形態
-var restaurantTypes = ["Japanese", "Cafe", "Tea House", "Austrian / Causual Drink", "French", "Bakery", "Bakery", "Chocolate",
- "Cafe", "American / Seafood", "American", "American", "Breakfast & Brunch", "Coffee & Tea", "Coffee & Tea", "Latin American", "Spanish", 
- "Spanish", "Spanish", "British", "Thai"]
-
-
-        </XMP>
-         </div>
-      
-        <div> <h3>number of section方法</h3>
-          這個專案使用TableView Controller，所有tableview和其容器view的鏈結都不必和前一章那樣設定，<br>
-          什麼幫View controller加協定，指定View controller為TableView的datasour等等都不用做了，<br>
-          只需要設定cell的元件以及和程式關聯，而類別是UITable View Controller的子類別，<br><br>
-
-          所以datasource的<span style="color: red;">《number of row》</span>和
-           <span style="color: red;">《cell for row》</span>都加好了，只需要填寫內容。<br>
-          只是使用UITable View Controller，其datasource會多一個方法
-          <span style="color: red;">《number of section》</span><br>
-          所以我們使用UITableViewController，datasource需要設定三個方法
-          <ol>
-            <li><span style="color: red;">《number of section》</span>，表格可以分成幾個section</li>
-            <li><span style="color: red;">《number of row》</span> 要顯示幾個row </li>
-            <li><span style="color: red;">《cell for row》</span>放進去每個cell的資料</li>
-          </ol>
-          因為我們只用一個section，所以《number of section》中固定return 1
-          <XMP style="background-color: black;color: white;">
-            override func numberOfSections(in tableView: UITableView) -> Int {
-                // #warning Incomplete implementation, return the number of sections
-                return 1
-            }            
-          </XMP>
-        </div>
-        <div>
-            <h3 >number of row方法</h3>
-            <p>要return 表格長度，這邊應該是遠端下載資料的長度，當遠端下載資料後就是把資料放在上面的陣列，
-              所以我們傳回陣列長度就可以了，swift的陣列長度不是length而是count</p>
-          <XMP style="background-color: black;color: white;">
-            override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-                // #warning Incomplete implementation, return the number of rows
-                return restaurantNames.count
-            }
-        
-          </XMP>
-        </div>
-        <div>
-        <h3 >cell for row方法</h3>
-        <p>整個流程一樣，使用indexPath.Row取得該編號的cell
-          <ol>
-            <li>使用indexPath.Row取得該編號的cell</li>
-            <XMP style="background-color: black;color: white;">
-let cellIdentifier = "ccell"  
-//特別挑出來怕你忘記填cell的identifier
-let cell = tableView.dequeueReusableCell(withIdentifier: cellIdentifier, for: indexPath) as! CustomTableViewCell 
-//as! CustomTableViewCell 是強制資料形態轉換，把UITableViewCell轉成 CustomTableViewCell 《這個別照抄要看看 剛剛 你新增的類別名稱》
-// Configure the cell...
-            </XMP>
-            <li>根據indexPath.row指定cell內元件的資料</li>
-            使用indexPath.row當作剛剛四個陣列的索引值依序填入餐廳資料
-            <XMP style="background-color: black;color: white;">
-          
-cell.nameLabel.text = restaurantNames[indexPath.row]
-cell.thumbnailImageView.image = UIImage(named: restaurantImages[indexPath.row])
-cell.locationLabel.text = restaurantLocations[indexPath.row]
-cell.typeLabel.text = restaurantTypes[indexPath.row]
-            </XMP>
-            <li>return cell</li>
-          </ol>
-         
-        </div>
-      </section>     
+   
       <section id="no8"><h2>8. 習題</h2>
         <p>
-          類似前一章的題目，但是資料加多，影像就用前一章的，但是要用UITableViewController來做，<br>
-          1 不要厭煩從空專案開始做，要能夠完全不看講義做完<br>
-          2 在做的時候，不要只是背步驟，整個過程都是有一個邏輯在，要一面做一面和同一組的同學解釋。
-          <XMP style="background-color: black;color: white;">
-          星座	屬性	形態	守護行星	關鍵字眼	       太陽星座周期
-          白羊座	陽性	火象	火星	  獨斷獨行性急	   03.21～04.20
-          金牛座	陰性	地象	金星	  占有欲持久永恒	 04.21～05.21
-          雙子座	陽性	風象	水星	  溝通適應力強	   05.22～06.21
-          巨蟹座	陰性	水象	月亮	  敏感有安全感	   06.22～07.22
-          獅子座	陽性	火象	太陽	  創造力出眾強猛	 07.23～08.23
-          處女座	陰性	土象	水星	  挑剔分析能力	   08.24～09.22
-          天秤座	陽性	風象	金星	  和諧團結	       09.23～10.23
-          天蝎座	陰性	水象	冥王星	專注熱情	       10.24～11.22
-          射手座	陽性	火象	木星	  自由開拓精神廣闊	11.23～12.21
-          摩羯座	陰性	土象	土星	  審慎有抱負功心計	12.22～01.20
-          水瓶座	陽性	風象	天王星	獨立人道主義	    01.21～02.18
-          雙魚座	陰性	水象	海王星	曖眛易受影響	    02.19～03.20
-        </XMP>
+          請自己想一個主題，找資料和圖來片設計一個APP，有列表和DetailView。
           </p>
       </section>
         
