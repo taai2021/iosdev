@@ -529,6 +529,35 @@ struct ContentView_Previews: PreviewProvider {
             }
           </XMP>      
         </div>
+        <div> <h3>整理一下</h3>
+          <p>把要顯示的內容做成另一個view，維護比較容易，每一個餐廳的資訊以restaurant變數傳到另一個view來顯示</p>
+          
+          <XMP>
+            var body: some View {
+              List(restaurants) { restaurant in
+                  RestView(restaurant: restaurant)
+              }
+          }
+      }
+      
+      struct RestView: View {
+          var restaurant:Restaurant
+          var body: some View {
+              HStack {
+                  Image(restaurant.image)
+                      .resizable()
+                      .frame(width: 80.0, height: 80.0)
+                      .clipShape(Circle())
+                  VStack(alignment: .leading) {
+                      Text(restaurant.name)
+                      Text(restaurant.type)
+                      Text(restaurant.location)
+                  }
+              }
+          }
+      }
+          </XMP>
+        </div>
       </section>
       <section id="no3"><h2>3. 導覽列視圖</h2>
           <ol>
