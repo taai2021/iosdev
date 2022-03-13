@@ -560,11 +560,108 @@ struct ContentView_Previews: PreviewProvider {
         </div>
       </section>
       <section id="no3"><h2>3. 導覽列視圖</h2>
-        <div> <h3>整理一下</h3>
+        <div> <h3>Detailview</h3>
           <p>接下來 要讓使用者在點擊列表中的任一餐廳後，該餐廳資料會顯示到另一個view，可以讓使用者查看該餐廳更詳細的資料，並且左上角會有一個返回列表畫面的返回按鈕</p>
           <img src="images/n06.png" alt=""><br><br>
         </div>
+        <div> <h3>設計一個Detailview</h3>
+          <p>上面是暫時替代用的，我們隨意調整另一個view來當作detailview</p>
+          <img src="images/n07.png" alt=""><br><br>
+          <XMP>
+            //
+//  ContentView.swift
+//  list1
+//
+//  Created by SHAO KUO TAI on 2022/3/6.
+//
 
+import SwiftUI
+//餐廳名稱
+//var restaurantNames = ["スシロー壽司郎 ", "Elephant Restaurant", "燒肉風間 Kazama", "高沐手作料理餐廳", "鐵克諾餐酒館", "元 YUAN", "RÊVE 黑浮咖啡", "八豆食府壽喜燒專門店", "瓦庫燒肉 WOW COOL", "信川屋博多豚骨拉麵店", "麵廊Meelang", "本壽司",  "Nikuya 燒肉", "龍之軒","興鮮幸福鍋物", "小潞屋 A Dream Road", "聖地庭園複合廚房", "NU PASTA 台中霧峰店", "霧峰振卿肉羹大王", "霧峰鴉片工場", "鴻利麵店"]
+//餐廳影像檔名
+//var restaurantImages = ["cafedeadend", "homei", "teakha", "cafeloisl", "petiteoyster", "forkeerestaurant","posatelier", "bourkestreetbakery", "haighschocolate", "palominoespresso", "upstate", "traif", "grahamavenuemeats", "wafflewolf", "fiveleaves", "cafelore", "confessional", "barrafina", "donostia", "royaloak", "thaicafe"]
+//餐廳地點
+//var restaurantLocations = ["台中市南屯區市政南一路158號","台中市西屯區西屯路二段267之1號", "台中市南屯區公益路二段171-1號", "台中市北區太平路19巷3弄15號", "台中市西區忠明南路329號g", "408台中市南屯區大墩十七街35號", "台中市西區公益路290號", "台中市南屯區大光街162號", "台中市中區民權路16號","台中市西區中興八巷24號", "台中市南屯區公益路二段612號", "台中市北區太原路二段175號", "台中市北區健行路407巷1號", "台中市霧峰區樹仁路23號號","台中市霧峰區四德路53號", "台中市霧峰區中正路677號", "台中市霧峰區中正路1224巷17弄1號", "台中市霧峰區樹仁路107號", "台中市霧峰區林森路762號",  "台中市霧峰區中正路1180號", "台中市霧峰區中正路1035號"]
+//餐廳形態
+//var restaurantTypes = ["Japanese", "Cafe", "Tea House", "Austrian / Causual Drink", "French", "Bakery", "Bakery", "Chocolate","Cafe", "American / Seafood", "American", "American", "Breakfast & Brunch", "Coffee & Tea", "Coffee & Tea", "Latin American", "Spanish", "Spanish", "Spanish", "British", "Thai"]
+
+struct Restaurant:Identifiable{
+    var id = UUID()
+    var name: String
+    var image: String
+    var location: String
+    var type: String
+
+}
+struct ContentView: View {
+    var restaurants = [
+        Restaurant(name:"スシロー壽司郎",image: "cafedeadend", location:"台中市南屯區市政南一路158號" , type: "Japanese" ),
+        Restaurant(name: "Elephant Restaurant" ,image: "homei", location:"台中市西屯區西屯路二段267之1號" , type: "Cafe" ),
+        Restaurant(name: "燒肉風間 Kazama",image: "teakha", location: "台中市南屯區公益路二段171-1號", type: "Tea House" ),
+        Restaurant(name:"高沐手作料理餐廳" ,image:"cafeloisl" , location: "台中市北區太平路19巷3弄15號", type: "Austrian / Causual Drink"  ),
+        Restaurant(name: "鐵克諾餐酒館",image: "petiteoyster", location: "台中市西區忠明南路329號", type: "French" ),
+        Restaurant(name: "元 YUAN",image:"forkeerestaurant" , location:"408台中市南屯區大墩十七街35號" , type: "Bakery" ),
+        Restaurant(name: "RÊVE 黑浮咖啡" ,image: "posatelier", location:"台中市西區公益路290號" , type: "Bakery" ),
+        Restaurant(name:"八豆食府壽喜燒專門店" ,image:"bourkestreetbakery" , location: "台中市南屯區大光街162號", type: "Chocolate" ),
+        Restaurant(name:"瓦庫燒肉 WOW COOL" ,image:"haighschocolate" , location: "台中市中區民權路16號", type:  "Cafe" ),
+        Restaurant(name: "信川屋博多豚骨拉麵店",image: "palominoespresso", location:"台中市西區中興八巷24號" , type: "American / Seafood" ),
+        Restaurant(name:  "麵廊Meelang",image:"upstate" , location: "台中市南屯區公益路二段612號", type: "American" ),
+        Restaurant(name:"本壽司" ,image: "traif", location: "台中市北區太原路二段175號", type: "American" ),
+        Restaurant(name: "Nikuya 燒肉",image:"grahamavenuemeats" , location:"台中市北區健行路407巷1號" , type: "Breakfast & Brunch" ),
+        Restaurant(name:"龍之軒" ,image:"wafflewolf" , location:"台中市霧峰區樹仁路23號號", type: "Coffee & Tea" ),
+        Restaurant(name: "興鮮幸福鍋物",image:"fiveleaves" , location: "台中市霧峰區四德路53號", type: "Coffee & Tea" ),
+        Restaurant(name: "小潞屋 A Dream Road",image:"cafelore" , location:"台中市霧峰區中正路677號" , type: "Latin American" ),
+        Restaurant(name:"聖地庭園複合廚房" ,image: "confessional", location: "台中市霧峰區中正路1224巷17弄1號", type: "Spanish" ),
+        Restaurant(name:"NU PASTA 台中霧峰店" ,image: "barrafina", location:"台中市霧峰區林森路2號" , type: "Spanish" ),
+        Restaurant(name: "霧峰振卿肉羹大王",image: "donostia" , location: "台中市霧峰區林森路762號", type: "Spanish" ),
+        Restaurant(name:"霧峰鴉片工場" ,image: "royaloak", location:  "台中市霧峰區中正路1180號", type:"British"  ),
+        Restaurant(name: "鴻利麵店",image:"thaicafe" , location: "台中市霧峰區中正路1035號", type:  "Thai" ),
+    ]
+    var body: some View {
+        NavigationView {
+            List(restaurants) { restaurant in
+                NavigationLink(
+                    destination: DetailView(restaurant: restaurant)) { RestView(restaurant: restaurant) }
+            }
+        }
+    }
+}
+struct DetailView: View {
+    var restaurant:Restaurant
+    var body: some View {
+        VStack {
+            Text(restaurant.name).fontWeight(.bold)
+                .font(.system(size: 30))
+            Image(restaurant.image).resizable()
+            Text(restaurant.type)
+            Text(restaurant.location)
+        }
+    }
+}
+struct RestView: View {
+    var restaurant:Restaurant
+    var body: some View {
+        HStack {
+            Image(restaurant.image)
+                .resizable()
+                .frame(width: 80.0, height: 80.0)
+                .clipShape(Circle())
+            VStack(alignment: .leading) {
+                Text(restaurant.name)
+                Text(restaurant.type)
+                Text(restaurant.location)
+            }
+        }
+    }
+}
+struct ContentView_Previews: PreviewProvider {
+    static var previews: some View {
+        ContentView()
+    }
+}
+
+          </XMP>
+        </div>
 
 
           <ol>
