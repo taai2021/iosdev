@@ -123,7 +123,7 @@
           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="border-radius: 20px; color: orangered;">
           7</a>            
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="../Lt7/ch7.html">第7章 頁面轉移(segue)與Apple Map</a>
+            <a class="dropdown-item" href="../Lt7/ch7.html">第7章 http通訊操作和JSON使用</a>
             <a class="dropdown-item" href="../Lt7/ch7.html#no1">1. 一點物件導向概念</a>
             <a class="dropdown-item" href="../Lt7/ch7.html#no2">2. 使用segue轉移頁面的概念</a>
             <a class="dropdown-item" href="../Lt7/ch7.html#no3">3. 使用prepare方法來傳送資料</a>
@@ -215,22 +215,86 @@
   <div  style="margin-top: 80px;">
      
     <div style="margin: auto; width: 96%; text-align: left; border-bottom: 1px solid darkgrey; "> 
-      <section id="no1"><h2>1. 一點物件導向概念</h2>
-          <h3>類別和物件</h3>
-          <p>如下面所示，有兩個類別View1和View2，請問行號23會印出多少?</p>
-          <img src="images/m01.png" alt="">
-          <p>
-            上面行號19和24分別產生View2類別的物件，19的x被加到2，和24的x無關，<br>
-            那麼物件究竟是甚麼呢?<br>
-            物件 → 在記憶體中挖一塊區域，然後按照類別的內容在該區域產生可執行的變數和方法<br>
-            以手機程式來說，有兩個view controller，A和B，當你在A view時，實際上是在執行類別A的物件a，<br>
-            從A要跳到B時，就是產生一個B類別物件b，然後去執行物件b，<br>
-            當你回到View A再次跳去View B，實際上是又再產生另一個B類別物件b'，和剛剛那個b物件是不同的兩個物件，<br>
-            雖然都是B類別。
-          </p>
+      <section id="no1"><h2>1. 操作環境準備</h2>
+        <h4>
+          這個章節是利用實際操作來學會如何使用http傳輸來完成基本資料傳輸，<br>
+          然後再練習使用JSON當作電子資料傳輸格式來進行手機與資料庫之間的資料交換。<br>
+          這邊先做一下實驗環境建置
+        
+        <ol>
+          <li>新增一個專案 test</li>
+          <li>專案中新增一個source的swift file來寫類別，名稱是conn</li>
+          <li>在conn內加入errorRequest方法，如下</li>
+          <XMP>
+            
+    func errorRequest ()->String{
+      let request = URLRequest(url: URL(string: "http://163.17.20.6/error.php")! as URL)
+      let session = URLSession.shared
+      let task = session.dataTask(with: request as URLRequest,completionHandler:{
+          data, response, error -> Void in
+          let string1 = String(data: data! , encoding: String.Encoding.utf8) ?? "Data could not be printed"
+          print(string1)
+          
+      })
+      task.resume()
+      return "done"        
+  }
+          </XMP>
+        
+            我架了一台暫用的伺服器163.17.20.6，但是裡面並沒有error.php
+            我們看一下回傳的http訊息是甚麼，下面解釋程式碼
+            <XMP>
        
+              func errorRequest ()->String{
+因為方便後續的內容，所以設定一個無意義的傳回值永遠傳送"done"
+                let request = URLRequest(url: URL(string: "http://163.17.20.6/error.php")! as URL)
+HTTP通信都是用戶端對伺服器送出request，伺服器回送一個response
+這一行建立一個request，URL是指明這個request是要送給伺服器那一個程式（）error.php
+                let session = URLSession.shared
+建立通訊會期
+下面是用這個通信會期建立一個task工作，這個工作就是執行那個request
+而response回來後是一個事件，會去觸發completionHandler{處理response內的資料 }
+                let task = session.dataTask(with: request as URLRequest,completionHandler:{
+                    data, response, error -> Void in
+                    let string1 = String(data: data! , encoding: String.Encoding.utf8) ?? "Data could not be printed"
+                    print(string1)
+把responase內的資料印出來
+                    
+                })
+啟動task，沒有這一行task不會動作
+                task.resume()
+                return "done" 沒意義的路人甲       
+            }
+                    
+            </XMP>
+          </h4>
+          <li>在啟動app中宣告一個變數，建構conn()並且呼叫errorRequest()，如下圖</li>
+          <img src="images/m01.png" alt="">
+          <li>執行後會發現伺服器裡面沒有error.php，下面是回應訊息</li>
+        <img src="images/m02.png" alt="">
+        </ol>
+          
       </section>
-      <section id="no2"><h2>2. 使用segue轉移頁面的概念</h2>
+      <section id="no2"><h2>2.一個只會回應 《沒東西》的伺服器程式ino.php</h2>
+        <h4>
+          這邊練習送responase到伺服器，但是只是純粹呼叫並不傳送資料給伺服器，<br>
+          只是單純呼叫ino.php，然後接收他傳回的《沒東西》
+          <ol>
+            <li>看一下ino.php寫甚麼？</li>
+            <XMP>
+              <?php
+                  header("Access-Control-Allow-Origin: *");
+                  header("Content-Type: application/json; charset=UTF-8");
+                  echo'{"result": "沒東西"}';
+              ?>
+            </XMP>
+            <li>在conn()內新增inoRequest()方法</li>
+            其實和error.php一樣，只是URL由error.php改成ino.php
+            <li>主程式的conn().errorRequest()改成conn().inoRequest()</li>
+            <li>執行後應該可以看到什麼，請先想一下</li>
+          </ol>
+        </h4>
+        
         <h3>什麼是segue</h3>
         <p>App一啟動，出現會員登入畫面，登入成功就進入另一個畫面，<br>
           畫面內，可能是一些功能選項，點選功能選項，開啟其功能畫面來使用。<br>

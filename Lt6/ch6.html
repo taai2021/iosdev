@@ -215,8 +215,8 @@
   <div  style="margin-top: 80px;">
      
     <div style="margin: auto; width: 96%; text-align: left; border-bottom: 1px solid darkgrey; "> 
-      <section  id="no1">
-        <h2 >1. 建立一個view的主控版來控制登入登出</h2>
+      <section  id="no1"> <!--1. 建立一個view的主控版，利用binding的變數來控制要顯示那一個view-->
+        <h2 >1. 建立一個view的主控版，利用binding的變數來控制要顯示那一個view</h2>
         <h4>
           NavigationView可以實現階層式的無條件view的轉換，那麼如果是非階層的條件式view的轉移該怎麼做？
         </h4>
@@ -299,7 +299,7 @@
     
 
       </section>
-      <section id="no2"><h2>2. 自動登入</h2>
+      <section id="no2"><h2>2. 實現自動登入</h2><!--2. 實現自動登入-->
         <h4>一般app在登入後，除非登出，否則不用每次登入是因為他會在登入後把一些資訊放到UserDefaults</h4>
         <div><h3>1 什麼是userDefaults </h3>           
          <h4>
@@ -334,165 +334,27 @@
           </h4>
         </div>
       </section>
-      <section id="no3"><h2>3. 遠端驗證帳密</a></h2>
-      </section>
-      <section id="no4"><h2>4. 遠端</h2>
-        <p>在這一段講義，是要利用cell Accessory輔助視圖，來讓使用者標註他去過的餐廳</p>
-        <p>做法是再增加一顆按鈕，點擊後會在點選的cell加上打勾符號的輔助視圖，如果已經去過的cell，再次點選可以取消打勾。</p>
-        <div><h3>什麼是輔助視圖? </h3>
-        <p>輔助視圖分成4種，如下圖，使用方式是設定其cell.accessoryType，例如使用打勾符號，就設定cell.accessoryType= <span style="color: red;">.Checkmark</span><br>
-          如果要把勾勾取消就cell.accessoryType= .none</p>
-        <ol>
-          <li>打勾符號 check mark--> UITableViewCellAccessoryType<span style="color: red;">.checkmark</span></li>
-          <li>細節揭示按鈕 detail disclosure button --> UITableViewCellAccessoryType<span style="color: red;">.detailDisclosureButton</span></li>
-          <li>揭示指示符號disclosure indicator--> UITableViewCellAccessoryType<span style="color: red;">.disclosureIndicator</span></li>
-          <li>細節圖示 detailButton--> UITableViewCellAccessoryType<span style="color: red;">.detailButton</span></li>
-        </ol>
-        <img src="images/n08.png" alt="">
-      </div>
-<br>
+      <section id="no3"><h2>3. 使用tabView來進行畫面轉移自動登入</h2>
+        <h4>這邊試著建立一個基本app框架,
+          接續上面結果 把系統主畫面改成tabView的分頁，藉由分頁來控制整個系統所有頁面轉移
+        </h4>
+        <div><h3>1 新建一個 TabView取代剛剛的SystemView </h3>           
+         <h4>
+            <ol>
+              <li>新增兩個view檔案，拷貝兩個程式過來1.將ch5的作業12星座，2.ch5的餐廳進度檔案</li>
+              <li>新增一個view檔案改名systemTab，如下</li>
+              <img src="images/n03.png" alt="">
+              <li>新增一個view檔案改名systemTab，拉進來一個TabView建立一個</li>
+                  
+              
+            </ol>
+          </h4> 
+        </div>
         
-        <div><h3>多加上一顆按鈕來標註使用者是否去過 </h3>
-          <p>按鈕上顯示"標註去過這家餐廳"，因為做過兩次了其他部分自己想辦法(假設名稱為 visitedAction )。</p>
-          <img src="images/n09.png" alt="">
-        </div>
-        <div><h3> 如何記錄使用者是否去過這家餐廳?</h3>
-          <p>如果是真實的完成品應該視放在資料庫內，在開啟app時連其他資訊一起過來，所以應該是一個陣列而且長度要和《餐廳名稱》一樣</p>
-          <p>所以加入一個布林陣列的成員變數來表示是否已經去過，下面是swift宣告一個預設值為false，長度為21的陣列宣告方式，把他和其他陣列放在一起</p>
-          <p>var restaurantIsVisited = [Bool](repeating: false, count: 21)</p>
-          
-        </div>
-        <div><h3> 如何讓cell的打勾或不打勾的狀態和restaurantIsVisited的true和false連結? </h3>
-          <p>在《cell for row》方法中就是會根據索引值來設定cell內容<br>
-            ，所以在裡面就根據索引值取得restaurantIsVisited，<br>
-          再根據true或false來設定《cell.accessoryType= <span style="color: red;">.Checkmark</span>》或《cell.accessoryType= .none》</p>
-          <XMP style="background-color: black;color: white;">
-cell.accessoryType = self.restaurantIsVisited[indexPath.row] ? .checkmark : .none
-          </XMP>
-        </div>
-        <div><h3>使用閉包幫visitedAction製作handler，點選後將restaurantIsVisited[選取row的indexPath.row ]的布林值反相</h3>
-          <p>這邊使用第二種閉包寫法，直接放進去<br>
-            let visitedAction = UIAlertAction(title: "標註去過這家餐廳", style: .default, handler:<span style="color: red;">{閉包} </span>)
-          </p>
-          <XMP style="background-color: black;color: white;">
-{
-  (action:UIAlertAction!) -> Void in
-  self.restaurantIsVisited[indexPath.row] = !self.restaurantIsVisited[indexPath.row]
-  self.tableView.reloadData() 
-  
-}
-          </XMP>
-          <p>self.tableView.reloadData() 可以讓表格重新載入資料</p>
-          <p>可是這樣還是不夠好，因為visitedAction永遠顯示 "標註去過這家餐廳"，使用者會搞混，<br>
-            所以最好當使用者沒去過，就顯示"標註去過這家餐廳"<br>
-            如果已經去過則顯示"標註去過這家餐廳"</p>
-            <p>因此<br>
-              let visitedAction = UIAlertAction(title: "標註去過這家餐廳", style: .default, handler:<span style="color: red;">{閉包} </span>)<br>
-            的title: "標註去過這家餐廳"該怎麼寫呢?你一定會的，我就不寫出了。</p>
-            <img src="images/n10.png" alt="">
-        </div>       
       </section>
-      <section id="no5"><h2>5. 滑動事件-使用<span style="color: red;">editingStyle</span>方法幫tableview建立刪除功能</h2>
-        在這邊繼續介紹tableview其他的控制程式，上一個單元是點選，這個單元是滑動<br>
-        總共會介紹兩個程式 editingStyle和 editActions<br>
-        先複習一下目前學到的<br>
-        目前和資料來源有關的是<br>
-        numberOfsections 有幾個sections固定給1<br>
-        numberOfRows table有幾個row<br>
-        cellForRow row裡面塞資料<br>
-        和控制有關的<br>
-        點選-didSelectRow<br>
-        滑動 editingStyle和 editActions<br>
-        上面的請回憶一下每個程式都在做甚麼的<br>
-        editingStyle 這個不能自訂 只能刪除 但是使用方便<br>
-        editActions 這個可以自訂功能 當然設定相對多一些<br>
-        這一段講義將使用editingStyle來製作刪除餐廳的功能
-        <div><h3> editingStyle 方法 </h3>
-          <p>
-            override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath)<br>
-          加入這個方法 在滑動時會出現delete按鈕<br>
-          <img src="images/n11.png" alt="">
-            </p>接下來實作刪除方法<br>
-            indexPath會提供哪一筆cell的數字<br>
-            利用removeAtIndex方法來刪除陣列的那一筆資料<br>
-            當然要同時刪除所有陣列的資料包括 restaurantNames, restaurantImages, restaurantLocations, restaurantTypes, restaurantIsVisited<br>
-            完整程式碼如下
-            <XMP style="background-color: black;color: white;">      
-override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-    self.restaurantNames.remove(at: indexPath.row)
-    self.restaurantLocations.remove(at:indexPath.row)
-    self.restaurantTypes.remove(at:indexPath.row)
-    self.restaurantIsVisited.remove(at:indexPath.row)
-    self.restaurantImages.remove(at:indexPath.row)
-    self.tableView.reloadData()
-    //self.tableView.deleteRows(at: [indexPath], with: .fade)
-}
-            </XMP>      
-            先把陣列裡面的那一筆資料刪除<br>
-            然後<br>
-            重新載入UITableView<br>
-            self.tableView.reloadData()<br>
-            或者直接移除該行<br>
-            self.tableView.deleteRows(at: [indexPath], with: .fade)<br>
-            這兩種都可以
-            </p>
-        </div>   
-      </section>
-
-      <section id="no6"><h2>6. 滑動事件-使用<span style="color: red;">editActions</span>方法幫tableview建立自訂功能</h2>
-        <div><h3>editActions</h3>
-         <p>editActions滑動產生更多自訂動作<br>
-          這個動作會蓋掉剛剛的commit editingStyle(只能刪除或者修改)<br>
-          editActionsForRowAt可以自己定義要做的動作 
-         </p> 
-<XMP style="background-color: black;color: white;">
-override func tableView(_ tableView: UITableView, editActionsForRowAt: IndexPath) -> [UITableViewRowAction]? {
-
-    let shareAction = UITableViewRowAction(style: UITableViewRowActionStyle.default, title: "Share",
-      handler:{
-                (action:UITableViewRowAction, indexPath:IndexPath) -> Void in
-                let shareMenu = UIAlertController(title: nil, message: "Share using", preferredStyle: .actionSheet)
-                let twitterAction = UIAlertAction(title: "Twitter", style: UIAlertActionStyle.default, handler: nil)
-                let facebookAction = UIAlertAction(title: "Facebook", style: UIAlertActionStyle.default, handler: nil)
-                let emailAction = UIAlertAction(title: "Email", style: UIAlertActionStyle.default, handler: nil)
-                let cancelAction = UIAlertAction(title: "Cancel", style: UIAlertActionStyle.cancel, handler: nil)
-                shareMenu.addAction(twitterAction)
-                shareMenu.addAction(facebookAction)
-                shareMenu.addAction(emailAction)
-                shareMenu.addAction(cancelAction)
-                self.present(shareMenu, animated: true, completion: nil)
-        }
-    )
-
-    let deleteAction = UITableViewRowAction(style: UITableViewRowActionStyle.default, title: "Delete",
-      handler: {
-                (action:UITableViewRowAction, indexPath:IndexPath) -> Void in
-                self.restaurantNames.remove(at: indexPath.row)
-                self.restaurantLocations.remove(at:indexPath.row)
-                self.restaurantTypes.remove(at:indexPath.row)
-                self.restaurantIsVisited.remove(at:indexPath.row)
-                self.restaurantImages.remove(at:indexPath.row)
-                self.tableView.deleteRows(at: [indexPath], with: .fade)
-      }
-    )
-    shareAction.backgroundColor = UIColor(red: 255.0/255.0, green: 166.0/255.0, blue: 51.0/255.0, alpha: 1.0)
-    deleteAction.backgroundColor = UIColor(red: 51.0/255.0, green: 51.0/255.0, blue: 51.0/255.0, alpha: 1.0)
-    return [deleteAction, shareAction]
-}
-</XMP>
-
-
-        </div>
-      </section>
-      <section id="no7"><h2>7. 習題</h2>
+      <section id="no7"><h2>3. 習題</h2>
     
-        <p>將前一章作業12星座作出下面修改</p>
-        <ol>
-          <li>點選顯示12星座本週運勢，運勢可以自己編或網路抓成字串變數，然後索引值亂數產生</li>
-          <li>editActions做出1 share的按鈕(如上) 2 第2顆按鈕是like按鈕，表示喜歡這個星座</li>
-          <li>修改下面Root View Controller 標題，並且在旁邊加上一顆按鈕clear清除所有的like</li>
-          <img src="images/n12.png" alt="">
-        </ol>
+        <p>不要看著講義做完成上述練習</p>
       </section>
     
     </div>
