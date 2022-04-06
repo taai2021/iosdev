@@ -217,37 +217,121 @@
     <div style="margin: auto; width: 96%; text-align: left; border-bottom: 1px solid darkgrey; "> 
       <section  id="no1">
         <h2 >1. 建立一個view的主控版來控制登入登出</h2>
-        <p>
+        <h4>
           NavigationView可以實現階層式的無條件view的轉換，那麼如果是非階層的條件式view的轉移該怎麼做？
-          例如，登入成功時，畫面跳轉到系統主畫面，
-          又例如在系統主畫面按下登出按鈕，畫面回到登入畫面，
-          這種就是所謂的以程式控制來轉移畫面。
-          如下圖，使用contentView 當作主控板利用一個need_login的bool來決定你是否已經登入，再用VID決定要顯示那一個VID
-        </p>      
+        </h4>
+        <h5>
+          例如，<br>
+          登入成功時，畫面跳轉到系統主畫面，<br>
+          又例如<br>
+          在系統主畫面按下登出按鈕，畫面回到登入畫面，<br><br>
+          這種就是所謂的《以程式控制來轉移畫面》。<br>
+          如下圖，使用contentView 當作主控板，<br>
+          利用<br>
+          <ui>
+            <li>need_login的bool來決定你是否需要登入</li>
+            <ul>
+              <li>true：表示需要登入，就引導到登入畫面</li>
+              <li>false：則跳到vid的那個view</li>
+            </ul>
+            <li>VID決定要顯示那一個VID</li>
+            <p>每一個view都預設一個vid，在已登入的情況下，可以指定vid來顯示該view</p>
+          </ui>
+        </h5>     
         <p> <img src="images/n01.png" alt=""></p>
-        <div><h3>1 先建立好SystenView </h3>           
-          
+        <div><h3>1 先建立好SystenView </h3> 
+          <h4 style="background-color: gold;">先新增一個專案，取名SystemView</h4>      
+          <h5>如下圖自己建立程式碼，下面是要求
+            <ol>
+              <li>加入綁定變數 need_login 和 vid</li>
+                  <ul>
+                    <li>要用@State還是@Binding？為什麼？</li>
+                    <li>兩者資料形態為何？</li>
+                    <li>可以先給值嗎？？為什麼？</li>
+                  </ul>      
+                          
+              <li>按照下方圖示加入Text和Button</li>
+              <li>Button的文字是登出按下後，應該指定need_login和vid（應該如何給值？）</li>
+              <li>最下面的preView把他給remark掉(為什麼？）</li>
+            </ol>
+          </h5>    
+          <p> <img src="images/n02.png" alt=""></p>
         </div>
-        <div><h3>2 把上一次login程式拷貝過來 當登入畫面名字取成LoginView</h3>           
-          
+        <div><h3>2 建立登入畫面 </h3>   
+          <h4 style="background-color: gold;">先新增一個專案，取名LoginView</h4>       
+          <h5>       
+          <ul>
+            <li>把CH4的login作業的程式拷貝過來（名字該改的改好）</li>
+            <li>加入綁定變數 need_login 和 vid</li>
+                <ul>
+                  <li>要用@State還是@Binding？為什麼？</li>
+                  <li>兩者資料形態為何？</li>
+                  <li>可以先給值嗎？？為什麼？</li>
+                </ul>      
+            <li>下面程式修改一下</li>
+            <p>Text(x ? ((acc == acc2 && pwd == pwd2) ? "登入成功" : "登入失敗" ) : "")</p>
+            <p>登入成功直接跳到系統主畫面，所以需要顯示登入成功嗎？</p>
+            <li>按下登入按鈕要去驗證帳密，驗證成功指定nedd_login和vid（該給多少？）</li>
+            <li>最下面的preView把他給remark掉(為什麼？）</li>
+          </ul>
+        </h5>
         </div>
         <div><h3>3 設定ContentView </h3>           
-          
+          <p>接下來換主畫面</p>
+          <h5>
+            <ul>
+              <li>加入綁定變數 need_login 和 vid</li>
+                  <ul>
+                    <li>要用@State還是@Binding？為什麼？</li>
+                    <li>兩者資料形態為何？</li>
+                    <li>可以先給值嗎？？為什麼？</li>
+                  </ul>      
+               <li>最下面的preView可以留著嗎？(為什麼？）</li>
+              <li>寫一下下面邏輯</li>
+              <h4>如果need_login是true則跳到LoginView，false則檢查vid，跳到vid的view</h4>
+            </ul>
+          </h5>
         </div>
         <div><h3>4 修改 主程式的WindowGroup的啟動View </h3>           
-          
+          <p>ContentView()為什麼有錯誤？如何修正？</p>
+          <h4>vid設定多少是不是很重要？為什麼？</h4>
         </div>
     
 
       </section>
       <section id="no2"><h2>2. 自動登入</h2>
-        
+        <h4>一般app在登入後，除非登出，否則不用每次登入是因為他會在登入後把一些資訊放到UserDefaults</h4>
         <div><h3>1 什麼是userDefaults </h3>           
-          
+         <h4>
+           UserDefault用來儲存一些簡單資訊，
+           在app關掉之後，不會消失，再次打開app仍可以讀取，
+           除非移除app，否則資訊會一直存在，下面是會用到的方法    
+            <ul>
+              <li>寫入UserDefaults</li>
+                  <p>UserDefaults.standard.set( <span style="color: red;">《可以是整數、布爾值、字典、日期等等》</span>, forKey: &quot;need_login&quot;)<br>
+                   
+                  <p>UserDefaults.standard.set( <span style="color: red;">true</span>, forKey: &quot;need_login&quot;)<br>
+                    寫入一組資料key和value，這行程式《寫入key為need_login，value為true》</p>
+              <li>自UserDefaults讀出資料</li>
+              <p>若是字串</p>
+                  <p> x=UserDefaults.standard.string(forKey: &quot;need_login&quot;)<br>
+                    <p>若是BOOL，以此類推</p>
+                        <p> x=UserDefaults.standard.bool(forKey: &quot;need_login&quot;)<br>
+              <li>自UserDefaults移除資料</li>
+                  <p>UserDefaults.standard.removeObject(forKey: &quot;need_login&quot;)<br>
+                    移除key值為need_login</p>
+            </ul>
+          </h4> 
+    <p>&nbsp;</p>
         </div>
-        <div><h3>2 寫一個類別裡面的方法可以去抓userDaults，
-          檢查登入資訊，當作主程式的WindowGroup的啟動View的need_login參數</h3>           
-          
+        <div><h3>2 利用UserDefaults完成自動登入 </h3>           
+          <h4>利用前述UserDefaults方法完成下面動作
+            <ol>
+              <li>登入成功寫入key="need_login" value=false</li>
+              <li>登出時寫入ey="need_login" value=true</li>
+              <li>主程式中讀取key值=need_login的BOOL當作WindowGroup的啟動View的need_login參數</li>
+            </ol>
+          </h4>
         </div>
       </section>
       <section id="no3"><h2>3. 遠端驗證帳密</a></h2>
