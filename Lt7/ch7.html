@@ -215,15 +215,40 @@
   <div  style="margin-top: 80px;">
      
     <div style="margin: auto; width: 96%; text-align: left; border-bottom: 1px solid darkgrey; "> 
-      <section id="no1"><h2>1. 操作環境準備</h2>
-        <h4>
-          這個章節是利用實際操作來學會如何使用http傳輸來完成基本資料傳輸，<br>
+      <section id="no1"><h2>1. 不帶資料給伺服器</h2>
+        <div>
+          <h3>1. 操作環境準備</h3>
+          <h4>
+            這個章節是利用實際操作來學會如何使用http傳輸來完成基本資料傳輸，<br>
           然後再練習使用JSON當作電子資料傳輸格式來進行手機與資料庫之間的資料交換。<br>
           這邊先做一下實驗環境建置
-        
+          <ol>
+            <li>新增一個app專案 test</li>
+            <li>專案中新增一個source的swift file來寫類別，名稱是conn，並且加上only（）Test方法</li>
+            <XMP>
+              class conn{
+                func onlyTest()->String{
+                  print("這邊會印出http的回應訊息")
+                  return "只是為了後面操作方便，所以傳回一點垃圾，沒什麼用"
+                }
+              }
+            </XMP>
+            <li>在啟動testApp中宣告一個變數x，建構conn()並且呼叫onlyTest()，如下</li>
+            <XMP>
+              Struct testApp: App{
+                var x=conn().onlyTest()
+                var body:some Scene{
+                  ContentView()
+                }
+              }
+            </XMP>
+            <li>執行後，這一行print("這邊會印出http的回應訊息")，應該會印出來</li>
+          </h4>
+        </div>
+        <div>
+          <h3>2. 伺服器內沒有這個程式會出現什麼http回應？</h3>
+          <h4>
         <ol>
-          <li>新增一個專案 test</li>
-          <li>專案中新增一個source的swift file來寫類別，名稱是conn</li>
           <li>在conn內加入errorRequest方法，如下</li>
           <XMP>
             
@@ -267,15 +292,17 @@ HTTP通信都是用戶端對伺服器送出request，伺服器回送一個respon
             }
                     
             </XMP>
-          </h4>
+          
           <li>在啟動app中宣告一個變數，建構conn()並且呼叫errorRequest()，如下圖</li>
           <img src="images/m01.png" alt="">
           <li>執行後會發現伺服器裡面沒有error.php，下面是回應訊息</li>
         <img src="images/m02.png" alt="">
         </ol>
+          </h4>
+        </div>
+        <div>
+          <h3>3. 伺服器內找到這個程式會有什麼回應？</h3>
           
-      </section>
-      <section id="no2"><h2>2.一個只會回應 《沒東西》的伺服器程式ino.php</h2>
         <h4>
           這邊練習送responase到伺服器，但是只是純粹呼叫並不傳送資料給伺服器，<br>
           只是單純呼叫ino.php，然後接收他傳回的《沒東西》
@@ -293,326 +320,305 @@ HTTP通信都是用戶端對伺服器送出request，伺服器回送一個respon
             <li>主程式的conn().errorRequest()改成conn().inoRequest()</li>
             <li>執行後應該可以看到什麼，請先想一下</li>
           </ol>
-        </h4>
+        </h4>   
+        </div>
+        <h4>
+          
         
-        <h3>什麼是segue</h3>
-        <p>App一啟動，出現會員登入畫面，登入成功就進入另一個畫面，<br>
-          畫面內，可能是一些功能選項，點選功能選項，開啟其功能畫面來使用。<br>
-          這些每一個畫面都必須個別設計。<br>
-          我們就用view來稱呼這些畫面。storyBoard故事板就是用來放這些view，<br>
-          <span style="color: red;">segue</span>  就是讓我們設定view和view之間的轉移。<br>
-          
-          <h3>每跳到一個新的view，就是建立該view的物件，然後去執行該物件</h3>
-          每個視覺元件都需要連結到一個類別，元件才能發揮其設計的功能<br>
-          例如LABEL有他的外觀、switch可以左右滑、checkbox點一下可以打勾或取消打勾，<br>
-          這些都不是憑空產生的，而view(像view controller 或 tableView controller)也是有一個類別對應<br>
-          所以
-          <ul>
-            <li>每一個view和一個類別連結，view所需要的功能就在這個類別內設計方法來完成。</li>
-            <li>當app被啟動出現了view，app就使用這個view對應的那個類別，來建立物件。</li>
-            <li>類別只是定義，物件才真正佔有記憶體可以執行的。一個類別可以用來建構多個物件。</li>
-            <li>從這個view跳到另一個view代表著手機執行程式碼從前一個物件轉移到下一個物件。</li>
-          </ul>
-         <p>看一下下面的圖案，當整個程序完成後，你覺得文字輸入格會是0還是2</p>
-         <h4>實作一下</h4>
-         <ol>
-           <li>開一個新專案，多拉一個View Controlller，產生一個cocoa touch class和這個新View對應，並且加入元件如下</li>
-           <img src="images/n01.png" alt="">
-           <li>互拉segue如下</li>
-           <img src="images/n02.png" alt="">
-           <li>加1按鈕和textField 分別拉IBAction和 IBOutlet，程式碼如下</li>
-           <img src="images/n03.png" alt="">
-           <li>然後如下執行，會顯示0或2?</li> <img src="images/n00.png" alt="">
-         </ol>
-         <p>所以每次轉移到view都是建立一個新的view物件，然後segue過去。</p>
       </section>
-      <section id="no3"><h2>3. 使用prepare方法來傳送資料</h2>
-        <div><h3>物件和物件之間如何傳送資料？ </h3>
-          <div class="ctext">                
-            <p>像前面的兩個view分別是兩個物件，當你要轉移到另一個view之前，都是建立一個新的view物件，<br>
-              再轉移過去，因為是第一個view建立了第2個view物件，所以其實我們是知道第2個view物件的記憶體位址，<br>
-              所以我們可以在第2個view宣告變數，然後把要傳過去的資料指定給這個變數</p>
-              <XMP style="background-color: black;color: white;">
-                想把View1裡面的data傳到新建的View2物件內
-                class View1{
-                  var data=100
-                  func Segue()->View2{
-                      var nv2:View2=View2()   //在View1內建立另一個view物件
-                      nv2.x=data              //把data 指定給 View2的x       
-                      print("跳到VEIW 2")  //然後再跳到View2去
-                      return nv2
-                  }
-              }
-              class View2{
-                  var x=0
-                  func printx(){
-                      print("View2 = "+String(x))
-                  }
-              }
-              var v1:View1
-              var v2:View2
-              v1=View1()  進入 View1
-              v2=v1.Segue()  建立View2 → 把data指定給View2的x   →  跳到View2
-              V2.printx()  進入View2 印出來 x 看看有沒有傳過來
+      <section id="no2"><h2>2.如何帶訊息給伺服器？（例如帳號密碼）</h2>    
+      <div><h3>1. 你懂 GET 和 POST嗎？</h3>
+        <h4>
+          <p>GET和POST是HTTP協議中的兩種傳送request帶資料給伺服器的方法。
+            GET和POST做的事情是一樣一樣的。
+            但是</p>
+        <ul>
+          <li style="font-weight: bold;">資料存放位置不同</li>
+              GET把引數包含在URL中，  https://www.cyut.edu.tw?acc=123&pwd=456<br>
+              POST通過request body傳遞引數。<br><br>
+              有點像寫信<br>
+              GET像明信片，資料寫在上面<br>
+              POST寫在信紙上，用信封包起來<br><br>
+              所以GET產生的URL網址可以被Bookmark，而POST不可以。<br>
+              GET請求所帶的資料會被完整保留在瀏覽器歷史記錄裡，而POST不會保留帶了什麼資料。<br>
+              <br>
+              
+          <li style="font-weight: bold;">能帶的資料量不同</li>
+              明信片上面能寫的字數有限<br>
+              瀏覽器通常都會限制url長度在2K個位元組，<br>
+              而伺服器最多處理64K大小的url。<br>
+              寫在信紙上理論上就是愛寫多少寫多少<br><br>
+          <li style="font-weight: bold;">安全性不同</li>
+              在明信片上面寫著《老師最棒》，每個人都知道你是馬屁精了<br>
+              所以GET比POST更不安全，因為資料直接暴露在URL上，所以不能用來傳遞敏感資訊。<br><br>
+          <li style="font-weight: bold;">產生封包數不同</li>
+              GET產生一個TCP資料包；POST產生兩個TCP資料包。<br>
+              對於GET方式的請求，瀏覽器會把http header和data一併傳送出去<br>
+              ，伺服器響應200（返回資料）；<br>
+              而對於POST，瀏覽器先發送header，伺服器響應100 continue，<br>
+              瀏覽器再發送data，伺服器響應200 ok（返回資料）。<br>
+              <br>
+              也就是說，GET只需要一個封包<br>
+              POST需要兩個封包，<br>
+              第一個封包先去和伺服器打個招呼“嗨，我等下要送資料，你等著”<br>
+              第二個封包才包含資料。<br><br>
 
-              會印出x=100
-              </XMP>
-          </div>
+              因為POST需要兩步，時間上消耗的要多一點，<br>
+              GET比POST更有效率。<br><br>
+          <li style="font-weight: bold;">GET請求只能進行url編碼，而POST支援多種編碼方式。</li>
+              對所帶資料的資料型別，GET只接受字串，而POST沒有限制。<br>
+              所以如果要傳送圖片只能用POST，<br>
+              甚至傳送一些有格式的資料，例如JSON格式，也是習慣使用POST<br>
+        </ul>
+  </h4>
+      </div>     
+      <div><h3>2. 如何用get傳送資料到伺服器</h3>
          
-          
-        </div> 
-        <h3>如何把資料送到第2個view？ </h3>
-        <div class="ctext">   
-          <h4>實作一下</h4>
-          <p>試著在第一個view放一個文字輸入格，輸入文字後，按下《跳到View2》按鈕，然後View2的lab會顯示你在View1輸入的文字
-          </p>
+        <h4>
+          這邊練習用get傳送資料到伺服器，伺服器收到資料後直接回傳所收到的資料，<br>
+          APP收到資料就印出來看看和自己送出去的是否一樣
           <ol>
-            <li>1 在View2準備一個變數x，2 然後在viewDidLoad（）方法中把x指定給lab標籤  </li>
-            <XMP style="background-color: black;color: white;">
-              
-class ViewController111111: UIViewController {
-  var x:String=""                                  1 在View2準備一個變數x
-  @IBOutlet weak var lab: UILabel!
-  @IBAction func asdf(_ sender: UIButton) {
-      self.lab.text=String(Int(self.lab.text!)!+1)
-  }
-  
-  override func viewDidLoad() {
-      super.viewDidLoad()
-      lab.text=x                                    2 把x指定給lab標籤
-      // Do any additional setup after loading the view.
-  }
+            <li>看一下iget.php寫甚麼？</li>
+            <XMP>
+              <?php
+                  $acc="";
+                  $pwd="";
+                  $res="";
+                  $acc = $_GET["acc"];
+                  $pwd = $_GET["pwd"];
+                  $res=$acc." ".$pwd;
+                  header("Access-Control-Allow-Origin: *");
+                  header("Content-Type: application/json; charset=UTF-8");
+                  echo'{"result":"'.$res.'"}';
+              ?>
             </XMP>
-            <p>viewDidLoad（）方法是一個《物件被建立之後》   在《view被顯示之前》 會被執行的方法<br>
-            也就是 《view物件建立》 →  《執行viewDidLOad()方法》 → 《顯示view》<br>
-          所以View2在顯示之前會先把x放到lab標籤後再顯示 </p>
-            <li>修改剛剛的專案中，在第一個view加入一個textField，並且拉IBOutlet變數，假設變數名稱是data</li>
-            <li>在第一個view的類別內加入prepare方法如下</li>
-            <XMP style="background-color: black;color: white;">
-              
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-      let v2=segue.destination as! ViewController111111
-      v2.x=data.text
-  }
+            <li>在conn()內新增getRequest()方法</li>
+            <XMP>
+        func getRequest ()->String{
+            let request = URLRequest(url: URL(string: "http://163.17.20.6/iget.php?acc=CYUT&pwd=IOS")! as URL)
+            let session = URLSession.shared
+            let task = session.dataTask(with: request as URLRequest,completionHandler:{
+                data, response, error -> Void in
+                let string1 = String(data: data! , encoding: String.Encoding.utf8) ?? "Data could not be printed"
+                print(string1)
+            })
+            task.resume()
+            return "done"
+        }
             </XMP>
-            <p>v2=segue.destination就是新建view2的記憶體位置，我放到v2變數去</p>
-            <p> 我的程式View2類別名稱是ViewController111111 ，<br>
-              所以v2=segue.destination as! ViewController111111 強制轉型那個記憶體位置為View2類別</p>
-              <p>v2.x=data.text 就是把data放到View2的x</p>
-              <p>而view2在顯示前會去執行viewdidload，把x放到lab標籤後再顯示</p>
-            <li>這樣是不是就是把view1的資料傳到view2去了？</li>
+            <li>主程式改成conn().getRequest()</li>
+            <li>執行後應該可以看到什麼，請先想一下</li>
+              <ol>
+                <li>資料帶在哪邊</li>
+                <li>對照伺服器資料看看對不對</li>
+                <li>修改帶過去的資料，看有沒有回來</li>
+              </ol>
           </ol>
-          <p></p>
-        </div>
-      </section>
-      <section id="no4"><h2>4. 按鈕發動的segue和view發動的segue</h2>
-        <div><h3>按鈕發動的segue </h3>
-          <img src="images/m03.png" alt="">
-          </div>
-          <div><h3>view發動的segue </h3>
-            <img src="images/m02.png" alt="">
-          </div>
-          <p>兩者不同在於按鈕發動的segue，一按就轉移，你沒辦法不要，所以你可以用在一些功能選項按鈕<br>
-            view發動的segue，必須使用方法perform Segue才能轉移，所以你可以在轉移前做判斷是否要跳，例如會員登入成功才轉移<br>
-            如果使用按鈕發動的segue，則不管會員登入成功與否都會轉移
-          </p>
-          <h4>實作一下</h4>
-         <ol>
-           <li>把《跳到View2》按鈕的segue刪除</li>
-           <li>從view1拉segue到view2如下(一樣選present modally)</li>
-           <img src="images/m03.png" alt="">
-           <li>點選這個segue，修改其屬性identifier為《v1tov2》</li>
-           <li>拉《跳到View2》按鈕的IBAction ，並且寫程式如下</li> 
-           <XMP style="background-color: black;color: white;">
-             
-    @IBAction func sgg(_ sender: UIButton) {
-      if let f=data.text {   文字輸入格的文字如果是nil 就不執行
-          if f.count>5{     文字輸入格的文字如果大於5 就經由名稱為《v1tov2》的segue轉移到下一個view，發送者是自己self
-              self.performSegue(withIdentifier: "v1tov2", sender: self)  sender是發送者 就是自己self
-          }
-      }
-  }
-           </XMP>
-         </ol>
-          </section>
-
-      <section id="no5"><h2>5. show和 Present modally的區別</h2>
-        <div><h4>show</h4>
-          使用show的視圖控制器有返回按鈕，單擊可以返回。如下圖<br>
-          <img src="images/n07.png" alt=""><br>
-          但是必須要先經過Navigation controller<br>
-          <img src="images/n09.png" alt="">
-          <h4>Present Modally</h4>
-          不提供返回按鈕，用戶無法回去上一個view<br>
-          <img src="images/n08.png" alt="">
-
-        </div>
-      </section>
-      <section id="no6"><h2>6. 地圖的使用</h2>
-         
-        <hr>
-        <p>這邊會介紹兩個工具CoreLocation框架和Mapkit，
-          <ul>
-            <li>CoreLocation框架進行定位操作，計算經緯度。</li>
-            <li>Mapkit是在app中顯示並且操作apple Map</li>
-          </ul>
-          </p>
-        <h3 id="no1">CoreLocation框架</h3><br>
-        <h4 id="no2">手機位置是個人隱私</h4>
-        <p>為了保護個人隱私，所以必須加上隱私權控制</p>
-            
-        <li> 所以必須在info.plist加入</li>
-        <p>在專案中有一個info.plist檔案，點滑鼠右鍵，open as/source code，<br>
-          加入下面的隱私權設定，那麼在使用定位時，就會出現一個對話框，徵詢使用者是否允許</p>
-        <XMP style="background-color: black;color: white;">
-<key>NSLocationWhenInUseUsageDescription</key>
-<string>讓我使用GPS定位好嗎？</string>
-<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-<string>讓我使用GPS定位好嗎？</string>
-        </XMP>
-       
-        
-        <h4 id="no2">CoreLocation定位功能解說</h4>
-        <p>在iOS中通過CoreLocation框架進行定位操作，也就是抓GPS。</p>
-          <img width="80%" src="images/n10.png" alt="">
-          <h5>解說一下委派：</h5>
-          <p>
-            當你要求一個裝置幫你去計算經緯度，他不可能同步的給你經緯度，當他在計算的時候，<br>
-            你的程式要在那邊等經緯度嗎？這樣你有可能會等很久，而app在等的時候並無法做其他的事情,<br>
-            所以當我們要求一個裝置幫你去計算經緯度之後，我們就不理他繼續做其他的工作了<br>
-            取而代之，當裝置一旦計算出來經緯度他就去呼叫一個處理程式，來處理經緯度。<br>
-            那麼他怎麼知道怎麼知道該呼叫那一個處理程式呢？<br>
-            就是指定他的delegate委派到一個類別（有加上CLLocationManagerDelegate協定的類別）<br>
-            該類別內就會有一個方法叫做 locationManager <br>
-            locationManager 接收經緯度，所以我們可以在上面寫程式來應用經緯度
-            下面程式碼要注意看這幾個問題，
-            <ol>
-              <li>類別有沒有加委派？</li>
-              <li>加了那一個委派？</li>
-              <li>那幾行程式分別是新建和啟動 CLLocationManager？</li>
-              <li>那幾行設定了 CLLocationManager參數？</li>
-              <li>那一行指定了 CLLocationManager的委派，指定誰？</li>
-              <li>locationManager這個方法都沒有任何地方呼叫它，他是在什麼時機下會被執行？</li>
-              <li>locationManager裡面如何取得經緯度？</li>
-            </ol>
+        </h4>   
+      </div>     
+      <div><h3>3. 如何用post傳送資料到伺服器</h3>
            
-            <br>   
-          </p>
-          
-        <h4>在ViewDidLoad()方法中啟動CoreLocation manager，然後讓locationManager這個方法印出經緯度</h4> 
-          <XMP style="background-color: black;color: white;"> 
-import CoreLocation
-
-class ViewController: UIViewController,CLLocationManagerDelegate{
-
-    var locationManager : CLLocationManager!
-    override func viewDidLoad() {
-          super.viewDidLoad()
-
-// ** 建立CLLocationManager物件*****************************
-          locationManager = CLLocationManager()
-// ** 設定CLLocationManager參數*****************************
-          // 設定委派
-          locationManager.delegate = self
-          // 設定精確度
-          locationManager.desiredAccuracy = kCLLocationAccuracyBest
-          // 取得App定位服務授權
-          locationManager.requestAlwaysAuthorization()
-// ** 啟動CLLocationManager更新位置*****************************
-          locationManager.startUpdatingLocation()
-    }
-}
-          </XMP>
-
-          <p>要實現定位功能需要使用CoreLoaction中CLLocationManager類，下面是這個類的使用 </p>
-        <ol>
-        <li>要import CoreLocation框架</li>
-        <p> import CoreLocation</p>
-        <li>類別要繼承CLLocationManager<font color="#FF0004">Delegate</font><br> 
-        (看到這個<font color="#FF0004">Delegate</font>就知道CLLocationManager<font color="#FF0004">Delegate</font> 是控制程式協定，加了這個協定就會有這個<font color="#FF0004">locationManager</font>方法，會不停地得到 locations然後取得經緯度)<br></li>
-          class ViewController: UIViewController,CLLocationManagerDelegate{
-        <li>宣告一個全域變數，這樣他才能一直保持可被使用<br></li>
-          var locationManager : CLLocationManager!
-        <li>建立CLLocationManager<br></li>
-        locationManager = CLLocationManager()
-        <li>告訴CLLocationManager他的<font color="#FF0004">Delegate</font> 控制程式在哪一個類別<br></li>
-        locationManager.delegate = self
-        <li>設定CLLocationManager的精確度<br></li>
-        locationManager.desiredAccuracy = kCLLocationAccuracyBest<br>
-        
-        <br>
-          其中 設定精確度
-        <p><img src="images/12001.png" alt="" width="349" height="183"><br>
-        </p>
-        <li>取得App定位服務授權</li>
-        locationManager.requestAlwaysAuthorization()
-        <li>啟動更新位置機制<br>
-        </li>
-        locationManager.startUpdatingLocation()
-          
-        <li> 在info.plist加入</li>
-        <p>&lt;key&gt;NSLocationWhenInUseUsageDescription&lt;/key&gt;<br>
-        &lt;string&gt;&lt;/string&gt;<br>
-        &lt;key&gt;NSLocationAlwaysAndWhenInUseUsageDescription&lt;/key&gt;<br>
-        &lt;string&gt;&lt;/string&gt;</p>
-        <p>&nbsp;</p>
-         </ol>
-        <p>當這些個步驟完成之後，GPS位置偵測就啟動，只要去override<br>
-          func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {<BR>
-            就可以在locaions裡面取得經緯度<BR>
-        </p>
-        <XMP style="background-color: black;color: white;">
-            
-            func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-                let curLocation:CLLocation = locations[0]
-                let lat = curLocation.coordinate.latitude
-                let lng = curLocation.coordinate.longitude
-                print("緯度= \(lat) 經度= \(lng)")
-            }
-        </XMP>
-
-        <p>記得離開APP要停止取得定位點，所以在viewDidDisappear加上下面程式GPS不會依值偵測</p>
-        <p><br>
-        override func viewDidDisappear(_ animated: Bool){<br>
-        // 停止取得定位點<br>
-        locationManager.stopUpdatingLocation()<br>
-        }</p>
-        <h3 id="no3">地圖 MapKit View</h3>
-        <p></p>
-        <p>1 加入程式庫</p>
-        <p>import MapKit</p>
-        <p>2 從元件庫拖曳MKMapView </p>
-        <p>3 建立IBOutlet</p>
-        <p><img src="images/ch12004.png" alt="" width="757" height="223"></p>
-        <p>&nbsp;</p>
-        <p>4 剛剛只是取得位置印出來</p>
-        <p>現在取得位置 並且設定地圖 </p>
-        <p>以取得位置 為中心點</p>
-        <p>縮放比例 0.05 0.05</p>
-        <p>&nbsp;</p>
-        <p>&nbsp;</p>
-        <p>func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {<br>
-        // 取得現在位置<br>
-        let curLocation:CLLocation = locations[0]<br>
-        // 以現在位置為中心點<br>
-        let location = CLLocationCoordinate2D(<br>
-        latitude: curLocation.coordinate.latitude,<br>
-        longitude: curLocation.coordinate.longitude<br>
-        )<br>
-        // 設定地圖顯示區域、中心點和縮放比例<br>
-        let span = MKCoordinateSpan(latitudeDelta:0.05, longitudeDelta: 0.05)  // 縮放比例        <br>
-        let region = MKCoordinateRegion(center: location, span: span)<br>
-        mapView.setRegion(region, animated: true)<br>
-        }</p>
-        <p>&nbsp;</p>
-        <p><img src="images/ch1205.png" alt="" width="670" height="335"></p>
-        <hr>
-        <p>下面程式可以插旗子</p>
-        <p>let annotation = MKPointAnnotation()<br>
-        annotation.coordinate = CLLocationCoordinate2D(latitude: 11.12, longitude: 12.11)<br>
-        mapView.addAnnotation(annotation)</p>
+        <h4>
+          這邊練習用post傳送資料到伺服器，伺服器收到資料後直接回傳所收到的資料，<br>
+          APP收到資料就印出來看看和自己送出去的是否一樣
+          <ol>
+            <li>看一下ipost.php寫甚麼？</li>
+            <XMP>
+              <?php
+                  $acc="";
+                  $pwd="";
+                  $res="";
+                  $acc = $_POST["acc"];
+                  $pwd = $_POST["pwd"];
+                  $res=$acc." ".$pwd;
+                  header("Access-Control-Allow-Origin: *");
+                  header("Content-Type: application/json; charset=UTF-8");
+                  echo'{"result":"'.$res.'"}';
+              ?>
+            </XMP>
+            <li>在conn()內新增postRequest()方法</li>
+            <XMP>
+              
+      func postRequest ()->String{
+          var request = URLRequest(url: URL(string: "http://163.17.20.6/ipost.php")! as URL)
+          request.httpMethod = "POST"
+          let postString = "acc=CYUT&pwd=IOS";
+          request.httpBody = postString.data(using: String.Encoding.utf8);
+          let session = URLSession.shared
+          let task = session.dataTask(with: request as URLRequest,completionHandler:{
+              data, response, error -> Void in
+              let string1 = String(data: data! , encoding: String.Encoding.utf8) ?? "Data could not be printed"
+              print(string1)
+          })
+          task.resume()
+          return "done"
+      }
+            </XMP>
+            <li>主程式conn().getRequest()</li>
+            <li>執行後應該可以看到什麼，請先想一下</li>
+              <ol>
+                <li>資料帶在哪邊</li>
+                <li>對照伺服器資料看看對不對</li>
+                <li>修改帶過去的資料，看有沒有回來</li>
+              </ol>
+            <li>怎樣處理遠端回來的資料更好</li>
+            <XMP>
+              let task = session.dataTask(with: request as URLRequest,completionHandler:{
+                data, response, error -> Void in
+                let string1 = String(data: data! , encoding: String.Encoding.utf8) ?? "Data could not be printed"
+                print(string1)
+            })
+            </XMP>
+            <strong>
+              萬一data裡面是空的怎麼辦? <br>
+              <br>
+              if let a=data {<br><br>
+               <p style="color: red;">
+                《let a=data》會把data的optional殼剝掉（還記得以前上過關於殼的事情吧 ， 有殼才能表達nil）<br>
+                如果 data是nil，就不會進來這邊執行程式<br><br>
+               </p> 
+              }<br>
+              所以下面程式，如果<br>
+              data是nil<br>
+              String(data: data, encoding: .utf8) data轉UTF8字串失敗<br>
+              error是nil<br>
+              就不會執行，程式就更安全<br>
+              而且這樣寫法會直接剝殼，方便處理<br>
+            </strong>
+            <XMP>
+              if let data = data, let dataString = String(data: data, encoding: .utf8) {
+                  print(dataString)
+              }
+              if let error = error {
+                  print(Error)
+                  return // 有錯誤 後面就都不用再做了  直接回家
+              }
+            </XMP>
+          </ol>
+        </h4>  
+      </div>   
       </section>
-        
+      <section id="no3"><h2>3.什麼是JSON？</h2> 
+       <div>
+          <h3>資料交換格式</h3>
+          <h4> 
+          <p>在日常生活中，人與人之間的交流需要彼此都聽得懂得語言。<br>
+            語言有其規則名詞接著動詞是一種意思，反過來又是一種意思，<br>
+            例如 我打 VS 打我 意義就不一樣，所以兩個人溝通必須要有相同的規則，才能搞對意思<br>
+            同樣的，在計算機的不同程式之間，或者不同的程式語言之間進行交換資料，<br>
+            也需要一種大家都能聽得懂得‘語言’，例如前面10個字是名字，然後是性別，生日等等<br>
+            兩隻程式都都知道規則就能正確交換資料，而這個規則就是資料交換格式，以特定的形式來進行描述資料。</p>
+            我們常用的兩種格式是
+            <ul>
+              <li>XML（eXtensible Markup Language）</li>
+              <p>
+                可擴充套件標記語言，標準通用標記語言的子集，是一種用於標記電子檔案使其具有結構性的標記語言。<br>
+                例如使用name標籤來定義名字 →<span style="color: red;">〈name〉</span>JSON<span style="color: red;">〈／name〉</span>
+              </p>
+              <XMP style="background-color: black;color: white;">
+                <?xml version="1.0" encoding="UTF-8" ?>
+                <dates>
+                    <date>
+                        <id>1</id>
+                        <name>John</name>
+                        <abb>JavaScript Object Notation</abb>
+                    </date>
+                    <date>
+                        <id>2</id>
+                        <name>Mary</name>
+                        <abb>eXtensible Markup Language</abb>
+                    </date>
+                    <date>
+                        <id>3</id>
+                        <name>Yang</name>
+                        <abb>Yet Another Markup Language</abb>
+                    </date>
+                </dates>
+              </XMP>
+              <li>JSON（JavaScript Object Notation）</li>
+              使用key:value → ＂name":"John" 方式來描述資料 
+              <XMP style="background-color: black;color: white;">
+              [ {"name":"John"} , {"name":"Mary"} , {"name":"Yang"} ]
+              </XMP>
+            </ul>
+          </h4>
+       </div>
+       <div>
+            <h3>JSON格式解說</h3>
+              <h4>
+                  <p>JSON（JavaScript Object Notation）是一種常用的資料交換格式 。</p>
+                  <p>另一種常見的資料交換格式式XML，XML很像HTML 以各種不同的標籤標示資料，只是XML標籤是自定義的，例如&lt;STUDENT&gt;<font color="#FF0004">&lt;NAME&gt;川普&lt;/NAME&gt;</font><font color="#2200FF"> &lt;ID&gt;10414001&lt;/ID&gt;</font>&lt;/STUDENT&gt;</p>
+                  <p>做為資料交換的發送端把每一筆資料按照協商好的標籤 標註起來，<br>
+                    然後把資料送到接收端，接收端也看得懂標籤的意義，所以利用標簽正確取出資料。 <br>
+                    所以這是一種資料交換格式。</p>
+                  <p>而JSON也是一樣，也是一種資料交換格式。</p>
+                  <p>JSON全名叫做JavaScript Object Notation</p>
+                  <p>JSON格式他和XML不一樣，不是使用標籤，而是使用兩種符號 {}和[]來表示兩種電腦科學常用的資料格式物件和陣列</p>
+                  <p>物件(object)用大括號 { }</p>
+                  <p>陣列(array)用中括號 [ ]</p>
+                  <p>這樣的好處是可以接收到可以直接吻合程式中的資料結構，不用相XML都是一個一個的無組織資料必須自己在整理一次，而在發送端也式可以使用程式中的陣列 變成JSON格式發送</p>
+                  <p>所以最近JSON被當作資料交換格式來傳輸的比率越來越高</p>
+                  <p>物件(object) {&quot;subject&quot;:&quot;Math&quot;,&quot;score&quot;:80}</p>
+                  <p>這就是json裡的object</p>
+                  <p>key-value就是指一個鍵值(key)對應一個值(value)，</p>
+                  <p>&nbsp;</p>
+                  <p>像是subject這個key有值叫Math</p>
+                  <p>score它的值為80</p>
+                  <p>這裡注意一點</p>
+                  <p>json object的鍵值(key)，一定要用文字做鍵值</p>
+                  <p>以下是錯誤的</p>
+                  <p>{0:&quot;Tom&quot;, 1:&quot;John&quot;,  2:&quot;Amy&quot;, 3:&quot;Ivy&quot;} // error syntax</p>
+                  <p>正確應改為</p>
+                  <p>{&quot;0&quot;:&quot;Tom&quot;,  &quot;1&quot;:&quot;John&quot;, &quot;2&quot;:&quot;Amy&quot;,  &quot;3&quot;:&quot;Ivy&quot;}</p>
+                  <p>&nbsp;</p>
+                  <div>如果你看不懂JSON，可以用類似這種線上JSON格式化的網站</div>
+                  <div></div>
+                  <div><a href="http://www.jsoneditoronline.org">http://www.jsoneditoronline.org</a></div>
+                  <div></div>
+                  <div>幫助你瞭解</div>
+              
+              </h4>    
+       </div> 
+      </section>
+      <section id="no4"><h2>3.使用JSON格式讀取JSON file？</h2>   
+          <h4> 
+            這邊先使用本地端的JSON檔案練練手，<br>
+            JSON格式是一種樹狀結構，最上層只有兩種可能結構<br>
+            一個是陣列 [ ]<br>
+            一個是字典 { } <br>
+            所以讀取時第一個字元不是 [ 就是 {<br>
+            其他任何字元都會造成錯誤，包括空白<br>
+            這邊準備了兩個資料檔，<br>
+            字典 <a href="testdict.json">testdict.json</a><br>
+            陣列（裡面包含很多字典） <a href="testarray.json">testarray.json</a><br>
+            將分別針對這兩種格式進行練習<br>
+          </h4>
+      <div><h3>如何讀取專案中的檔案</h3>
+        <h4>
+          <XMP>
+            
+          </XMP>
+        </h4>
+      </div>     
+      <div><h3></h3>
+      </div>     
+      <div><h3></h3>
+      </div>     
+      <div><h3></h3>
+      </div>     
+      </section>
+      <section id="no4"><h2>4.使用JSON與伺服器進行資料交換JSON？</h2>   
+          
+      <div><h3></h3>
+      </div>     
+      <div><h3></h3>
+      </div>     
+      <div><h3></h3>
+      </div>     
+      <div><h3></h3>
+      </div>     
+      </section>
+
       <section id="no7"><h2>7. 習題</h2>
         <p>把美食專案的點選事件的那一堆alert都刪除，改成點選後會出現一個viewController(稱為 detailView )，<br>
           內容是所選那一家餐廳資訊，另外加上地圖顯示餐廳的位置，餐廳的經緯度可以自己假設。</p>
