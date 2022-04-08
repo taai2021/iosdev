@@ -499,7 +499,7 @@ HTTP通信都是用戶端對伺服器送出request，伺服器回送一個respon
       </div>   
       </section>
       <section id="no3"><h2>3.什麼是JSON？</h2> 
-       <div>
+       <div><!--資料交換格式-->
           <h3>資料交換格式</h3>
           <h4> 
           <p>在日常生活中，人與人之間的交流需要彼此都聽得懂得語言。<br>
@@ -543,7 +543,7 @@ HTTP通信都是用戶端對伺服器送出request，伺服器回送一個respon
             </ul>
           </h4>
        </div>
-       <div>
+       <div>，<!--JSON格式解說-->
             <h3>JSON格式解說</h3>
               <h4>
                   <p>JSON（JavaScript Object Notation）是一種常用的資料交換格式 。</p>
@@ -581,31 +581,131 @@ HTTP通信都是用戶端對伺服器送出request，伺服器回送一個respon
        </div> 
       </section>
       <section id="no4"><h2>3.使用JSON格式讀取JSON file？</h2>   
+        <div>
           <h4> 
             這邊先使用本地端的JSON檔案練練手，<br>
             JSON格式是一種樹狀結構，最上層只有兩種可能結構<br>
             一個是陣列 [ ]<br>
-            一個是字典 { } <br>
+            一個是物件（字典） { } <br>
             所以讀取時第一個字元不是 [ 就是 {<br>
             其他任何字元都會造成錯誤，包括空白<br>
-            這邊準備了兩個資料檔，<br>
-            字典 <a href="testdict.json">testdict.json</a><br>
-            陣列（裡面包含很多字典） <a href="testarray.json">testarray.json</a><br>
+            而一般可以看到的可能是單純的物件，例如<br>
+<XMP style="background-color: black;color: white;">
+
+{
+  "restaurantNames":"スシロー壽司郎 ",
+  "restaurantLocations":"台中市南屯區市政南一路158號",
+  "restaurantTypes":"Japanese",
+  "restaurantImages":"cafedeadend.jpg"
+}
+            
+</XMP>            
+            也可能是多個物件使用陣列結構起來
+<XMP style="background-color: black;color: white;">
+
+[
+  {
+    "restaurantNames":"スシロー壽司郎 ",
+    "restaurantLocations":"台中市南屯區市政南一路158號",
+    "restaurantTypes":"Japanese", 
+    "restaurantImages":"cafedeadend.jpg"
+  },
+  {
+    "restaurantNames":" Elephant Restaurant", 
+    "restaurantLocations":"台中市西屯區西屯路二段267之1號",
+    "restaurantTypes":"Tea House",
+    "restaurantImages":"homei.jpg"
+  },
+  {
+    "restaurantNames":"燒肉風間 Kazama",
+    "restaurantLocations":"台中市南屯區公益路二段171-1號",
+    "restaurantTypes":"Tea House",
+    "restaurantImages":"teakha.jpg"
+  }
+]
+
+</XMP>
+然而一般不會這樣無key：value的結構方式，然而還是有可能會碰到，所以這邊也練習一下提供一個解答
+一般對前述的做法仍是會使用物件如下
+<XMP style="background-color: black;color: white;">
+{
+  "restData":[
+                {
+                  "restaurantNames":"スシロー壽司郎 ",
+                  "restaurantLocations":"台中市南屯區市政南一路158號",
+                  "restaurantTypes":"Japanese", 
+                  "restaurantImages":"cafedeadend.jpg"
+                },
+                {
+                  "restaurantNames":" Elephant Restaurant", 
+                  "restaurantLocations":"台中市西屯區西屯路二段267之1號",
+                  "restaurantTypes":"Tea House",
+                  "restaurantImages":"homei.jpg"
+                },
+                {
+                  "restaurantNames":"燒肉風間 Kazama",
+                  "restaurantLocations":"台中市南屯區公益路二段171-1號",
+                  "restaurantTypes":"Tea House",
+                  "restaurantImages":"teakha.jpg"
+                }
+              ]
+}
+
+</XMP>
+            
+            這邊針對前述三種狀況準備了三個資料檔，<br>
+            <ol>
+              <li>單純物件（字典） <a href="onedict.json">testdict.json</a><br></li>
+              <li>陣列（裡面包含很多字典） <a href="arrayDict.json">testarray.json</a><br></li>
+              <li>複雜物件（保持key:value格式，但value是《陣列（裡面包含很多字典）》） <a href="dictArray.json">dictArray.json</a></li>
+            </ol>
+            
+            
             將分別針對這兩種格式進行練習<br>
           </h4>
-      <div><h3>如何讀取專案中的檔案</h3>
+        </div>
+      <div><h3>單純物件（字典） <a href="onedict.json">testdict.json</a></h3>
         <h4>
-          <XMP>
+          <XMP style="background-color: black;color: white;">
+
             
           </XMP>
+
+          <XMP style="background-color: black;color: white;">
+
+            
+          </XMP>
+
         </h4>
-      </div>     
-      <div><h3></h3>
-      </div>     
-      <div><h3></h3>
-      </div>     
-      <div><h3></h3>
-      </div>     
+      </div>    
+      <div><h3>陣列（裡面包含很多字典） <a href="arrayDict.json">testarray.json</a></h3>
+        <h4>
+          <XMP style="background-color: black;color: white;">
+
+            
+          </XMP>
+
+          <XMP style="background-color: black;color: white;">
+
+            
+          </XMP>
+
+        </h4>
+      </div>    
+      <div><h3>複雜物件（保持key:value格式，但value是《陣列（裡面包含很多字典）》） <a href="dictArray.json">dictArray.json</a></h3>
+        <h4>
+          <XMP style="background-color: black;color: white;">
+
+            
+          </XMP>
+
+          <XMP style="background-color: black;color: white;">
+
+            
+          </XMP>
+
+        </h4>
+      </div>    
       </section>
       <section id="no4"><h2>4.使用JSON與伺服器進行資料交換JSON？</h2>   
           
