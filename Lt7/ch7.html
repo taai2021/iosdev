@@ -666,40 +666,140 @@ HTTP通信都是用戶端對伺服器送出request，伺服器回送一個respon
         </div>
       <div><h3>單純物件（字典） <a href="onedict.json">testdict.json</a></h3>
         <h4>
+          先要注意的一點是這些例子的讀檔式讀專案內檔案如果是下載後的JSON file，<br>
+          放在APP專案外，就是一般的讀檔指令，<br>
+          其他都相同<br>
+          首先要根據字典內容來定義一個struct
+          字典內容是
+          <XMP>
+            {
+              "restaurantNames":"スシロー壽司郎 ",
+              "restaurantLocations":"台中市南屯區市政南一路158號",
+              "restaurantTypes":"Japanese",
+              "restaurantImages":"cafedeadend.jpg"
+            }
+          </XMP>
+          所以定義一個struct如下
+          <XMP>
+            struct Rest:Codable{
+                var restaurantNames:String
+                var restaurantLocations:String
+                var restaurantTypes:String
+                var restaurantImages:String
+            }
+          </XMP>
+          為了直接JSON解碼，所以要加上codable
+
           <XMP style="background-color: black;color: white;">
 
+            func readOneDict()->String{
+              let path: String = Bundle.main.path(forResource: "onedict", ofType: "json")! as String
+              let json = try! String(contentsOfFile: path)
+              print(json)
+              if let x=json.data(using: .utf8) {
+                  let decoder = JSONDecoder()
+                  let re = try! decoder.decode(Rest.self, from: x)
+                  print(re.restaurantNames)
+              }
+             return "done"
+              
+          }
             
           </XMP>
-
+下面是說明
           <XMP style="background-color: black;color: white;">
 
+            func readOneDict()->String{
+        這一行取得json檔案的路徑      
+              let path: String = Bundle.main.path(forResource: "onedict", ofType: "json")! as String
+        讀檔，轉成字串 （讀檔要有例外處理try）
+              let json = try! String(contentsOfFile: path)
+              print(json)
+              json.data(using: .utf8) 這個在把字串轉成optional(data)格式(帶殼的)
+              同樣的 let x=json.data(using: .utf8) 把殼撥了放到x  
+              如果殼中無物（nil）則false，後面不執行了
+              if let x=json.data(using: .utf8) {
+                取得JSON解碼器
+                  let decoder = JSONDecoder()
+                  進行解碼，以Rest的結構直接存放資料
+                  let re = try! decoder.decode(Rest.self, from: x)
+                  試著列印餐廳名稱
+                  print(re.restaurantNames)
+              }
+             return "done"
+              
+          }
             
           </XMP>
 
         </h4>
       </div>    
       <div><h3>陣列（裡面包含很多字典） <a href="arrayDict.json">testarray.json</a></h3>
-        <h4>
+        <h4>這種應該不常遇到，這邊僅供參考
           <XMP style="background-color: black;color: white;">
 
+            func readArrayDict()->String{
+              let path: String = Bundle.main.path(forResource: "arrayDict", ofType: "json")! as String
+              let data : NSData = try! NSData(contentsOfFile: path , options: NSData.ReadingOptions.dataReadingMapped)
+              let dictdata:NSArray=(try! JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSArray
+              
+              for i in 0 ..< (dictdata.count){
+                  if let x=(dictdata[i] as! NSDictionary).value(forKey:"restaurantNames"){
+                      print("\(i) : \(x)")
+                  }
+                 
+                  
+              }
+             return "done"
+              
+          }
+            
             
           </XMP>
 
-          <XMP style="background-color: black;color: white;">
-
-            
-          </XMP>
 
         </h4>
       </div>    
       <div><h3>複雜物件（保持key:value格式，但value是《陣列（裡面包含很多字典）》） <a href="dictArray.json">dictArray.json</a></h3>
-        <h4>
+        <h4>除了定義字典的struct還必須定義陣列格式
           <XMP style="background-color: black;color: white;">
 
+            struct ManyRests: Codable {
+              var restData: [Rest] = Array()              
+              }
+
+              struct Rest:Codable{
+                  var restaurantNames:String
+                  var restaurantLocations:String
+                  var restaurantTypes:String
+                  var restaurantImages:String
+              }
             
           </XMP>
 
           <XMP style="background-color: black;color: white;">
+
+            func readDictArray()->String{
+              let path: String = Bundle.main.path(forResource: "dictArray", ofType: "json")! as String
+              let JSONString = try! String(contentsOfFile: path)
+              
+              //print(JSONString)
+              let jsonData = JSONString.data(using: .utf8)!
+              do {
+                let decoder = JSONDecoder()
+                let results = try decoder.decode(ManyRests.self, from: jsonData)
+                  for i in 0..<results.restData.count {
+                      print("\(i) : \(results.restData[i].restaurantNames)")
+                  }
+                  
+              }
+              catch {
+                print (error)
+              }
+              
+             return "done"
+              
+          }
 
             
           </XMP>
@@ -709,9 +809,9 @@ HTTP通信都是用戶端對伺服器送出request，伺服器回送一個respon
       </section>
       <section id="no4"><h2>4.使用JSON與伺服器進行資料交換JSON？</h2>   
           
-      <div><h3></h3>
+      <div><h3>用JSON接收資料</h3>
       </div>     
-      <div><h3></h3>
+      <div><h3>用JSON的POST傳送資料（例如圖片影片）</h3>
       </div>     
       <div><h3></h3>
       </div>     
