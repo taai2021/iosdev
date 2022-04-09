@@ -543,7 +543,7 @@ HTTP通信都是用戶端對伺服器送出request，伺服器回送一個respon
             </ul>
           </h4>
        </div>
-       <div>，<!--JSON格式解說-->
+       <div><!--JSON格式解說-->
             <h3>JSON格式解說</h3>
               <h4>
                   <p>JSON（JavaScript Object Notation）是一種常用的資料交換格式 。</p>
@@ -580,6 +580,84 @@ HTTP通信都是用戶端對伺服器送出request，伺服器回送一個respon
               </h4>    
        </div> 
        <div><h3>試著使用JSON格式帶資料給伺服器</h3>
+        <h4>
+         <p>先準備好伺服器端的程式 jsonpost.php</p> 
+         json_decode是php的json解碼器
+         <XMP style="background-color: black;color: white;">
+
+          <?php
+          $data="";
+          $data = $_POST["data"];
+          $a = json_decode($data, true);
+          header("Access-Control-Allow-Origin: *");
+          header("Content-Type: application/json; charset=UTF-8");
+          echo"{$a["acc"]} and {$a["pwd"]}";
+          //echo $data;
+          ?>
+
+        </XMP>
+        app端的conn加上一個jsonPostRequest()方法，主要就是，<br>
+        let postString = "data={\"acc\":\"CYUT\",\"pwd\":\"IOS\"}";
+        在data變數內指定一個json格式的字串
+        <XMP style="background-color: black;color: white;">
+
+          
+    func jsonPostRequest()->String{
+      var request = URLRequest(url: URL(string: "http://163.17.20.6/jsonpost.php")! as URL)
+      request.httpMethod = "POST"
+      let postString = "data={\"acc\":\"CYUT\",\"pwd\":\"IOS\"}";
+      request.httpBody = postString.data(using: String.Encoding.utf8);
+      let session = URLSession.shared
+      let task = session.dataTask(with: request as URLRequest,completionHandler:{
+          data, response, error -> Void in
+          let string1 = String(data: data! , encoding: String.Encoding.utf8) ?? "Data could not be printed"
+          print(string1)
+      })
+      task.resume()      
+      return "done"    
+  }
+
+        </XMP>
+        當然app這邊可以使用swift的編碼器，應該更方便
+        先定義一個struct如下
+        <XMP style="background-color: black;color: white;">
+        
+        
+struct member:Codable{
+  var acc:String
+  var pwd:String
+}
+        
+        </XMP>
+直接如下編碼，最後再轉字串if let cs=String(data: y, encoding: .utf8) {即可
+          <XMP style="background-color: black;color: white;">
+          
+    func jsonPostRequest()->String{
+      var request = URLRequest(url: URL(string: "http://163.17.20.6/jsonpost.php")! as URL)
+      request.httpMethod = "POST"
+      //******* 使用JSON編碼進行編碼
+      let enoder = JSONEncoder()
+      let x=member(acc: "CYUT", pwd: "IOS")
+      let y=try! enoder.encode(x)
+      //*******記得要如下轉成字串
+      if let cs=String(data: y, encoding: .utf8) {            
+          let postString = "data=\(cs)";
+          request.httpBody = postString.data(using: String.Encoding.utf8);
+          let session = URLSession.shared
+          let task = session.dataTask(with: request as URLRequest,completionHandler:{
+              data, response, error -> Void in
+              let string1 = String(data: data! , encoding: String.Encoding.utf8) ?? "Data could not be printed"
+              print(string1)
+          })
+          task.resume()
+      }
+      
+      return "done"
+      
+      
+  }
+        </XMP>
+        </h4>
        </div>
       </section>
       <section id="no4"><h2>4. 使用JSON格式讀取JSON file？</h2>   
@@ -809,22 +887,62 @@ HTTP通信都是用戶端對伺服器送出request，伺服器回送一個respon
           </h4>
         </div>    
       </section>
-      <section id="no5"><h2>5. 使用JSON與伺服器進行資料交換JSON？</h2>   
-          
+      <section id="no5"><h2>5. 使用JSON與伺服器進行資料交換JSON？</h2>  
+        <h4>
       <div><h3>用接收伺服器傳過來的JSON格式資料，並且解碼</h3>
+         將接收資料和JSON解碼分開，先抓到資料再呼叫JSON編碼
+  
+<XMP style="background-color: black;color: white;">
+          
+    func JSONRequest ()->String{
+      let request = URLRequest(url: URL(string: "http://163.17.20.6/manydict.php")! as URL)
+      let session = URLSession.shared
+      let task = session.dataTask(with: request as URLRequest,completionHandler:{
+          data, response, error -> Void in
+          if let x=data{
+              //將資料解殼送到下面程式處理
+              //self.oneDict(data: x)  
+              self.manyDicts(data: x)
+          }
+          
+      })
+      task.resume()
+      return "done"
+  } 
+         </XMP>
+單純一個物件
+         <XMP style="background-color: black;color: white;">
+           
+    func oneDict(data:Data){
+      let decoder = JSONDecoder()
+      let re = try! decoder.decode(Rest.self, from: data)
+      print(re.restaurantNames)
+  }
+        </XMP>
+        多個物件
+        <XMP style="background-color: black;color: white;">
+              
+  func manyDicts(data:Data){
+    do {
+      let decoder = JSONDecoder()
+      let results = try decoder.decode(ManyRests.self, from: data)
+        for i in 0..<results.restData.count {
+            print("\(i) : \(results.restData[i].restaurantNames)")
+        }
+        
+    }
+    catch {
+      print (error)
+    }
+}     
+                 </XMP>
       </div>     
-      <div><h3>用JSON的POST傳送JSON資料給（例如圖片影片）</h3>
-      </div>     
-      <div><h3></h3>
-      </div>     
-      <div><h3></h3>
-      </div>     
+    </h4>
       </section>
       <section id="no6"><h2>6. 如何上傳非文字資料（例如圖片、影片或音檔）給伺服器？</h2>   
-          
-        <div><h3>用接收伺服器傳過來的JSON格式資料，並且解碼</h3>
-        </div>     
+              
         <div><h3>用JSON的POST傳送JSON資料給（例如圖片影片）</h3>
+          暫時用不到 後補好了
         </div>     
         <div><h3></h3>
         </div>     
@@ -832,10 +950,51 @@ HTTP通信都是用戶端對伺服器送出request，伺服器回送一個respon
         </div>     
         </section>
       <section id="no7"><h2>7. 習題</h2>
-        <p>把美食專案的點選事件的那一堆alert都刪除，改成點選後會出現一個viewController(稱為 detailView )，<br>
-          內容是所選那一家餐廳資訊，另外加上地圖顯示餐廳的位置，餐廳的經緯度可以自己假設。</p>
-        <p>你可能會用到 《tableView.indexPathForSelectedRow()》，它可以傳回來你剛剛點選row的indexPath<br>
-        所以你可以在prepare中，使用它取得所點選餐廳的資訊傳到detailView</p>
+        <h4>
+          
+        <h3>利用下面網站功能練習</h3>
+        <p>網址→ http://163.17.20.6<br>
+        下面用GET寫法來說明參數</p>
+        <ul>
+          <li><span style="background-color: rgb(237, 240, 85);">驗證帳密</span> mem.php</li>
+              <p>http://163.17.20.6/mem.php/?acc=帳號&pwd=密碼
+                <ul>
+                  <li>帳密正確 {"result":"successful"}</li>
+                  <li>帳密錯誤 {"result":"fail"}</li>
+                </ul>
+              </p>
+          <li><span style="background-color: rgb(237, 240, 85);">新增帳密</span> memnew.php</li>
+              <p>http://163.17.20.6/memnew.php/?acc=帳號&pwd=密碼
+                <ul>
+                  <li>新增成功     {"result":"successful"}</li>
+                  <li>新增失敗     {"result":"fail"}</li>
+                  <li>帳號已被使用  {"result":"used"}</li>
+                </ul>
+              </p>
+          <li><span style="background-color: rgb(237, 240, 85);">刪除帳號</span> memdel.php</li>
+              <p>http://163.17.20.6/memdel.php/?acc=帳號&pwd=密碼
+                <ul>
+                  <li>刪除成功 {"result":"successful"}</li>
+                  <li>刪除失敗 {"result":"fail"}</li>
+                  <li>未發現要刪除的帳號 {"result":"not found"}</li>
+                </ul>
+              </p>
+          <li><span style="background-color: rgb(237, 240, 85);">修改密碼</span> memupdate.php</li>
+              <p>http://163.17.20.6/memupdate.php/?acc=帳號&pwd=密碼&newpwd=新密碼
+                <ul>
+                  <li>修改成功 {"result":"successful"}</li>
+                  <li>修改失敗 {"result":"fail"}</li>
+                  <li>未發現要修改的帳號 {"result":"not found"}</li>
+                </ul>
+              </p>
+        </ul>
+        <h3>利用上面資訊完成作業</h3>
+          <ol>延續第六章作業
+            <li>會員註冊功能</li>
+            <li>登入時驗證帳密（遠端）</li>
+            <li>餐廳List資訊使用遠端資料</li>
+          </ol>
+        </h4>
       </section>
 
 
