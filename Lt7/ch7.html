@@ -123,13 +123,13 @@
           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="border-radius: 20px; color: orangered;">
           7</a>            
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="../Lt7/ch7.html">第7章 http通訊操作和JSON使用</a>
-            <a class="dropdown-item" href="../Lt7/ch7.html#no1">1. 一點物件導向概念</a>
-            <a class="dropdown-item" href="../Lt7/ch7.html#no2">2. 使用segue轉移頁面的概念</a>
-            <a class="dropdown-item" href="../Lt7/ch7.html#no3">3. 使用prepare方法來傳送資料</a>
-            <a class="dropdown-item" href="../Lt7/ch7.html#no4">4. 按鈕發動的segue和view發動的segue</a>
-            <a class="dropdown-item" href="../Lt7/ch7.html#no5">5. show和 Present modally的區別</a>
-            <a class="dropdown-item" href="../Lt7/ch7.html#no6">6. 地圖的使用</a>
+            <a class="dropdown-item" href="../Lt7/ch7.html">第7章 APP和伺服器如何交換資料</a>
+            <a class="dropdown-item" href="../Lt7/ch7.html#no1">1. 不帶資料給伺服器，單純接收response</a>
+            <a class="dropdown-item" href="../Lt7/ch7.html#no2">2. 如何帶訊息給伺服器？（例如帳號密碼）</a>
+            <a class="dropdown-item" href="../Lt7/ch7.html#no3">3. 什麼是JSON？練習用JSON格式帶資料給伺服器</a>
+            <a class="dropdown-item" href="../Lt7/ch7.html#no4">4. 使用JSON格式讀取JSON file？</a>
+            <a class="dropdown-item" href="../Lt7/ch7.html#no5">5. 使用JSON與伺服器進行資料交換JSON？</a>
+            <a class="dropdown-item" href="../Lt7/ch7.html#no6">6. 如何上傳非文字資料（例如圖片、影片或音檔）給伺服器？用</a>
             <a class="dropdown-item" href="../Lt7/ch7.html#no7">7. 習題</a>
           </div>
         </li>
@@ -204,7 +204,7 @@
   </nav>
   <p style=" position: fixed; top: 0; right: 0;z-index: 5000; color:chocolate;margin-right: 5px;  border-radius: 5px;
   padding: 0px 3px;">
-  第7章 頁面轉移(segue)與Apple Map
+  第7章 APP和伺服器如何交換資料
 </p>
   <p style=" font-size:0.8em; position: fixed; bottom: 0; right: 0;z-index: 5000; color:white;
   font-weight: bold;margin-right: 5px; background-color: chocolate; border-radius: 5px;
@@ -215,7 +215,7 @@
   <div  style="margin-top: 80px;">
      
     <div style="margin: auto; width: 96%; text-align: left; border-bottom: 1px solid darkgrey; "> 
-      <section id="no1"><h2>1. 不帶資料給伺服器</h2>
+      <section id="no1"><h2>1. 不帶資料給伺服器，單純接收response</h2>
         <div>
           <h3>1. 操作環境準備</h3>
           <h4>
@@ -326,7 +326,7 @@ HTTP通信都是用戶端對伺服器送出request，伺服器回送一個respon
           
         
       </section>
-      <section id="no2"><h2>2.如何帶訊息給伺服器？（例如帳號密碼）</h2>    
+      <section id="no2"><h2>2. 如何帶訊息給伺服器？（例如帳號密碼）</h2>    
       <div><h3>1. 你懂 GET 和 POST嗎？</h3>
         <h4>
           <p>GET和POST是HTTP協議中的兩種傳送request帶資料給伺服器的方法。
@@ -498,7 +498,7 @@ HTTP通信都是用戶端對伺服器送出request，伺服器回送一個respon
         </h4>  
       </div>   
       </section>
-      <section id="no3"><h2>3.什麼是JSON？</h2> 
+      <section id="no3"><h2>3. 什麼是JSON？練習用JSON格式帶資料給伺服器</h2> 
        <div><!--資料交換格式-->
           <h3>資料交換格式</h3>
           <h4> 
@@ -579,9 +579,11 @@ HTTP通信都是用戶端對伺服器送出request，伺服器回送一個respon
               
               </h4>    
        </div> 
+       <div><h3>試著使用JSON格式帶資料給伺服器</h3>
+       </div>
       </section>
-      <section id="no4"><h2>3.使用JSON格式讀取JSON file？</h2>   
-        <div>
+      <section id="no4"><h2>4. 使用JSON格式讀取JSON file？</h2>   
+        <div> <h3>操作環境介紹</h3>
           <h4> 
             這邊先使用本地端的JSON檔案練練手，<br>
             JSON格式是一種樹狀結構，最上層只有兩種可能結構<br>
@@ -664,161 +666,171 @@ HTTP通信都是用戶端對伺服器送出request，伺服器回送一個respon
             將分別針對這兩種格式進行練習<br>
           </h4>
         </div>
-      <div><h3>單純物件（字典） <a href="onedict.json">testdict.json</a></h3>
-        <h4>
-          先要注意的一點是這些例子的讀檔式讀專案內檔案如果是下載後的JSON file，<br>
-          放在APP專案外，就是一般的讀檔指令，<br>
-          其他都相同<br>
-          首先要根據字典內容來定義一個struct
-          字典內容是
-          <XMP>
-            {
-              "restaurantNames":"スシロー壽司郎 ",
-              "restaurantLocations":"台中市南屯區市政南一路158號",
-              "restaurantTypes":"Japanese",
-              "restaurantImages":"cafedeadend.jpg"
-            }
-          </XMP>
-          所以定義一個struct如下
-          <XMP>
-            struct Rest:Codable{
-                var restaurantNames:String
-                var restaurantLocations:String
-                var restaurantTypes:String
-                var restaurantImages:String
-            }
-          </XMP>
-          為了直接JSON解碼，所以要加上codable
-
-          <XMP style="background-color: black;color: white;">
-
-            func readOneDict()->String{
-              let path: String = Bundle.main.path(forResource: "onedict", ofType: "json")! as String
-              let json = try! String(contentsOfFile: path)
-              print(json)
-              if let x=json.data(using: .utf8) {
-                  let decoder = JSONDecoder()
-                  let re = try! decoder.decode(Rest.self, from: x)
-                  print(re.restaurantNames)
+        <div><h3>單純物件（字典） <a href="onedict.json">testdict.json</a></h3>
+          <h4>
+            先要注意的一點是這些例子的讀檔式讀專案內檔案如果是下載後的JSON file，<br>
+            放在APP專案外，就是一般的讀檔指令，<br>
+            其他都相同<br>
+            首先要根據字典內容來定義一個struct
+            字典內容是
+            <XMP>
+              {
+                "restaurantNames":"スシロー壽司郎 ",
+                "restaurantLocations":"台中市南屯區市政南一路158號",
+                "restaurantTypes":"Japanese",
+                "restaurantImages":"cafedeadend.jpg"
               }
-             return "done"
-              
-          }
-            
-          </XMP>
-下面是說明
-          <XMP style="background-color: black;color: white;">
-
-            func readOneDict()->String{
-        這一行取得json檔案的路徑      
-              let path: String = Bundle.main.path(forResource: "onedict", ofType: "json")! as String
-        讀檔，轉成字串 （讀檔要有例外處理try）
-              let json = try! String(contentsOfFile: path)
-              print(json)
-              json.data(using: .utf8) 這個在把字串轉成optional(data)格式(帶殼的)
-              同樣的 let x=json.data(using: .utf8) 把殼撥了放到x  
-              如果殼中無物（nil）則false，後面不執行了
-              if let x=json.data(using: .utf8) {
-                取得JSON解碼器
-                  let decoder = JSONDecoder()
-                  進行解碼，以Rest的結構直接存放資料
-                  let re = try! decoder.decode(Rest.self, from: x)
-                  試著列印餐廳名稱
-                  print(re.restaurantNames)
-              }
-             return "done"
-              
-          }
-            
-          </XMP>
-
-        </h4>
-      </div>    
-      <div><h3>陣列（裡面包含很多字典） <a href="arrayDict.json">testarray.json</a></h3>
-        <h4>這種應該不常遇到，這邊僅供參考
-          <XMP style="background-color: black;color: white;">
-
-            func readArrayDict()->String{
-              let path: String = Bundle.main.path(forResource: "arrayDict", ofType: "json")! as String
-              let data : NSData = try! NSData(contentsOfFile: path , options: NSData.ReadingOptions.dataReadingMapped)
-              let dictdata:NSArray=(try! JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSArray
-              
-              for i in 0 ..< (dictdata.count){
-                  if let x=(dictdata[i] as! NSDictionary).value(forKey:"restaurantNames"){
-                      print("\(i) : \(x)")
-                  }
-                 
-                  
-              }
-             return "done"
-              
-          }
-            
-            
-          </XMP>
-
-
-        </h4>
-      </div>    
-      <div><h3>複雜物件（保持key:value格式，但value是《陣列（裡面包含很多字典）》） <a href="dictArray.json">dictArray.json</a></h3>
-        <h4>除了定義字典的struct還必須定義陣列格式
-          <XMP style="background-color: black;color: white;">
-
-            struct ManyRests: Codable {
-              var restData: [Rest] = Array()              
-              }
-
+            </XMP>
+            所以定義一個struct如下
+            <XMP>
               struct Rest:Codable{
                   var restaurantNames:String
                   var restaurantLocations:String
                   var restaurantTypes:String
                   var restaurantImages:String
               }
-            
-          </XMP>
+            </XMP>
+            為了直接JSON解碼，所以要加上codable
 
-          <XMP style="background-color: black;color: white;">
+            <XMP style="background-color: black;color: white;">
 
-            func readDictArray()->String{
-              let path: String = Bundle.main.path(forResource: "dictArray", ofType: "json")! as String
-              let JSONString = try! String(contentsOfFile: path)
+              func readOneDict()->String{
+                let path: String = Bundle.main.path(forResource: "onedict", ofType: "json")! as String
+                let json = try! String(contentsOfFile: path)
+                print(json)
+                if let x=json.data(using: .utf8) {
+                    let decoder = JSONDecoder()
+                    let re = try! decoder.decode(Rest.self, from: x)
+                    print(re.restaurantNames)
+                }
+              return "done"
+                
+            }
               
-              //print(JSONString)
-              let jsonData = JSONString.data(using: .utf8)!
-              do {
-                let decoder = JSONDecoder()
-                let results = try decoder.decode(ManyRests.self, from: jsonData)
-                  for i in 0..<results.restData.count {
-                      print("\(i) : \(results.restData[i].restaurantNames)")
-                  }
+            </XMP>
+  下面是說明
+            <XMP style="background-color: black;color: white;">
+
+              func readOneDict()->String{
+          這一行取得json檔案的路徑      
+                let path: String = Bundle.main.path(forResource: "onedict", ofType: "json")! as String
+          讀檔，轉成字串 （讀檔要有例外處理try）
+                let json = try! String(contentsOfFile: path)
+                print(json)
+                json.data(using: .utf8) 這個在把字串轉成optional(data)格式(帶殼的)
+                同樣的 let x=json.data(using: .utf8) 把殼撥了放到x  
+                如果殼中無物（nil）則false，後面不執行了
+                if let x=json.data(using: .utf8) {
+                  取得JSON解碼器
+                    let decoder = JSONDecoder()
+                    進行解碼，以Rest的結構直接存放資料
+                    let re = try! decoder.decode(Rest.self, from: x)
+                    試著列印餐廳名稱
+                    print(re.restaurantNames)
+                }
+              return "done"
+                
+            }
+              
+            </XMP>
+
+          </h4>
+        </div>    
+        <div><h3>陣列（裡面包含很多字典） <a href="arrayDict.json">testarray.json</a></h3>
+          <h4>這種應該不常遇到，這邊僅供參考
+            <XMP style="background-color: black;color: white;">
+
+              func readArrayDict()->String{
+                let path: String = Bundle.main.path(forResource: "arrayDict", ofType: "json")! as String
+                let data : NSData = try! NSData(contentsOfFile: path , options: NSData.ReadingOptions.dataReadingMapped)
+                let dictdata:NSArray=(try! JSONSerialization.jsonObject(with: data as Data, options: JSONSerialization.ReadingOptions.mutableContainers)) as! NSArray
+                
+                for i in 0 ..< (dictdata.count){
+                    if let x=(dictdata[i] as! NSDictionary).value(forKey:"restaurantNames"){
+                        print("\(i) : \(x)")
+                    }
                   
-              }
-              catch {
-                print (error)
-              }
+                    
+                }
+              return "done"
+                
+            }
               
-             return "done"
               
-          }
+            </XMP>
 
-            
-          </XMP>
 
-        </h4>
-      </div>    
+          </h4>
+        </div>    
+        <div><h3>複雜物件（保持key:value格式，但value是《陣列（裡面包含很多字典）》） <a href="dictArray.json">dictArray.json</a></h3>
+          <h4>除了定義字典的struct還必須定義陣列格式
+            <XMP style="background-color: black;color: white;">
+
+              struct ManyRests: Codable {
+                var restData: [Rest] = Array()              
+                }
+
+                struct Rest:Codable{
+                    var restaurantNames:String
+                    var restaurantLocations:String
+                    var restaurantTypes:String
+                    var restaurantImages:String
+                }
+              
+            </XMP>
+
+            <XMP style="background-color: black;color: white;">
+
+              func readDictArray()->String{
+                let path: String = Bundle.main.path(forResource: "dictArray", ofType: "json")! as String
+                let JSONString = try! String(contentsOfFile: path)
+                
+                //print(JSONString)
+                let jsonData = JSONString.data(using: .utf8)!
+                do {
+                  let decoder = JSONDecoder()
+                  let results = try decoder.decode(ManyRests.self, from: jsonData)
+                    for i in 0..<results.restData.count {
+                        print("\(i) : \(results.restData[i].restaurantNames)")
+                    }
+                    
+                }
+                catch {
+                  print (error)
+                }
+                
+              return "done"
+                
+            }
+
+              
+            </XMP>
+
+          </h4>
+        </div>    
       </section>
-      <section id="no4"><h2>4.使用JSON與伺服器進行資料交換JSON？</h2>   
+      <section id="no5"><h2>5. 使用JSON與伺服器進行資料交換JSON？</h2>   
           
-      <div><h3>用JSON接收資料</h3>
+      <div><h3>用接收伺服器傳過來的JSON格式資料，並且解碼</h3>
       </div>     
-      <div><h3>用JSON的POST傳送資料（例如圖片影片）</h3>
+      <div><h3>用JSON的POST傳送JSON資料給（例如圖片影片）</h3>
       </div>     
       <div><h3></h3>
       </div>     
       <div><h3></h3>
       </div>     
       </section>
-
+      <section id="no6"><h2>6. 如何上傳非文字資料（例如圖片、影片或音檔）給伺服器？</h2>   
+          
+        <div><h3>用接收伺服器傳過來的JSON格式資料，並且解碼</h3>
+        </div>     
+        <div><h3>用JSON的POST傳送JSON資料給（例如圖片影片）</h3>
+        </div>     
+        <div><h3></h3>
+        </div>     
+        <div><h3></h3>
+        </div>     
+        </section>
       <section id="no7"><h2>7. 習題</h2>
         <p>把美食專案的點選事件的那一堆alert都刪除，改成點選後會出現一個viewController(稱為 detailView )，<br>
           內容是所選那一家餐廳資訊，另外加上地圖顯示餐廳的位置，餐廳的經緯度可以自己假設。</p>
