@@ -134,12 +134,9 @@
           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="border-radius: 20px; color: orangered;">
           8</a>            
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="../Lt8/ch8.html">第8章 會員認證機制與Gesture</a>
-            <a class="dropdown-item" href="../Lt8/ch8.html#no1">1. 樣板Tabbar的使用</a>
-            <a class="dropdown-item" href="../Lt8/ch8.html#no2">2 練習：登入&登出</a>
-            <a class="dropdown-item" href="../Lt8/ch8.html#no3">3 練習-實現自動登入</a>
-            <a class="dropdown-item" href="../Lt8/ch8.html#no4">4 作業</a>
-            <a class="dropdown-item" href="../Lt8/ch8.html#no5">5 補充資料 iOS常用的手勢</a>
+            <a class="dropdown-item" href="../Lt8/ch8.html">第8章 EnvironmentObject和Published</a>
+            <a class="dropdown-item" href="../Lt8/ch8.html#no1">1 將帳密送到伺服器驗證後，View再根據驗證結果進行顯示</a>
+            <a class="dropdown-item" href="../Lt8/ch8.html#no2">2 作業</a>
           </div>
         </li>
         <li class="nav-item dropdown"><!-- Registration-->
@@ -975,11 +972,44 @@ struct member:Codable{
               </p>
         </ul>
         <h3>利用上面資訊完成作業</h3>
-          <ol>延續第六章作業
-            <li>加入會員註冊功能使用post method</li>
-            <li>登入時驗證帳密（遠端）</li>
-            <li>餐廳List資訊使用遠端資料</li>
+        <h4>
+          app送一個request給伺服器，<br>
+          App不會在原來程式碼等著伺服器傳回來回應，<br>
+          因為app在等的時候是呈現當機狀況，<br>
+          因此當app送出request之後，有準備了一個《completionHandle》
+          <XMP>
+let task = session.dataTask(with: request as URLRequest,《completionHandle》:{
+  data, response, error -> Void in
+   在這邊處理伺服器傳送回來的資料  
+   在這邊處理伺服器傳送回來的資料  
+   在這邊處理伺服器傳送回來的資料  
+}
+                  </XMP>
+          當伺服器的response回來之後，<br>
+          《completionHandle》會被觸發，然後執行程式處理傳回來的資料<br>
+          然而資料如何能夠串回去view來顯示?<br>
+          conn()的通訊程式收到資料他怎麼知道要去哪一個view去顯示資料？
+          幾種想法
+          <ul>
+            <li>使用方法傳回要顯示的資料，在那個view呼叫這個方法，接收傳回值並顯示</li>
+            很明顯，你只能呼叫通訊程式，《completionHandle》是無法抓到傳回值的
+            <li>conn()宣告成員變數，《completionHandle》處理完資料放在成員變數</li>
+            view就是顯示conn().的成員變數，
+            但是伺服器傳回回應時《completionHandle》才會被啟動
+            然後修改成員變數
+            那view怎麼知道成員變數已經準備好了，可以抓來顯示了？
+          </ul>
+          1 ，        
+          下一章節會講這個部分<br>
+          這個作業 凡是要顯示傳回來的部分，都只需要print就可以了 
+        
+          <ol>延續第六章作業，完成下面要求，
+            <li>加入會員註冊功能使用post method，註冊成功print出成功</li>
+            <li>註冊成功之後，進行登入驗證帳密正確後print登入成功資訊（跳轉頁面還是用本地端假帳密）</li>
+            <li>增加刪除帳號功能</li>
+            <li>增加修改密碼功能</li>
           </ol>
+          <br>
         </h4>
       </section>
 

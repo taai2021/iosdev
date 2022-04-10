@@ -134,12 +134,9 @@
           data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false" style="border-radius: 20px; color: orangered;">
           8</a>            
           <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-            <a class="dropdown-item" href="../Lt8/ch8.html">第8章 會員認證機制與Gesture</a>
-            <a class="dropdown-item" href="../Lt8/ch8.html#no1">1. 樣板Tabbar的使用</a>
-            <a class="dropdown-item" href="../Lt8/ch8.html#no2">2 練習：登入&登出</a>
-            <a class="dropdown-item" href="../Lt8/ch8.html#no3">3 練習-實現自動登入</a>
-            <a class="dropdown-item" href="../Lt8/ch8.html#no4">4 作業</a>
-            <a class="dropdown-item" href="../Lt8/ch8.html#no5">5 補充資料 iOS常用的手勢</a>
+            <a class="dropdown-item" href="../Lt8/ch8.html">第8章 EnvironmentObject和Published</a>
+            <a class="dropdown-item" href="../Lt8/ch8.html#no1">1 將帳密送到伺服器驗證後，View再根據驗證結果進行顯示</a>
+            <a class="dropdown-item" href="../Lt8/ch8.html#no2">2 作業</a>
           </div>
         </li>
         <li class="nav-item dropdown"><!-- Registration-->
@@ -200,7 +197,7 @@
   </nav>
   <p style=" position: fixed; top: 0; right: 0;z-index: 5000; color:chocolate;margin-right: 5px;  border-radius: 5px;
   padding: 0px 3px;">
-  第8章 會員認證機制與Gesture
+  第8章 EnvironmentObject和Published
 </p>
   <p style=" font-size:0.8em; position: fixed; bottom: 0; right: 0;z-index: 5000; color:white;
   font-weight: bold;margin-right: 5px; background-color: chocolate; border-radius: 5px;
@@ -211,392 +208,276 @@
   <div  style="margin-top: 80px;">
      
     <div style="margin: auto; width: 96%; text-align: left; border-bottom: 1px solid darkgrey; "> 
-      <section id="no1"><h2>1. 樣板Tabbar的使用</h2>
-       
-        
-          <p>iOS提供幾個現成版面，可以節省建置的時間。</p>
-          <p>在這個單元我們主要是要練習TabBAR，他是一個很常見的頁面樣板，，icon在下方，只要點選ICON就可以顯示該頁面</p>
-          
-          <p><img src="images/ch84.png" alt="" width="969" height="789"></p>
-          
-          
-          <p>這個單元要把餐廳專案套用到Tabbar成為其中的一個頁面</p>
-          <p>然後另外加兩個頁面</p>
-          <p>登入畫面和登出畫面</p>
-          <p>登入的功能</p>
-          <p>我們先使用程式內預設的假帳密做出登入功能，成功進入餐廳列表畫面，失敗出現紅色提失敗醒文字</p>
-          <p>最後再加上已登入的功能，如果已登入未登出，那末下次開APP就會直接進入餐廳列表畫面，而不是登入畫面</p>
-              
-                  
-          <h3>把餐廳專案套用Tabbar樣版</h3>
-    
-          <p>拉進去tabbed bar</p>
-          <p><img src="images/ch85.png" alt="" width="430" height="625"></p>
-          <p>&nbsp;</p>
-          <p>1 把啟動畫面移到tabbed bar</p>
-          <p>2 接下來從tabbed bar拖曳到餐廳列表</p>
-          <p>&nbsp;</p>
-          <p><img src="images/temp3.png" width="882" height="651" alt=""/></p>
-          <p>&nbsp;</p>
-          <p>3 選擇view controllers</p>
-          <p><img src="images/temp1.png" width="901" height="665" alt=""/></p>
-          <p>4 檢查是否出現第三個icon</p>
-          <p><img src="images/temp2.png" width="901" height="665" alt=""/></p>
-    
-      <h3>替換餐廳專案的icon和文字</h3>
-      <p><a href="https://iconarchive.com/tag/food">IconArchive</a>這個網站可以找到大量的icon，每個icon都有各種尺寸可以下載，這邊我建議下載32pixel以下的比較適合。</p>
-      <p><img  src="images/ch87.png" alt="" width="100%"></p>
-      
-    </section> 
-    <section id="no2"><h2>2 練習：登入&登出</h2>
-
-      <h3>練習的環境準備</h3>
-      <p>我們不要直接做在餐廳專案中，先用一個空白專案練習登入動作</p>
-      <p>按下面說明建立練習的環境</p>
-      <ol  >
-        <li style="background-color: rgb(210, 230, 97);">開一個新專案</li>
-        <p></p>
-        <li style="background-color: rgb(210, 230, 97);">開兩個viewcontroller 指定他為起始畫面為登入畫面</li>          
-          <p>第一是<font color="#FF0105">登入畫面</font>  對應類別 login.swift</p>
-          <p>第二是<font color="#FF0105">系統畫面</font>  對應類別 logout.swift</p>
-
-        <li style="background-color: rgb(210, 230, 97);">元件設計</li>        
+      <h4>
+        當伺服器的response回來之後，<br>
+          《completionHandle》會被觸發，然後執行程式處理傳回來的資料<br>
+          然而資料如何能夠串回去view來顯示?<br>
+          conn()的通訊程式收到資料他怎麼知道要去哪一個view去顯示資料？
+          幾種想法
           <ul>
-            <li>登入畫面</li>
-                Label　→　紅色帳密錯誤　→　拉去login.swift建立IBOutlet  取名<font color="#FF0105">fail</font><br>
-                帳密的輸入格　→　拉去login.swift建立IBOutlet  分別取名<font color="#FF0105">acc</font>和<font color="#FF0105">pwd</font><br>
-                一個登入按鈕　→　拉去login.swift建立IBAction ，等等用來寫登入的程式<br>
-                一個switchb讓使用者自己決定下次開APP要不要自動登入　→　加一個IBOutlet名稱是<font color="#FF0105">rem</font><br>       
-            <li>系統畫面</li>
-                LABEL的文字顯示 《系統》<br>
-                登出按鈕讓使用者跳回登入畫面　→　拉去logout.swift建立IBAction ，等等用來寫登出的程式
-            <li>segue設定</li>
-                登入畫面到系統畫面用present Modally的segue連接 ，等等登入成功可以跳過去，取名叫做login<br>
-                系統畫面到登入畫面用present Modally的segue連接 ，等等登出可以跳回去登入畫面，取名叫做logout
+            <li>使用方法傳回要顯示的資料，在那個view呼叫這個方法，接收傳回值並顯示</li>
+            很明顯，你只能呼叫通訊程式，《completionHandle》是無法抓到傳回值的
+            <li>conn()宣告成員變數，《completionHandle》處理完資料放在成員變數</li>
+            view就是顯示conn().的成員變數，
+            但是伺服器傳回回應時《completionHandle》才會被啟動
+            然後修改成員變數
+            那view怎麼知道成員變數已經準備好了，可以抓來顯示了？
           </ul>
-          <p><img src="images/sdfgh.png" width="872" height="689" alt=""/></p>
-        <li style="background-color: rgb(210, 230, 97);">先暫時弄一個預設的假帳密</li>        
-          <p>加上假帳密，先做假登入，好了再到遠端撈真帳密</p>
-          <p>在log.swift的類別加上兩個成員變數</p>
-          <p> var myAccount=&quot;abc&quot;</p>
-          <p>var myPassword=&quot;123&quot;</p>
-
-      </ol>
-      <h3>練習-登入、登出動作的程式</h3>
+          答案明顯是2，只是需要使用到ObjectBinding和publish來綁定物件和其成員變數，這個章節就是練習這個。
+      </h4>
+      <img src="images/temp3.png" width="100%" alt="">
+      <section id="no1"><h2> 1. 將帳密送到伺服器驗證後，View再根據驗證結果進行顯示</h2>
+       <div><h3></h3>
+        <h4>
           <ol>
-            <li>在登入畫面的button的程式中驗證 帳密</li>
-            <li>如果正確就進入系統畫面</li>
-            <li>如果帳密錯誤 就顯示上面紅色帳密錯誤提示</li>
+            <li>要綁的類別宣告必須為ObservableObject</li>
+            <li>那些成員變數變動時要通知訂閱者，加上@Published</li>
+            <li>init() 是建構子</li>
+            <li>指定vid=1</li>
+            <li>指定need_login的值為userDefaults的need_login，來確認app上次關閉時是否仍在登入狀態中</li>
           </ol>
-      <p>在登入按鈕的IBAction中</p>
-      <XMP style="background-color: black;color: white;">
-if acc.text == myAccount && pwd.text == myPassword {
-    self.performSegue(withIdentifier:"login",sender:self)
-}else{
-    fail.isHidden=false;
-}
-      </XMP>
-      <p>在登出按鈕的IBAction中，登出就跳回登入畫面</p>
-      <XMP style="background-color: black;color: white;">
-self.performSegue(withIdentifier:"logout",sender:self)
-      </XMP>
-      </section> 
-      <section id="no3"><h2>3 練習-實現自動登入</h2>
-   
-      <h3>一個view的生命週期</h3>
-      <p>後面會用到這個背景知識，所以先介紹一下</p>
-      <p>下圖是一個view被啟動之後到結束的一個生命周期</p>
-      <img src="images/0814OT_06_02.jpg"/>
-      <p><br>
-        像<font color="#FF0105">ViewDidLoad()</font>，我們就用過了，他是在view啟動然後LOAD進來之後，<br>
-        這時候才會有所謂的view，所以ViewDidLoad()是view的第一支執行的程式，<br>
-        所以我們常會把一些預設的動作放在這邊</p>
-      <p>而<font color="#FF0105">viewDidAppear</font>則是當view已經顯示，並且<font color="#FF0105">被其他view認識了</font></p>
-      <p>因此</p>
-      <p>viewDidLoad　→　的時候有自己view的元件，所以你可以在這邊指定元件的初始值</p>
-      <p>viewDidAppear　→　view已經知道其他view，所以可以segue到其他view去</p>
-      <p></p>
-      <p></p>
-      <p>&nbsp;</p>
-      <p>&nbsp;</p>
-      <hr>
-      <h3>練習-使用UserDefaults記住登入狀態</h3>
-      <p>剛才的switch要拉IBOutlet<br>
-        因為你要在程式中判斷她要不要記住已登入，</p>
-      <p>這邊我設定的名稱是rem</p>
-      <p><font color="#FF0105">rem.isOn如果是true，表示swictch已經打開為on，就是要自動登入</font></p>
-      <p>另外，要記住已登入，應該記在哪邊呢?</p>
-      <p>在iOS有一個機制，可以讓每個app可以寫一些東西上去<br>
-        在關閉之後，仍被保存住，下次開啟APP時那些資料仍然還在</p>
-      <p>她就是UserDefaults，下面是會用到的方法</p>
-        <ul>
-          <li>寫入UserDefaults</li>
-              <p>UserDefaults.standard.set(uuid, forKey: &quot;usid&quot;)<br>
-                寫入一組資料key和value，這行程式《寫入key為usid，value為uuid》</p>
-          <li>自UserDefaults讀出資料</li>
-              <p> x=UserDefaults.standard.string(forKey: &quot;usid&quot;)<br>
-                去取回key值為usid的value，這行《x應該會得到uuid，如果沒有這個key直則x=nil》</p>
-          <li>自UserDefaults移除資料</li>
-              <p>UserDefaults.standard.removeObject(forKey: &quot;usid&quot;)<br>
-                移除key值為usid</p>
-        </ul>
-      <p>&nbsp;</p>
-      <p>所以剛剛登入程式的邏輯必須修改一下</p>
-      <p>如果帳密驗證正確，在跳到系統畫面之前，必須先檢查switch有沒有on</p>
-      <p>如果on，就在UserDefaults寫入一組值，下次開啟APP時檢查這個值，如果有，就跳過登入畫面直接進入系統畫面</p>
-      <p>&nbsp;</p>
-      <p>登入畫面的按鈕</p>
-      <p>寫登入驗證程式如下</p>
-      <p><br>
-        <XMP style="background-color: black;color: white;">
-          
-if acc.text == myAccount && pwd.text == myPassword {
-  if rem.isOn{  
-    let uuid = "apple"
-    UserDefaults.standard.set(uuid, forKey: "usid")  
-  }  
-  self.performSegue(withIdentifier:"login",sender:self)
-  
-}else{
-  fail.isHidden=false;  
-}
-  </XMP>
-      <p>&nbsp;</p>
-      <p>另外在登出時，要去UserDefaults把這個值刪除，下次登入就會進入登入畫面</p>
-      <p>系統畫面button加action，加入下面程式，登出後跳登入畫面<br>
-      </p>
-      <p>UserDefaults.standard.removeObject(forKey: &quot;usid&quot;)</p>
-      <p>self.performSegue(withIdentifier:&quot;logout&quot;,sender:self)</p>
-      <p>&nbsp;</p>
-      <p>&nbsp;</p>
-      <p>&nbsp;</p>
-      <p>說明</p>
-      <p>let uuid = &quot;apple&quot;<br>
-        UserDefaults.standard.set(uuid, forKey: &quot;usid&quot;)</p>
-      <p>是加{&quot;usid&quot; : &quot;&quot;apple&quot;}到UserDefaults</p>
-      <p>而</p>
-      <p>UserDefaults.standard.removeObject(forKey: &quot;usid&quot;)</p>
-      <p>是移除</p>
-      <p>&nbsp;</p>
-      <hr>
-        <h3>練習-實現自動登入</h3>
-        <p>我們在後面章節再使用真實伺服器認證，現在仍然使用本地假認證<br>接下來要做自動登入 檢視UserDefaults是否有登入資訊，有的話直接進入系統，否則進入登入畫面</p>
-        <p>先有一個問題，在哪邊檢查是否已登入的UserDefaults資訊?</p>
-        <p>如果是在登入畫面檢查，那麼就算能自動登入，也會讓使用者先看到登入畫面，這樣不夠專業</p>
-        <p>所以我們新增一個空白的頁面當作APP的啟動頁面</p>
-        <p>，在這個view去檢查自動登入資訊來決定要進入登入畫面或者系統畫面，如下圖</p>
-        <p><img src="images/azxc.png" width="642" height="677" alt=""/></p>
-        <p>下一個問題，要在那個view的甚麼地方寫這段程式?</p>
-        <p>讓app一啟動就開這個view，這個view一開就自動去執行自東登入判斷程式?</p>
-        <p>然後要先回顧一下剛剛教過的view的生命週期</p>
-        <p>viewDidLoad-------- 的時候有自己view的元件，所以你可以在這邊指定元件的初始值</p>
-        <p>viewDidAppear------view已經知道其他view，所以可以segue到其他view去</p>
-        <p>有這兩個可能的選擇，我們想一下</p>
-        <p>不管自動登入的判斷結果如何，他終就必須要進行segue，</p>
-        <p>在viewDidLoad中，view剛啟動根本不認識其他的view，所以你要他跳到登入的那個view他就會出現錯誤，說他不認識</p>
-        <p><font color="#FF0105">所以自動登入的程式必須寫在viewDidAppear</font>-</p>
-        <p>&nbsp;</p>
-        <p>************************************************************</p>
-        <p>如果上面的說明聽懂了，接下來開始實作</p>
-        <p>先調整好畫面如下</p>
-        <p>最後加入的viewcontroler 叫做判斷畫面<br>
-          ，加cocoa touch file，設成起始畫面，目前總共3個view，關係如下，</p>
-        
-        <p>segue按照下圖建立命名，全部都使用present Modally</p>
-        <img src="images/azxc.png" width="642" height="677" alt=""/>
-      <div>
-      
-        <p>&nbsp;</p>
-        <p>在判斷畫面中的<font color="#FF0004">viewDidAppear</font>加入下面程式</p>
-        <p>先檢查有沒有usid的key值</p>
-        <p>有 就跳系統畫面</p>
-        <p>沒有就跳登入畫面</p>
-      </div>
-      <XMP style="background-color: black;color: white;">
-override func viewDidAppear(_ animated : Bool) {
 
-  let userid = UserDefaults.standard.string(forKey: "usid")
-    //判断UserDefaults中是否已经存在
-    if(userid != nil){
-      self.performSegue(withIdentifier: "seg2", sender: self)
-    }else{
-      self.performSegue(withIdentifier: "seg1", sender: self)
-    }
-}
-      </xmp>
-      </section>
-      <section id="no4"><h2>4 作業</h2>
-      <p>最後 請將登入功能做到餐廳專案</p>
-      <p>施作的時候，不要一次弄完所有功能</p>
-      <p>要和我上課的次序一樣</p>
-      <p>密碼先用假的，只做登入</p>
-      <p>成功之後</p>
-      <p></p>
-      <p>再加設記住登入的部分</p>
-      <p>再實現自動登入</p>
-      <p>在做專題或者以後除去做開發系統工作的時候</p>
-      <p>對於不熟的東西</p>
-      <p>要像這樣做，把工作切成一團一團，由簡到難</p>
-      <p>先做簡單的在慢慢加上其他複雜功能</p>
-      <p>每做完一個部分就先驗證，OK再繼續下一個</p>
-      <p>這樣開發系統才能很乾淨減少bug，偵錯也容易</p>
-      <p>做這個登入功能時不要一次全加上去，發現不行，摸一摸搞到一團亂，再對著老師甜甜地笑，讓老師幫你debug，這樣我會翻臉!!!</p>
-       </section>
-      
-      <section  id="no5"><h2 >5 補充資料 iOS常用的手勢</h2>
-        
-        <ol>
-          <li><a href="#ko1">輕敲 tap</a></li>
-          <li><a href="#ko2">縮放 pinch</a></li>
-          <li><a href="#ko3">旋轉 rotation</a></li>
-          <li><a href="#ko4">揮擊 swipe</a></li>
-          <li><a href="#ko5">拖曳 pan</a></li>
-          <li><a href="#ko6">長按 long pres</a></li>
-        </ol>
-        <div><h3 id="ko1">輕敲 tap </h3>
-          <p> 開新專案 single view</p>
-          <p>拖曳tap gesture recognizer </p>
-          <p>設定<font color="#FF0004">touches屬性=3</font> 三根手指頭</p>
-          <p><font color="#FF0004">taps=1</font> 要敲一次</p>
-          <p><img src="images/cha001.png" alt="" width="645" height="320"></p>
-          <p>加入程式碼到那個IBAction當用3跟手指頭輕敲一次，會出現一個alert</p>
           <XMP style="background-color: black;color: white;">
-            // 建立警示對話方塊
-            let alertController = UIAlertController(title: "確認視窗", message: "確定要結束應用程式嗎？", preferredStyle: .alert)
-            // 建立按鈕
-            let cancelAction = UIAlertAction(title: "是", style: .cancel,handler:{
-                  action->Void in
-                  print("您按下 \(action.title!) 按鈕!")
-                }            
-            );
-            let sureAction = UIAlertAction(title: "否", style: .default,handler:{
-                action->Void in
-                print("您按下 \(action.title!) 按鈕!")
-                }
-            );
-            // 按鈕加入對話方塊
-            alertController.addAction(cancelAction)
-            alertController.addAction(sureAction)
-            // 顯示對話方塊
-            self.present(alertController, animated: true, completion: nil) 
+            class conn:ObservableObject{
+              @Published var need_login:Bool = true
+              @Published var vid:Int=1
+              init(){
+                  need_login=UserDefaults.standard.bool(forKey: "need_login")
+                  vid=1
+              }
           </XMP>
-        </div>
-        <div><h3 id="ko2">縮放 pinch  </h3>    
-          <p>開新專案<br>
-            拖曳image view 和pinch gesture 進去 分別設定IBOutlet IBAction<br>
-            找一張圖放到專案 拉進去image view,<br>
-            把imageview的User interaction Enabled打開
-          </p>      
-            <img src="images/cha002.png" alt="" width="955" height="497">
-            <XMP style="background-color: black;color: white;">
-import UIKit
+        
+        </h4>
+       </div>
+       <div><h3>conn類別加入方法memRequest()</h3>
+        <h4>
+          伺服器傳回結果，成功{result:successful} 失敗{result:fail}
+          為了解碼這個json，所以定義了RResult這個struct
+          <XMP style="background-color: black;color: white;">
+          struct Result:Codable{
+            var result:String
+        }
+</XMP>
+新增conn類別的memRequest()方法
+          <XMP style="background-color: black;color: white;">
 
-class ViewController: UIViewController {
-@IBOutlet weak var img: UIImageView!
-
-@IBAction func pinch3(_ sender: UIPinchGestureRecognizer) {
-    if sender.state == UIGestureRecognizer.began{
-          // 這邊程式碼在開始縮放之前會被執行
-    } else if sender.state == UIGestureRecognizer.changed{
-          // 將圖片放大或縮小的時候會執行這的程式碼
-          let frame=img.frame // 取得圖片框
-          let s=sender.scale // 縮放比例
-          let w=img.frame.width // 目前圖片寬度
-          let h=img.frame.height // 目前圖片高度
-          print("scale=\(s)")
-          if s*w > 100 && s*w < 400 {
-                // 重設圖片框
-                img.frame=CGRect(x: frame.origin.x, y: frame.origin.y, width: s*w, height: s*h)
+            func memRequest (acc:String,pwd:String){
+              var request = URLRequest(url: URL(string: "http://163.17.20.6/mem.php")! as URL)
+              request.httpMethod = "POST"
+              let postString = "acc=\(acc)&pwd=\(pwd)";
+              request.httpBody = postString.data(using: String.Encoding.utf8);
+      
+      
+              let session = URLSession.shared
+              let task = session.dataTask(with: request as URLRequest,completionHandler:{
+                  data, response, error -> Void in
+                  let json = String(data: data! , encoding: String.Encoding.utf8) ?? "{\"result\":\"fail\"}"
+                  if let x=json.data(using: .utf8) {
+                      let decoder = JSONDecoder()
+                      let re = try! decoder.decode(Result.self, from: x)
+                      print(re.result)
+                      if re.result == "successful"{
+                          UserDefaults.standard.set(false, forKey: "need_login")
+                          DispatchQueue.main.async {
+                              self.vid=1
+                              self.need_login=false
+                          }
+                          
+                          
+                      }
+                  }
+              })
+              task.resume()
           }
-    } else if sender.state == UIGestureRecognizer.ended{
-          // 這邊程式碼在結束縮放之後會被執行
-          //
-    }
-
-}
-            </XMP>
-        </div>
-        <div><h3 id="ko3">旋轉 rotation  </h3>   
-            <p>開新專案，拖曳image view 和rotation gesture 進去 分別設定IBOutlet IBAction
-</p> 
-<XMP style="background-color: black;color: white;">
- 
-
-import UIKit
-
-class ViewController: UIViewController {
-@IBOutlet weak var img: UIImageView!
-
-@IBAction func rot(_ sender: UIRotationGestureRecognizer) {
-        let rad:CGFloat = sender.rotation
-        // 計算角度
-        let angle:Double = Double(rad) * 180 / Double.pi
-        // 圖片旋轉
-        img.transform = CGAffineTransform(rotationAngle: rad)
-        print("旋轉角度=\(angle)")
-
-}
-
-          </XMP>       
-        </div>
-        <div><h3 id="ko4">揮擊 swipe  </h3>     
-          <p>每一個swipe 只控制一個方向 所以 要拉四個</p>
-          <p>swipe 方向</p>
-          <p>touches 幾根手指</p>
-          <p><img src="images/cha003.png" alt="" width="1088" height="566"></p>
-          <p>&nbsp;</p>
-          <p>&nbsp;</p>     
-        </div>
-        <div><h3 id="ko5">拖曳 pan  </h3>                       
-          <p>touches min 最少幾根手指拖曳</p>
-          <p>touches max 最多幾根手指拖曳</p>
-          <p><img src="images/cha004.png" alt="" width="842" height="493"></p>  
+          </XMP>
+          說明如下
           <XMP style="background-color: black;color: white;">
-            import UIKit
+  acc和pwd由view的textField取得
+    func memRequest (acc:String,pwd:String){
+ mem.php是伺服器帳密驗證程式成功{result:successful} 失敗{result:fail}
+      var request = URLRequest(url: URL(string: "http://163.17.20.6/mem.php")! as URL)
+ 使用post方法
+      request.httpMethod = "POST"
+要驗證的帳密放到字串
+      let postString = "acc=\(acc)&pwd=\(pwd)";
+      request.httpBody = postString.data(using: String.Encoding.utf8);
 
-            class ViewController: UIViewController {
-            @IBOutlet weak var img: UIImageView!
-            @IBAction func panm(_ sender: UIPanGestureRecognizer) {
-                  for i in 0 ..< sender.numberOfTouches {
-                  let point:CGPoint = sender.location(ofTouch: i, in: sender.view)
-                  print("第 \(i+1) 手指位置：\(NSStringFromCGPoint(point))")
+
+      let session = URLSession.shared
+      let task = session.dataTask(with: request as URLRequest,completionHandler:{
+          data, response, error -> Void in
+          if let x=json.data(using: .utf8) {
+              let decoder = JSONDecoder()
+re等於成功{result:successful} 或 失敗{result:fail}
+              let re = try! decoder.decode(Result.self, from: x)
+如果是成功{result:successful} 
+              if re.result == "successful"{
+設定userDefaults
+                  UserDefaults.standard.set(false, forKey: "need_login")
+self.vid=1
+self.need_login=false  
+就可以通知訂閱者
+但是訂閱者牽涉到view
+所以這個動作只能在main thread中作
+DispatchQueue 分派工作佇列
+.main   主執行緒
+.async   非同步執行
+
+                  DispatchQueue.main.async {
+                      self.vid=1
+                      self.need_login=false
                   }
+                  
+                  
+              }
+          }
+      })
+      task.resume()
+  }
+          </XMP>
+        
+        </h4>
+       </div> <div><h3>在主程式建立conn的物件，當作環境物件給大家共用</h3>
+        <h4>
+          <XMP style="background-color: black;color: white;">
 
+
+            import SwiftUI
+            import Combine
+            @main
+            struct loginApp: App {
+                @StateObject var uInfo=conn()
+                var body: some Scene {
+                    WindowGroup {
+                        ContentView().environmentObject(uInfo)
+                    }
+                }
             }
-          </XMP>     
-        </div>
-        <div><h3 id="ko6">長按 long pres  </h3>    
-          <img src="images/cha005.png" alt="" width="1093" height="417">      
-          <XMP style="background-color: black;color: white;">
-            @IBAction func longPress(_ sender: UILongPressGestureRecognizer) {
+            
 
-                  if sender.state == UIGestureRecognizerState.began{
-                      // 建立警示對話方塊
-                      let alertController = UIAlertController(title: "確認視窗", message: "確定要結束應用程式嗎？", preferredStyle: .alert)
-                      // 建立按鈕
-                      let cancelAction = UIAlertAction(title: "是", style: .cancel,
-                      handler:{
-                      action->Void in
-                      print("您按下 \(action.title!) 按鈕!")
-                      }
-                      );
-                  let sureAction = UIAlertAction(title: "否", style: .default,
-                      handler:{
-                      action->Void in
-                      print("您按下 \(action.title!) 按鈕!")
-                      }
-                      );
-                  // 按鈕加入對話方塊
-                  alertController.addAction(cancelAction)
-                  alertController.addAction(sureAction)
-                  // 顯示對話方塊
-                  self.present(alertController, animated: true, completion: nil)
-                  }
+          </XMP>
+          解說
+          <XMP style="background-color: black;color: white;">
+            
+import SwiftUI
+import Combine
+@main
+struct loginApp: App {
+要當環境物件的變數 要使用@StateObject 宣告，並且呼叫建構子建立物件
+
+    @StateObject var uInfo=conn()
+    var body: some Scene {
+        WindowGroup {
+使用.environmentObject(uInfo)把物件帶去下一個view
+            ContentView().environmentObject(uInfo)
+        }
+    }
+}
+
+          </XMP>
+        
+        </h4>
+       </div> <div><h3>用published的成員變數 來綁view</h3>
+
+        <h4>
+          <XMP style="background-color: black;color: white;">
+            struct ContentView: View {
+              @EnvironmentObject var uInfo:conn 
+              var body: some View {
+                  if (uInfo.need_login ){
+                      LoginView()
+                  }else{
+                      if (uInfo.vid==1){StarView()}
+                  }            
+              }
             }
           </XMP>
-        </div>
-      </section>
+          說明
+          <XMP style="background-color: black;color: white;">
+             struct ContentView: View {
+剛剛是建立環境物件 @StateObject var uInfo=conn()
+這邊是使用  兩者比較一下差異
+1 @StateObject 和 @EnvironmentObject
+2 uInfo=conn()建立物件 和 uInfo:conn單純宣告
+              @EnvironmentObject var uInfo:conn 
+              var body: some View {
+利用uInfo.need_login 和 vid來決定 要顯示那一個view
+因為是環境物件中的published成員變數
+所以這兩個變數一改變，這邊就會收到通知，然後重新選擇要顯示的view             
+                  if (uInfo.need_login ){
+                      LoginView()
+                  }else{
+                      if (uInfo.vid==1){SystemView()}
+                  }            
+              }
+            }
+          </XMP>
+        
+        </h4>
+       </div> <div><h3>登入成功怎麼辦</h3>
+        <h4>
+          <XMP style="background-color: black;color: white;">
+            struct LoginView: View {
+              @EnvironmentObject var uInfo:conn
+          </XMP>
+          按下登入時，  <br>
+          將帳密TextField（acc1,pwd1）取出，<br>
+          當作參數呼叫環境物件的memRequest()
+          <XMP style="background-color: black;color: white;">
+            Button(action:{
+              x=true
+              acc2=acc1
+              pwd2=pwd1
+              uInfo.memRequest(acc: acc1, pwd: pwd1)
+              //uInfo.vid=1
+              //uInfo.need_login=false
+          }){
+              Label("登入", systemImage: "applelogo")
+                  .foregroundColor(Color.black)
+          }
+          </XMP>
+        </h4>
+       </div> <div><h3>登出怎麼辦？</h3>
+        <h4>
+          直接指定環境物件的那兩個參數
+          <XMP style="background-color: black;color: white;">
 
+            struct SystemView: View {
+              @EnvironmentObject var uInfo:conn
+              var body: some View {
+                      VStack {
+                          Text("登入成功，已經進入系統")
+                          Button("登出"){
+                              UserDefaults.standard.set(true, forKey: "need_login")
+                              uInfo.need_login=true
+                              uInfo.vid=0
+                          }
+                      }
+              }
+          }
+          </XMP>
+        
+        </h4>
+       </div>
+    </section> 
+
+      <section id="no2"><h2>2 作業</h2>
+        <h4>
+          請延續第七章作業，完成下面要求
+          <ul>
+            <li>遠端登入、註冊和刪除帳號都要在view這邊顯示回應</li>
+            <li>遠端取得餐廳資料</li>
+            http://163.17.20.6/log.php  <br>
+            會回傳如下資料，請遠端取得後顯示餐廳列表<br>
+            原有的本地端餐廳資料請刪除<br>
+            <XMP>
+              {"restData":[{"restaurantNames":"スシロー壽司郎","restaurantLocations":"台中市南屯區市政南一路158號","restaurantTypes":"Japanese", "restaurantImages":"cafedeadend.jpg"},{"restaurantNames":"Elephant Restaurant","restaurantLocations":"台中市西屯區西屯路二段267之1號","restaurantTypes":"Tea House","restaurantImages":"homei.jpg"},{"restaurantNames":"燒肉風間 Kazama","restaurantLocations":"台中市南屯區公益路二段171-1號","restaurantTypes":"Tea House","restaurantImages":"teakha.jpg"},{"restaurantNames":"高沐手作料理餐廳","restaurantLocations":"台中市北區太平路19巷3弄15號","restaurantTypes":"Austrian / Causual Drink","restaurantImages":"royaloak.jpg"},{"restaurantNames":"鐵克諾餐酒館","restaurantLocations":"台中市西區忠明南路329號","restaurantTypes":"French","restaurantImages":"cafeloisl.jpg"},{"restaurantNames":"元 YUAN", "restaurantLocations":"408台中市南屯區大墩十七街35號","restaurantTypes": "Bakery","restaurantImages":"petiteoyster.jpg"},{"restaurantNames": "RÊVE 黑浮咖啡","restaurantLocations":"台中市西區公益路290號","restaurantTypes":"Bakery","restaurantImages":"forkeerestaurant.jpg"},{"restaurantNames":"八豆食府壽喜燒專門店","restaurantLocations":"台中市南屯區大光街162號","restaurantTypes":"Chocolate","restaurantImages":"posatelier.jpg"},{"restaurantNames":"瓦庫燒肉 WOW COOL","restaurantLocations":"台中市中區民權路16號","restaurantTypes":"Cafe","restaurantImages":"bourkestreetbakery.jpg"},{"restaurantNames":"信川屋博多豚骨拉麵店","restaurantLocations":"台中市西區中興八巷24號","restaurantTypes":"American / Seafood","restaurantImages":"haighschocolate.jpg"},{"restaurantNames":"麵廊Meelang","restaurantLocations":"台中市南屯區公益路二段612號","restaurantTypes":"American","restaurantImages":"palominoespresso.jpg"},{"restaurantNames":"本壽司","restaurantLocations":"台中市北區太原路二段175號","restaurantTypes":"American","restaurantImages":"upstate.jpg"},{"restaurantNames":"龍之軒","restaurantLocations":"台中市北區健行路407巷1號","restaurantTypes": "Breakfast & Brunch","restaurantImages":"traif.jpg"},{"restaurantNames":"興鮮幸福鍋物","restaurantLocations":"台中市霧峰區樹仁路23號","restaurantTypes": "Coffee & Tea","restaurantImages":"grahamavenuemeats.jpg"},{"restaurantNames":"小潞屋 A Dream Road", "restaurantLocations":"台中市霧峰區四德路53號","restaurantTypes": "Coffee & Tea","restaurantImages":"wafflewolf.jpg"},{"restaurantNames":"聖地庭園複合廚房", "restaurantLocations":"台中市霧峰區中正路677號","restaurantTypes":"Latin American","restaurantImages":"fiveleaves.jpg"},{"restaurantNames":"NU PASTA 台中霧峰店","restaurantLocations":"台中市霧峰區中正路1224巷17弄1號","restaurantTypes":"Spanish","restaurantImages":"cafelore.jpg"},{"restaurantNames":"霧峰振卿肉羹大王","restaurantLocations":"台中市霧峰區樹仁路107號","restaurantTypes":"Spanish","restaurantImages": "confessional.jpg"},{"restaurantNames":"霧峰鴉片工場","restaurantLocations":"台中市霧峰區林森路762號","restaurantTypes":"Spanish","restaurantImages":"barrafina.jpg"},{"restaurantNames":"鴻利麵店","restaurantLocations":"台中市霧峰區中正路1180號","restaurantTypes":"British","restaurantImages":"donostia.jpg"}]}
+            </XMP>
+          </ul>
+
+        </h4>
+        
+       </section>
 
     
     </div>
