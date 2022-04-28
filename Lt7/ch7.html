@@ -210,12 +210,27 @@
       <section id="no1"><h2>1. 不帶資料給伺服器，單純接收response</h2>
         <div>
           <h3>1. 操作環境準備</h3>
+
+
+          
           <h4>
             這個章節是利用實際操作來學會如何使用http傳輸來完成基本資料傳輸，<br>
           然後再練習使用JSON當作電子資料傳輸格式來進行手機與資料庫之間的資料交換。<br>
           這邊先做一下實驗環境建置
           <ol>
             <li>新增一個app專案 test</li>
+            <li  style="background-color: rgb(210, 230, 97);">APP TRANSPORT SECURITY → app傳輸安全</li>
+            <div id="security"> 
+              <p>iOS有通訊上的安全機制，當你想要使用HTTP協定之前，你必須解除這個安全機制。<br>  
+              下面是未解除安全機制就執行所出現的錯誤訊息<br>  
+              <img src="images/ch77.png" alt="" width="590" height="248"><br>  
+        
+              <p>下面是解除這個安全機制的方法<br>  
+              必須做下面設定 來打開http的安全設定<br>  
+              <img src="images/ch78.png" alt="" width="1132" height="460"><br>  
+                <img src="images/ch79.png" alt="" width="843" height="425"></p>
+              </div>
+         
             <li>專案中新增一個source的swift file來寫類別，名稱是conn，並且加上only（）Test方法</li>
             <XMP>
               class conn{
