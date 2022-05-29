@@ -146,12 +146,8 @@
             <a class="dropdown-item" href="../Lt9/ch9.html">第9章 使用Firebase當作後端</a>
             <a class="dropdown-item" href="../Lt9/ch9.html#no1">1. 甚麼是Firebase?</a>
             <a class="dropdown-item" href="../Lt9/ch9.html#no2">2. Authentication(登入認證)</a>
-            <a class="dropdown-item" href="../Lt9/ch9.html#no3">3. Realtime Database(JSON Tree的使用)</a>
-            <a class="dropdown-item" href="../Lt9/ch9.html#no4">4. Furebase Datavase(NOSQL 的架構)</a>
-            <a class="dropdown-item" href="../Lt9/ch9.html#no5">5. Storage(如何儲存圖片、影片和音檔)</a>
-            <a class="dropdown-item" href="../Lt9/ch9.html#no6">6. Machine learning(一些簡單AI模組的使用)</a>
-            <a class="dropdown-item" href="../Lt9/ch9.html#no7">7. Hosting</a>
-            <a class="dropdown-item" href="../Lt9/ch9.html#no8">8. 作業 </a>     
+            <a class="dropdown-item" href="../Lt9/ch9.html#no3">3. Realtime Database</a>
+            <a class="dropdown-item" href="../Lt9/ch9.html#no4">4. 作業 </a>     
           </div>
         </li>
         <li class="nav-item dropdown"><!-- Registration-->
@@ -314,14 +310,16 @@
               
             </p>                   
             <XMP style="background-color: black;color: white;">
-              Auth.auth().signIn(withEmail: acc1, password: pwd1){
+          func login(e:String,pwd:String){
+              Auth.auth().signIn(withEmail: e, password: pwd){
                 (result,error)in
                 if let e=error {
-                    print(e.localizedDescription)
+                    self.message=e.localizedDescription
                 }else{
-                    print("successful")
+                    self.message="登入成功"
                 }
-            }
+              }
+          }
             </XMP> 
             任務--使用firebase Authentication取代前一章節的伺服器驗證
             <ol>
@@ -336,316 +334,419 @@
           <h4>
             <p></p>                   
             <XMP style="background-color: black;color: white;">
-              Auth.auth().createUser(withEmail: email, password: pwd){
-                (result,error)in
-                if let e=error {
-                    print(e.localizedDescription)
-                }else{
-                    print("successful")
+              
+    func register(e:String,pwd:String){
+      Auth.auth().createUser(withEmail: e, password: pwd){
+           (result,error)in
+           if let e=error {
+               self.message=e.localizedDescription
+           }else{
+               self.message="註冊成功"
+           }
+      }
+      
+  }
+            </XMP> 
+            
+          </h4>   
+        </div>
+        <div><h3>登出</h3>
+          <h4>                  
+            <XMP style="background-color: black;color: white;">
+            
+    func logout(){
+      do{
+          try Auth.auth().signOut()
+          self.message="已登出"
+      }catch{
+          self.message="登出失敗"
+      }
+  
+    }
+            </XMP> 
+           
+          </h4>   
+        </div>
+        
+        <div><h3>刪除會員</h3>
+          <h4>                  
+            <XMP style="background-color: black;color: white;">
+         
+    func del(e:String,pwd:String){
+      let user = Auth.auth().currentUser
+      if let user=user{
+          user.delete()
+          self.message="已刪除"
+      }else{
+          self.message="未登入 無法刪除會員"
+      }
+      
+  }
+            </XMP> 
+           
+          </h4>   
+        </div>
+        
+        <div><h3>修改密碼</h3>
+          <h4>                  
+            <XMP style="background-color: black;color: white;">
+         
+    func update(pwd:String){
+      let user = Auth.auth().currentUser
+      if let user=user{
+          user.updatePassword(to: pwd){
+              error in
+              if let error=error{
+                  self.message=error.localizedDescription
+              }else{
+                  self.message="密碼已修改"
+              }
+          }
+      }else{
+          self.message="未登入 無法修改密碼"
+      }
+      
+    }
+            </XMP> 
+           
+          </h4>   
+        </div>
+        
+        <div><h3>完整程式碼</h3>
+          <h4>
+            <p></p>                   
+            <XMP style="background-color: black;color: white;">
+              //
+              //  ContentView.swift
+              //  fire05241
+              //
+              //  Created by SHAO KUO TAI on 2022/5/24.
+              //
+              
+              import SwiftUI
+              import FirebaseAuth
+              import FirebaseDatabase
+              struct ContentView: View {
+                  @State var email="lasprada@gmail.com"
+                  @State var pwd="123456"
+                  @State var message=""
+                  var body: some View {
+                      VStack {
+                          Text(message)
+                          TextField(/*@START_MENU_TOKEN@*/"Placeholder"/*@END_MENU_TOKEN@*/, text: $email)
+                          SecureField("password", text: $pwd)
+                          Text("firebase auth認證功能測試")
+                              .padding()
+                          Button("註冊") {
+                              register(e: email, pwd: pwd)
+                          }
+                          Button("登入") {
+                              login(e: email, pwd: pwd)
+                          }
+                          Button("登出") {
+                              logout()
+                          }
+                          Button("刪除會員") {
+                              del(e: email, pwd: pwd)
+                          }
+                          Button("修改密碼") {
+                              update(pwd: pwd)
+                          }            
+                      }
+                  }
+                  
+                  func register(e:String,pwd:String){
+                      Auth.auth().createUser(withEmail: e, password: pwd){
+                           (result,error)in
+                           if let e=error {
+                               self.message=e.localizedDescription
+                           }else{
+                               self.message="註冊成功"
+                           }
+                      }
+                      
+                  }
+                  func login(e:String,pwd:String){
+                      Auth.auth().signIn(withEmail: e, password: pwd){
+                           (result,error)in
+                           if let e=error {
+                               self.message=e.localizedDescription
+                           }else{
+                               self.message="登入成功"
+                           }
+                      }
+                      
+                  }
+                  func logout(){
+                          do{
+                              try Auth.auth().signOut()
+                              self.message="已登出"
+                          }catch{
+                              self.message="登出失敗"
+                          }
+                      
+                  }
+                  func del(e:String,pwd:String){
+                      let user = Auth.auth().currentUser
+                      if let user=user{
+                          user.delete()
+                          self.message="已刪除"
+                      }else{
+                          self.message="未登入 無法刪除會員"
+                      }
+                      
+                  }
+                  
+                  func update(pwd:String){
+                      let user = Auth.auth().currentUser
+                      if let user=user{
+                          user.updatePassword(to: pwd){
+                              error in
+                              if let error=error{
+                                  self.message=error.localizedDescription
+                              }else{
+                                  self.message="密碼已修改"
+                              }
+                          }
+                      }else{
+                          self.message="未登入 無法修改密碼"
+                      }
+                      
+                  }
+              }
+              
+              struct ContentView_Previews: PreviewProvider {
+                  static var previews: some View {
+                      ContentView()
+                  }
+              }
+              
+            </XMP> 
+          </h4>   
+        </div>
+      </section>
+      <section  id="no3"><h2 >3. Realtime Database</h2> 
+        <div><h3>新增realtime database</h3>
+          <h4>
+            <img src="images/ch71.png" alt=""><br>
+            <img src="images/ch77.png" alt="">
+            
+          </h4> 
+        </div>
+        <div><h3>資料庫存取</h3>
+          <h4>
+            <p>寫入</p>                   
+            <XMP style="background-color: black;color: white;">
+
+              func wrin(e:String,pwd:String){
+                let g=member(acc: e, pwd: pwd)
+                let enoder = JSONEncoder()
+                let y=try! enoder.encode(g)
+                if let cs=String(data: y, encoding: .utf8) {
+                    let ref=Database.database().reference()
+                    ref.child("restData").setValue(cs)
                 }
-                
-                
+            }
+            
+            </XMP> 
+          </h4>   
+          <h4>
+            <p>讀取</p>                   
+            <XMP style="background-color: black;color: white;">
+
+              func rdin(){
+                let ref=Database.database().reference()
+                ref.child("restData").getData(completion:{
+                    Error,DataSnapshot in
+                    if let s=DataSnapshot{
+                        let d=s.value as! String
+                        let data=d.data(using: String.Encoding.utf8)
+                        if let data=data{
+                            
+                            let decoder = JSONDecoder()
+                            let re = try! decoder.decode(member.self, from:data  )
+                            self.message="acc=\(re.acc) pwd=\(re.pwd)"
+                        }
+                    }
+                } )
+               
+            }
+            
+            </XMP> 
+          </h4>   
+          <h4>
+            <p>刪除</p>                   
+            <XMP style="background-color: black;color: white;">
+
+              func remove(){
+                let ref=Database.database().reference()
+                ref.child("restData").removeValue()
             }
             </XMP> 
-            請猜看看如何移除帳號<br>
-            練習-將前一章節的一般資料庫的新增刪除修改替代成firebase的Authentication
           </h4>   
         </div>
-      </section>
-      <section  id="no3"><h2 >3. Realtime Database(JSON Tree的使用)</h2> 
-        <div><h3></h3>
+        <div><h3>權限設定</h3>
+          <img src="images/ch78.png" alt="">
           <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
+            <p>全部禁止</p>                   
+            <XMP style="background-color: black;color: white;">
+              {
+                "rules": {
+                  ".read": false,  
+                  ".write": false,  
+                }
+              }
+            </XMP> 
           </h4>   
           <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
+            <p>全部允許</p>                   
+            <XMP style="background-color: black;color: white;">
+              {
+                "rules": {
+                  ".read": true,  
+                  ".write": true,  
+                }
+              }
+            </XMP> 
           </h4>   
           <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-        <div><h3></h3>
+            <p>期限內允許</p>                   
+            <XMP style="background-color: black;color: white;">
+              {
+                "rules": {
+                  ".read": "now < 1656345600000",  // 2022-6-28
+                  ".write": "now < 1656345600000",  // 2022-6-28
+                }
+              }
+            </XMP> 
+          </h4>    
           <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-        <div><h3></h3>
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-        <div><h3></h3>
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
+            <p>有登入才允許</p>                   
+            <XMP style="background-color: black;color: white;">
+              {
+                "rules": {
+                  ".read": "auth.uid != null",  
+                  ".write": "auth.uid != null",  
+                }
+              }
+            </XMP> 
           </h4>   
         </div>
-      </section>
-      <section  id="no4"><h2 >4. Furebase Datavase(NOSQL 的架構)</h2>
-        <div><h3></h3>
+        <div><h3>完整程式碼</h3>
           <h4>
             <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-        <div><h3></h3>
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-        <div><h3></h3>
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-        <div><h3></h3>
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-      </section>
-      <section  id="no5"><h2 >5. Storage(如何儲存圖片、影片和音檔)</h2>
-        <div><h3></h3>
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-        <div><h3></h3>
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-        <div><h3></h3>
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-        <div><h3></h3>
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
+            <XMP style="background-color: black;color: white;">
+              //
+              //  realtime.swift
+              //  fire05241
+              //
+              //  Created by SHAO KUO TAI on 2022/5/28.
+              //
+              
+              import SwiftUI
+              import FirebaseAuth
+              import FirebaseDatabase
+              struct member:Codable{
+                var acc:String
+                var pwd:String
+              }
+              
+              struct realtime: View {
+                  @State var email="lasprada@gmail.com"
+                  @State var pwd="123456"
+                  @State var message=""
+                  var body: some View {
+                      VStack {
+                          Text(message)
+                          TextField(/*@START_MENU_TOKEN@*/"Placeholder"/*@END_MENU_TOKEN@*/, text: $email)
+                          SecureField("password", text: $pwd)
+                          Text("firebase realtime database功能測試")
+                              .padding()
+                          
+                          Button("登入") {
+                              login(e: email, pwd: pwd)
+                          }
+                          Button("登出") {
+                              logout()
+                          }
+                          Button("寫入") {
+                              wrin(e: email, pwd: pwd)
+                          }
+                          Button("讀出") {
+                              rdin()
+                          }
+                          Button("移除") {
+                              remove()
+                          }
+                          
+                      }
+                  }
+                  
+                  func login(e:String,pwd:String){
+                      Auth.auth().signIn(withEmail: e, password: pwd){
+                           (result,error)in
+                           if let e=error {
+                               self.message=e.localizedDescription
+                           }else{
+                               self.message="登入成功"
+                           }
+                      }
+                      
+                  }
+                  func logout(){
+                      do{
+                          try Auth.auth().signOut()
+                      }catch{
+                          self.message="已登出"
+                      }
+                  }
+                  func wrin(e:String,pwd:String){
+                      let g=member(acc: e, pwd: pwd)
+                      let enoder = JSONEncoder()
+                      let y=try! enoder.encode(g)
+                      if let cs=String(data: y, encoding: .utf8) {
+                          let ref=Database.database().reference()
+                          ref.child("restData").setValue(cs)
+                      }
+                  }
+                  
+                  func rdin(){
+                      let ref=Database.database().reference()
+                      ref.child("restData").getData(completion:{
+                          Error,DataSnapshot in
+                          if let s=DataSnapshot{
+                              let d=s.value as! String
+                              let data=d.data(using: String.Encoding.utf8)
+                              if let data=data{
+                                  
+                                  let decoder = JSONDecoder()
+                                  let re = try! decoder.decode(member.self, from:data  )
+                                  self.message="acc=\(re.acc) pwd=\(re.pwd)"
+                              }
+                          }
+                      } )
+                     
+                  }
+                  
+                  func remove(){
+                      let ref=Database.database().reference()
+                      ref.child("restData").removeValue()
+                  }
+              }
+              
+              struct realtime_Previews: PreviewProvider {
+                  static var previews: some View {
+                      realtime()
+                  }
+              }
+              
+            </XMP> 
           </h4>   
         </div>
-      </section>
-      <section  id="no6"><h2 >6. Machine learning(一些簡單AI模組的使用</h2>
-        <div><h3></h3>
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-        <div><h3></h3>
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-        <div><h3></h3>
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-        <div><h3></h3>
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-      </section>
-      <section  id="no7"><h2 >7. Hosting</h2>
-        <div><h3></h3>
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-        <div><h3></h3>
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-        <div><h3></h3>
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-        <div><h3></h3>
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-          <h4>
-            <p></p>                   
-            <XMP style="background-color: black;color: white;"></XMP> 
-          </h4>   
-        </div>
-      </section>      
-      <section  id="no8"><h2 >作業</h2>
+      </section>   
+      <section  id="no4"><h2 >4. 作業</h2>
         
-        <h3>接下來 把程式加到美食專案中，cell中除了地圖的定位之外，都可以去伺服器的log.php抓取顯示。
-          後面是補充資料可以讓你將 經緯度和地址 互換,讓detailView 顯示地圖
+        <h3>接下來 把前一章原本使用傳統資料庫的遠端部分，全部改成firebase版本，並且加入刪除餐廳的功能（實際從資料庫刪除）
         </h3>
         
       </section>  
