@@ -340,7 +340,7 @@ optional: 可以是nil
 var a:int=1 
 如果設定a=nil 就會出現錯誤
 </XMP>
-<h3>變數不是optional</h3>
+<h3>變數是optional</h3>
 <XMP style="background-color: black;color: white;">
 var b:Int? = 1 
 b = nil // 成功
@@ -357,49 +357,37 @@ Int? 的變數加了一個框，把裡面東西拿走，就變成空的狀態<BR
           var b:Int? =<span style="border: 1px solid red;">1</span><br>
           當b=nil，b就變成一個空的框 b=<span style="border: 1px solid red; padding: 0 5px;"> </span><br>
           a就無法表示nil （Int 無法表示 空）<BR>
-            下面兩者結構實際上的差異<BR>
+
+            <h3>去掉變數的optional</h3>
+            一個無框的整數和一個有框的整數當然不一樣，所以無法指定<br>
+            因此需要一個去掉框線的工具就是 <span style="color: red;" >！</span>
+            <br>
+            下面a無框，b有框，b要指定給a之前要先把框拆掉<BR>
           <img width="50%" src="images/n02.png" alt="">
 <div class="pratb">
   <h3 class="prat" >練習</h3> 
   <XMP style="background-color: black;color: white;">
     class Apo{
       func foo()->Int?{
-          var x:Int?=3;
-          var y:Int
-          y=x!
-          return y
+          var x:Int?=3
+          return x
       }
       func koo(){
-          var x:Int
-          x=foo() //為什麼錯誤？試著解釋一下。
+          var y:Int
+          y=foo() //為什麼錯誤？試著解釋一下。
       }
-  }
-
-
-  </XMP>
-</div>
-一個無框的整數和一個有框的整數當然不一樣，所以無法指定<br>
-因此需要一個去掉框線的工具就是 <span style="color: red;" >！</span>
-<br>
-<div class="pratb">
-  <h3 class="prat" >練習</h3> 
-  <XMP style="background-color: black;color: white;">
+  } </XMP>
 試看看這一個，是否就正常了
-
-class Apo{
+  <XMP style="background-color: black;color: white;">class Apo{
   func foo()->Int?{
-      var x:Int?=3;
-      var y:Int
-      y=x!
-      return y
+      var x:Int?=3
+      return x
   }
   func koo(){
-      var x:Int
-      x=foo()!
+      var y:Int
+      y=foo()!
   }
-}
-
-  </XMP>
+}</XMP>
 </div>
 <XMP >
 很多方法的傳回值都像foo()，都是 ?
@@ -649,7 +637,17 @@ func quz() { /* function body */ }
   .....
 
 }
-  </XMP><img src="images/n06.png" alt="">
+
+var nums=[91,5,54, 48,32]
+print(nums)
+nums.sort(by:
+{
+    (a:Int , b:Int)->Bool in
+    return a>b
+    
+})
+print(nums)
+  </XMP>
           </div>
 
         </div>
